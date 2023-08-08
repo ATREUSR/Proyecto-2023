@@ -2,55 +2,50 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
 model User {
-  dni Int @unique @id
-  name String 
-  surname String
-  pfp_url String?
-  email String @unique 
+  dni      Int      @id @unique
+  name     String
+  surname  String
+  pfp_url  String?
+  email    String   @unique
   password String
-  reviews Review[]
+  reviews  Review[]
   //user id?
 }
 
-model Review{
-  id Int @unique @id @default(autoincrement())
-  user_dni Int
-  review_body String
-  review_score Int
+model Review {
+  id              Int      @id @unique @default(autoincrement())
+  user_dni        Int
+  review_body     String
+  review_score    Int
   product_picture String?
-  publish_date DateTime @default(now())
-  post_id Int
+  publish_date    DateTime @default(now())
+  post_id         Int
 
   user User @relation(fields: [user_dni], references: [dni])
   post Post @relation(fields: [post_id], references: [id])
 
   @@index([user_dni])
   @@index([post_id])
-
 }
 
-model Post{
-  id Int @unique @id @default(autoincrement())
-  publish_date DateTime @default(now())
-  user_dni Int
-  title String
-  good_image String?
+model Post {
+  id              Int      @id @unique @default(autoincrement())
+  publish_date    DateTime @default(now())
+  user_dni        Int
+  title           String
+  good_image      String?
   defective_image String?
-  has_defects Boolean
-  description String
-  defects String
-  price Float
-  
+  has_defects     Boolean
+  description     String
+  defects         String
+  price           Float
+
   reviews Review[]
 }
 
-
-
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
