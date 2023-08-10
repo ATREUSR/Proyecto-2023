@@ -1,9 +1,6 @@
-import { request, response } from "express"
+import express from 'express';
+const app = express(); 
 
-const { PrismaClient } = require('@prisma/client') 
-const prisma = new  PrismaClient()
-async function main() {
-    const allUsers = await prisma.user.findMany()
-    console.log(allUsers)
-    }
-main()
+const PORT : number = 8080;
+
+app.listen(PORT, () => console.log(`Its alive on  http://localhost:${PORT}`));
