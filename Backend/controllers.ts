@@ -29,3 +29,26 @@ export async function getUser(req: Request, res: Response) {
 
   res.status(200).json(user);
 }
+export async function getUserPosts(req: Request, res: Response) {
+  const dni = parseInt(req.params.dni);
+  const post = await prisma.post
+    .findMany({
+      where: { user_dni: dni },
+      select: {
+        id: true,
+        title: true,
+        good_image: true,
+        defective_image: true,
+        user_dni: true,
+        publish_date: true,
+        price: true,
+        description: true,
+        defects: true,
+        has_defects: true
+      },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      res.status(400).json(err.message);
+    });
+
+}
