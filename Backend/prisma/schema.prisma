@@ -5,7 +5,7 @@ generator client {
 model User {
   dni      Int      @id @unique
   name     String
-  surname  String
+  surname  String?
   pfp_url  String?
   email    String   @unique
   password String

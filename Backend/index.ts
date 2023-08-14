@@ -1,13 +1,14 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from "express";
 
-app.get('/', (req : any, res : any) => {
-  res.send('Hello World!')
-})
+import router from "./router";
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+import cookieParser from "cookie-parser";
 
-//pene
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
+app.use(router);
+
+const PORT: Number = 3000;
+app.listen(PORT);
+console.log(`Running on port ${PORT}`);
