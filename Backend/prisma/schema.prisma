@@ -30,18 +30,32 @@ model Review {
 }
 
 model Post {
-  id              Int      @id @unique @default(autoincrement())
-  publish_date    DateTime @default(now())
-  user_dni        Int
-  title           String
-  good_image      String?
-  defective_image String?
-  has_defects     Boolean
-  description     String
-  defects         String
-  price           Float
+  id           Int      @id @unique @default(autoincrement())
+  publish_date DateTime @default(now())
+  user_dni     Int
+  title        String
+  has_defects  Boolean
+  description  String
+  defects      String
+  price        Float
 
+  images  Image[]
   reviews Review[]
+}
+
+model Image {
+  post_id    Int       @id
+  image_type ImageType
+  url        String
+
+  post Post @relation(fields: [post_id], references: [id])
+
+  @@index([post_id])
+}
+
+enum ImageType {
+  GOOD
+  BAD
 }
 
 datasource db {
