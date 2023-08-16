@@ -141,3 +141,21 @@ export async function getPostsBySearch(req: Request, res: Response) {
 
   res.status(200).json(posts);
 }
+export async function createUser(req: Request, res: Response) {
+  const { dni, name, surname, email, pfp_url, password } = req.body;
+  const user = await prisma.user
+    .create({
+      data: {
+        dni,
+        name,
+        surname,
+        email,
+        pfp_url,
+        password,
+      },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      res.status(400).json(err.message);
+    });
+  res.status(201).json(user);
+}

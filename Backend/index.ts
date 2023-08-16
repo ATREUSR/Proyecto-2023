@@ -11,4 +11,4 @@ app.use(router);
 
 const PORT: Number = 3000;
 app.listen(PORT);
-console.log(`Running on port ${PORT}`);
+console.log("Alive on localhost: " + PORT)

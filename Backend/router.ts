@@ -8,5 +8,6 @@ router.get("/user:dni/posts", controllers.getUserPosts);
 router.get("/user/:dni/reviews", controllers.getPostReview);
 router.get("/user/:dni/home", controllers.getHome);
 router.get("/user/:dni/home/search", controllers.getPostsBySearch);
+router.get("/register", controllers.createUser);
 
 export default router;
