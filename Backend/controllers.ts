@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { PrismaClient, User, Review, Post, Prisma } from "@prisma/client";
 
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const prisma: PrismaClient = new PrismaClient();
 
@@ -161,7 +161,7 @@ export async function createUser(req: Request, res: Response) {
     });
   res.status(201).json(user);
 }
-export async function logInUser(req: Request, res: Response){
+export async function logInUser(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = await prisma.user
     .findUnique({
@@ -184,7 +184,15 @@ export async function logInUser(req: Request, res: Response){
   res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
-  const { title, user_dni, publish_date, price, description, defects, has_defects } = req.body;
+  const {
+    title,
+    user_dni,
+    publish_date,
+    price,
+    description,
+    defects,
+    has_defects,
+  } = req.body;
   const post = await prisma.post
     .create({
       data: {
@@ -203,7 +211,8 @@ export async function createPost(req: Request, res: Response) {
   res.status(201).json(post);
 }
 export async function createReview(req: Request, res: Response) {
-  const { user_dni, review_score, review_body, publish_date, post_id } = req.body;
+  const { user_dni, review_score, review_body, publish_date, post_id } =
+    req.body;
   const review = await prisma.review
     .create({
       data: {
@@ -218,4 +227,44 @@ export async function createReview(req: Request, res: Response) {
       res.status(400).json(err.message);
     });
   res.status(201).json(review);
+}
+export async function updateUser(req: Request, res: Response) {
+  const { dni, name, surname, email, pfp_url, password } = req.body;
+  const user = await prisma.user
+    .update({
+      where: { dni },
+      data: {
+        name,
+        surname,
+        email,
+        pfp_url,
+        password,
+      },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      res.status(400).json(err.message);
+    });
+  res.status(200).json(user);
+}
+export async function deleteUser(req: Request, res: Response) {
+  const dni = parseInt(req.params.dni);
+  const user = await prisma.user
+    .delete({
+      where: { dni },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      res.status(400).json(err.message);
+    });
+  res.status(200).json(user);
+}
+export async function deletePost(req: Request, res: Response) {
+  const { post_id } = req.params;
+  const posts = await prisma.post
+    .delete({
+      where: { id: parseInt(post_id) },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      res.status(400).json(err.message);
+    });
+  res.status(200).json("Operation succesful");
 }
