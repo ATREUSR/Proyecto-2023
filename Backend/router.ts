@@ -9,5 +9,8 @@ router.get("/user/:dni/reviews", controllers.getPostReview);
 router.get("/user/:dni/home", controllers.getHome);
 router.get("/user/:dni/home/search", controllers.getPostsBySearch);
 router.get("/register", controllers.createUser);
+router.get("/login", controllers.logInUser);
+router.get("/createpost", controllers.createPost);
+router.get("/post/:id", controllers.createReview);
 
 export default router;
