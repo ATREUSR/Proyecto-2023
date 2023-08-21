@@ -1,6 +1,7 @@
 var slides = document.querySelectorAll('.slide');
 var btns = document.querySelectorAll('.btn');
-let currentSlide = 1;
+let currentSlide = 0;
+let count = 0;
 
 var manualNav = function(manual){
     slides.forEach((slide) => {
@@ -24,12 +25,12 @@ btns.forEach((btn, i) =>{
 
 var repeat = function(activeClass){
     let active = document.getElementsByClassName('active')
-    let i = 0;
+    let i = 2;
 
     var repeater = () => {
         setTimeout(function(){
             [...active].forEach((activeSlide) =>{
-                activeSlide.classList.remove('active')
+                activeSlide.classList.remove('active');
             });
 
             slides[i].classList.add('active');
@@ -43,7 +44,8 @@ var repeat = function(activeClass){
                 return;
             }
             repeater(); 
-        }, 5000);
+            count = 5000;
+        }, count);
     }
     repeater();
 }
