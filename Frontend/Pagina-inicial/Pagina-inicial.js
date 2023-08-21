@@ -24,7 +24,7 @@ btns.forEach((btn, i) =>{
 
 var repeat = function(activeClass){
     let active = document.getElementsByClassName('active')
-    let i = 1;
+    let i = 0;
 
     var repeater = () => {
         setTimeout(function(){
@@ -36,14 +36,14 @@ var repeat = function(activeClass){
             btns[i].classList.add('active');
             i++;
 
-            if(slides-length == i){
+            if(slides.length == i){
                 i = 0;
             }
             if(i >= slides.length){
                 return;
             }
             repeater(); 
-        }, 10000);
+        }, 5000);
     }
     repeater();
 }
