@@ -175,3 +175,30 @@ body{
         margin: 8px;
     }
 }
+
+.sections{
+    display: flex;
+    position: relative;
+    top: 500px;
+    justify-content: space-between;
+}
+
+.section{
+    background: #423d3d;
+}
+
+.section-title{
+
+}
+
+.section-container{
+
+}
+
+.item-img-container{
+
+}
+
+.item-description{
+    
+}
