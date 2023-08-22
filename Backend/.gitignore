@@ -1,3 +1,6 @@
+# Cert
+cacert.pem
+
 # Logs
 logs
 *.log

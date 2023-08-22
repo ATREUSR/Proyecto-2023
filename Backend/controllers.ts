@@ -17,7 +17,6 @@ export async function getUser(req: Request, res: Response) {
         surname: true,
         email: true,
         pfp_url: true,
-        password: false,
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
