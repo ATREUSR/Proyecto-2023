@@ -178,21 +178,26 @@ body{
 }
 
 .sections {
+    position: relative;
+    top: 150px;
     display: flex;
     justify-content: center;
     padding-top: 20px;
+    justify-content: space-between;
     background-color: #162938;
 }
   
 .section {
+    position: relative;
+    top: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     flex: 0 0 auto;
     width: 1300px;
-    margin: 0 20px;
-    background: #656670;
     border-radius: 15px;
     overflow: hidden;
 }
-  
+
 .section-title {
     height: 40px;
     background: #199ebf;
@@ -202,28 +207,35 @@ body{
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+.section-title-2 {
+    height: 40px;
+    background: #d5f051;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    line-height: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
   
 .section-container {
     display: flex;
-    padding: 10px;
+    padding: 15px;
+    height: 350px;
     background-color: #545561;
     border-radius: 0 0 15px 15px;
 }
   
 .item-container {
     flex: 0 0 auto;
-    width: 240px; /* Ancho fijo para cada objeto */
-    margin-right: 20px;
+    width: 240px; 
+    margin-right: 17.5px;
     transition: transform 0.3s, box-shadow 0.3s;
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
 }
-  
-.item-container:last-child {
-    margin-right: 0; /* Elimina el margen derecho del último objeto */
-}
-  
+
 .item-container:hover {
     transform: translateY(-10px);
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
