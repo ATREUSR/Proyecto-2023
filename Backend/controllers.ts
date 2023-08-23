@@ -10,7 +10,7 @@ export async function getUser(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
   const user = await prisma.user
     .findUnique({
-      where: { dni },
+      where: { dni: dni },
       select: {
         dni: true,
         name: true,
@@ -20,14 +20,13 @@ export async function getUser(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
 
   if (!user) {
-    res.status(404).json("User not found");
-    return;
+    return res.status(404).json("User not found");
   }
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 export async function getUserPosts(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
@@ -52,7 +51,7 @@ export async function getUserPosts(req: Request, res: Response) {
     })
 
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
   res.status(200).json(post);
 }
@@ -71,9 +70,9 @@ export async function getUserReviews(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(200).json(review);
+  return res.status(200).json(review);
 }
 export async function getPostReview(req: Request, res: Response) {
   const id = parseInt(req.params.id);
@@ -90,9 +89,9 @@ export async function getPostReview(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(200).json(review);
+  return res.status(200).json(review);
 }
 export async function getHome(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
@@ -107,14 +106,13 @@ export async function getHome(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
 
   if (!user) {
-    res.status(404).json("User not found");
-    return;
+    return res.status(404).json("User not found");
   }
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 export async function getPostsBySearch(req: Request, res: Response) {
   const { post_id } = req.params;
@@ -137,10 +135,9 @@ export async function getPostsBySearch(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-
-  res.status(200).json(posts);
+  return res.status(200).json(posts);
 }
 export async function createUser(req: Request, res: Response) {
   const { dni, name, surname, email, pfp_url, password } = req.body;
@@ -156,9 +153,9 @@ export async function createUser(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(201).json(user);
+  return res.status(201).json(user);
 }
 export async function logInUser(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -169,18 +166,16 @@ export async function logInUser(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
   if (!user) {
-    res.status(404).json("User not found");
-    return;
+    return res.status(404).json("User not found");
   }
-  const passwordsMatch = await bcrypt.compare(password, user.password);
+  const passwordsMatch = await bcrypt.compare(password, req.body.password);
   if (!passwordsMatch) {
-    res.status(401).json("Wrong password");
-    return;
+    return res.status(401).json("Wrong password");
   }
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
   const {
@@ -205,9 +200,9 @@ export async function createPost(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(201).json(post);
+  return res.status(201).json(post);
 }
 export async function createReview(req: Request, res: Response) {
   const { user_dni, review_score, review_body, publish_date, post_id } =
@@ -223,9 +218,9 @@ export async function createReview(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(201).json(review);
+  return res.status(201).json(review);
 }
 export async function updateUser(req: Request, res: Response) {
   const { dni, name, surname, email, pfp_url, password } = req.body;
@@ -241,9 +236,9 @@ export async function updateUser(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 export async function deleteUser(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
@@ -252,9 +247,9 @@ export async function deleteUser(req: Request, res: Response) {
       where: { dni },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 export async function deletePost(req: Request, res: Response) {
   const { post_id } = req.params;
@@ -263,7 +258,7 @@ export async function deletePost(req: Request, res: Response) {
       where: { id: parseInt(post_id) },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      res.status(400).json(err.message);
+      return res.status(400).json(err.message);
     });
-  res.status(200).json("Operation succesful");
+  return res.status(200).json("Operation succesful");
 }
