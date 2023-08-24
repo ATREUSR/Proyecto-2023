@@ -29,7 +29,7 @@ export async function getUser(req: Request, res: Response) {
   return res.status(200).json(user);
 }
 export async function getUserPosts(req: Request, res: Response) {
-  const dni = parseInt(req.params.dni);
+  const dni = parseInt(req.params.id);
   const post = await prisma.post
     .findMany({
       where: { user_dni: dni },

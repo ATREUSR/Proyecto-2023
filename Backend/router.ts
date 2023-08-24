@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/user/:dni", controllers.getUser);
 router.get("/user/:dni/posts", controllers.getUserPosts);
-router.get("/user/:dni/reviews", controllers.getPostReview);
+router.get("/post/:id/reviews", controllers.getPostReview);
 router.get("/user/:dni/home", controllers.getHome);
 router.post("/register", controllers.createUser);
 router.get("/login", controllers.logInUser);
