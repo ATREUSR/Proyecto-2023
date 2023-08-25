@@ -29,31 +29,29 @@ export async function getUser(req: Request, res: Response) {
   return res.status(200).json(user);
 }
 export async function getUserPosts(req: Request, res: Response) {
-  const dni = parseInt(req.params.id);
-  const post = await prisma.post
-    .findMany({
-      where: { user_dni: dni },
-      select: {
-        id: true,
-        title: true,
-        user_dni: true,
-        publish_date: true,
-        price: true,
-        description: true,
-        defects: true,
-        has_defects: true,
-        images: {
-          select: {
-            url: true,
-          },
+  const dni = parseInt(req.params.dni);
+  const posts = await prisma.post.findMany({
+    where: {
+      user_dni: dni,
+    },
+    select: {
+      id: true,
+      title: true,
+      user_dni: true,
+      publish_date: true,
+      price: true,
+      description: true,
+      defects: true,
+      has_defects: true,
+      images: {
+        select: {
+          url: true,
         },
       },
-    })
+    },
+  });
 
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
-    });
-  res.status(200).json(post);
+  return res.json(posts);
 }
 export async function getUserReviews(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
