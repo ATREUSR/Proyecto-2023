@@ -263,22 +263,46 @@ export async function createReview(req: Request, res: Response) {
   return res.status(201).json(review);
 }
 export async function updateUser(req: Request, res: Response) {
-  const { dni, name, surname, email, pfp_url, password } = req.body;
-  const user = await prisma.user
-    .update({
-      where: { dni },
+  const { name, surname, email, pfp_url, password } = req.body;
+  if (!req.params.dni) {
+    return res.status(400).json("No se ha especificado un dni");
+  }
+  const dniAlreadyExists = await prisma.user.findUnique({
+    where: {
+      dni: parseInt(req.params.dni),
+    },
+  });
+  if (!dniAlreadyExists) {
+    return res.status(400).json("El dni no existe en la base de datos");
+  }
+  console.log("hola, la funcion esta corriendo");
+  if (password) {
+    console.log("hola, metiste una password");
+    const hashed_password = await bcrypt.hash(req.body.password, 10);
+    const user = await prisma.user.update({
+      where: { dni: parseInt(req.params.dni) },
       data: {
         name,
         surname,
         email,
         pfp_url,
-        password,
+        password: hashed_password,
       },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
     });
-  return res.status(200).json(user);
+    return res.status(200).json(user);
+  } else {
+    console.log("hola, no metiste una password");
+    const user = await prisma.user.update({
+      where: { dni: parseInt(req.params.dni) },
+      data: {
+        name,
+        surname,
+        email,
+        pfp_url,
+      },
+    });
+    return res.status(200).json(user);
+  }
 }
 export async function deleteUser(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
