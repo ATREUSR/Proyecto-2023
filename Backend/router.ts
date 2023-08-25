@@ -8,7 +8,7 @@ router.get("/user/:dni/posts", controllers.getUserPosts);
 router.get("/post/:id/reviews", controllers.getPostReview);
 router.get("/user/:dni/home", controllers.getHome);
 router.post("/register", controllers.createUser);
-router.get("/login", controllers.logInUser);
+router.post("/login", controllers.logInUser);
 router.patch("user/:dni/updateuser", controllers.updateUser);
 router.post("/createpost", controllers.createPost);
 router.get("/post/:id", controllers.getPostsBySearch);
