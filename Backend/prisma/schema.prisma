@@ -10,20 +10,22 @@ model User {
   email    String   @unique
   password String
   reviews  Review[]
+  posts    Post[]
   //user id?
 }
 
 model Review {
-  id              Int      @id @unique @default(autoincrement())
-  user_dni        Int
-  review_body     String
-  review_score    Int
-  product_picture String?
-  publish_date    DateTime @default(now())
-  post_id         Int
+  id           Int      @id @unique @default(autoincrement())
+  user_dni     Int
+  review_body  String
+  review_score Int
+  publish_date DateTime @default(now())
+  post_id      Int
 
-  user User @relation(fields: [user_dni], references: [dni])
-  post Post @relation(fields: [post_id], references: [id])
+  images Image[]
+
+  user User  @relation(fields: [user_dni], references: [dni])
+  post Post? @relation(fields: [post_id], references: [id])
 
   @@index([user_dni])
   @@index([post_id])
@@ -41,6 +43,10 @@ model Post {
 
   images  Image[]
   reviews Review[]
+
+  user User @relation(fields: [user_dni], references: [dni])
+
+  @@index([user_dni])
 }
 
 model Image {
@@ -48,8 +54,11 @@ model Image {
   image_type ImageType
   url        String
 
-  post Post @relation(fields: [post_id], references: [id])
+  post      Post    @relation(fields: [post_id], references: [id])
+  review    Review? @relation(fields: [review_id], references: [id])
+  review_id Int?
 
+  @@index([review_id])
   @@index([post_id])
 }
 
