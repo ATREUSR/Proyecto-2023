@@ -22,7 +22,7 @@ header {
 }
 
 body{
-    height: 265vh;
+    height: 330vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,11 +179,11 @@ body{
 
 .sections {
     position: relative;
-    top: 150px;
+    top: 200px;
     display: flex;
-    justify-content: center;
+    flex-direction: column; 
+    align-items: center; 
     padding-top: 20px;
-    justify-content: space-between;
     background-color: #162938;
 }
   
@@ -193,7 +193,7 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     flex: 0 0 auto;
-    width: 1300px;
+    width: 100%; 
     border-radius: 15px;
     overflow: hidden;
 }
@@ -211,6 +211,16 @@ body{
 .section-title-2 {
     height: 40px;
     background: #d5f051;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    line-height: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.section-title-3 {
+    height: 40px;
+    background: #e3decf;
     text-align: center;
     border-radius: 15px 15px 0 0;
     line-height: 40px;
@@ -276,3 +286,6 @@ body{
     font-size: 1.2rem;
     margin-top: 10px;
 }
+
+
+
