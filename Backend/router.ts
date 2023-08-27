@@ -14,7 +14,6 @@ router.post("/createpost", controllers.createPost);
 router.get("/post/:id", controllers.getPostsBySearch);
 router.post("/post/:id", controllers.createReview);
 router.delete("/post/:id", controllers.deletePost);
-router.delete("/user/:id", controllers.deleteUser);
-router.patch("/user/:dni", controllers.updateUser);
+router.delete("/user/:dni", controllers.deleteUser);
 
 export default router;
