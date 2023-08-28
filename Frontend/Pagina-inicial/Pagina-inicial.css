@@ -179,7 +179,7 @@ body{
 
 .sections {
     position: relative;
-    top: 300px;
+    top: 400px;
     display: flex;
     flex-direction: column; 
     align-items: center; 
