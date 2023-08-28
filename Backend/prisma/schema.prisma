@@ -3,20 +3,23 @@ generator client {
 }
 
 model User {
-  dni      Int      @id @unique
+  id       Int      @id @unique @default(autoincrement())
+  dni      Int?     @unique
   name     String
   surname  String?
   pfp_url  String?
   email    String   @unique
   password String
+  comapny  Boolean  @default(false)
+  phone    String?
+  address  String?
   reviews  Review[]
   posts    Post[]
-  //user id?
 }
 
 model Review {
   id           Int      @id @unique @default(autoincrement())
-  user_dni     Int
+  user_id     Int
   review_body  String
   review_score Int
   publish_date DateTime @default(now())
@@ -24,17 +27,17 @@ model Review {
 
   images Image[]
 
-  user User  @relation(fields: [user_dni], references: [dni])
+  user User  @relation(fields: [user_id], references: [id])
   post Post? @relation(fields: [post_id], references: [id])
 
-  @@index([user_dni])
+  @@index([user_id])
   @@index([post_id])
 }
 
 model Post {
   id           Int      @id @unique @default(autoincrement())
   publish_date DateTime @default(now())
-  user_dni     Int
+  user_id     Int
   title        String
   has_defects  Boolean
   description  String
@@ -44,9 +47,9 @@ model Post {
   images  Image[]
   reviews Review[]
 
-  user User @relation(fields: [user_dni], references: [dni])
+  user User @relation(fields: [id], references: [id])
 
-  @@index([user_dni])
+  @@index([user_id])
 }
 
 model Image {
