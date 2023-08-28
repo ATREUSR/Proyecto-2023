@@ -263,46 +263,49 @@ export async function createReview(req: Request, res: Response) {
   return res.status(201).json(review);
 }
 export async function updateUser(req: Request, res: Response) {
-  const { name, surname, email, pfp_url, password } = req.body;
-  if (!req.params.dni) {
-    return res.status(400).json("No se ha especificado un dni");
+  const dni = req.params.dni;
+
+  const user = await prisma.user.findUnique({
+    where: { dni: parseInt(dni) },
+  });
+
+  if (!user) {
+    return res.status(400).json({ message: "User not found" });
   }
-  const dniAlreadyExists = await prisma.user.findUnique({
-    where: {
-      dni: parseInt(req.params.dni),
+
+  const { name, surname, email, pfp_url } = req.body;
+
+  const data: any = {};
+
+  if (name) {
+    data.name = name;
+  }
+
+  if (surname) {
+    data.surname = surname;
+  }
+
+  if (email) {
+    data.email = email;
+  }
+
+  if (pfp_url) {
+    data.pfp_url = pfp_url;
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { dni: parseInt(dni) },
+    data,
+    select: {
+      dni: true,
+      name: true,
+      surname: true,
+      email: true,
+      pfp_url: true,
     },
   });
-  if (!dniAlreadyExists) {
-    return res.status(400).json("El dni no existe en la base de datos");
-  }
-  console.log("hola, la funcion esta corriendo");
-  if (password) {
-    console.log("hola, metiste una password");
-    const hashed_password = await bcrypt.hash(req.body.password, 10);
-    const user = await prisma.user.update({
-      where: { dni: parseInt(req.params.dni) },
-      data: {
-        name,
-        surname,
-        email,
-        pfp_url,
-        password: hashed_password,
-      },
-    });
-    return res.status(200).json(user);
-  } else {
-    console.log("hola, no metiste una password");
-    const user = await prisma.user.update({
-      where: { dni: parseInt(req.params.dni) },
-      data: {
-        name,
-        surname,
-        email,
-        pfp_url,
-      },
-    });
-    return res.status(200).json(user);
-  }
+
+  return res.status(200).json(updatedUser);
 }
 export async function deleteUser(req: Request, res: Response) {
   const dni = parseInt(req.params.dni);
