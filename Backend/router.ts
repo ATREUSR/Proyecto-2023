@@ -14,7 +14,7 @@ router.patch("/user/:id/updatePassword", controllers.updatePassword);
 router.post("/createpost", controllers.createPost);
 router.get("/posts", controllers.getPostsBySearch);
 router.post("/post/:id", controllers.createReview);
-router.delete("/post/:id", controllers.deletePost);
-router.delete("/user/:id", controllers.deleteUser);
+router.delete("/post/delete/:id", controllers.deletePost);
+router.delete("/user/delete", controllers.deleteUser);
 
 export default router;

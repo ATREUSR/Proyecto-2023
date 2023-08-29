@@ -39,7 +39,7 @@ export async function getUser(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
+      throw res.status(400).json(err.message);
     });
 
   if (!user) {
@@ -86,7 +86,7 @@ export async function getUserReviews(req: Request, res: Response) {
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
+      throw res.status(400).json(err.message);
     });
   return res.status(200).json(review);
 }
@@ -111,9 +111,15 @@ export async function getPostReview(req: Request, res: Response) {
   return res.status(200).json(review);
 }
 export async function getHome(req: Request, res: Response) {
-  const id = parseInt(req.params.id);
-  const user = await prisma.user
-    .findUnique({
+  const id = parseInt(req.params.id!);
+  const user_exist = await prisma.user.findUnique({
+    where: { id },
+  });
+  if (!user_exist) {
+    return res.status(404).json("El usuario no existe");
+  }
+  try {
+    const user = await prisma.user.findUnique({
       where: { id },
       select: {
         id: true,
@@ -121,15 +127,14 @@ export async function getHome(req: Request, res: Response) {
         surname: true,
         pfp_url: true,
       },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
     });
-
-  if (!user) {
-    return res.status(404).json("User not found");
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+    return res.status(200).json(user);
+  } catch (err: any) {
+    return res.status(400).json(err.message);
   }
-  return res.status(200).json(user);
 }
 export async function getPostsBySearch(req: Request, res: Response) {
   const { q } = req.query;
@@ -210,7 +215,15 @@ export async function logInUser(req: Request, res: Response) {
   return res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
-  const { title, user_id, publish_date, price, description, defects, has_defects} = req.body;
+  const {
+    title,
+    user_id,
+    publish_date,
+    price,
+    description,
+    defects,
+    has_defects,
+  } = req.body;
   const post = await prisma.post
     .create({
       data: {
@@ -309,26 +322,62 @@ export async function updateUser(req: Request, res: Response) {
   return res.status(200).json(updatedUser);
 }
 export async function deleteUser(req: Request, res: Response) {
-  const id = parseInt(req.params.id);
+  const { email, password } = req.body;
+  const emailExists = await prisma.user.findUnique({
+    where: { email },
+  });
+  if (!emailExists) {
+    return res.status(400).json("El Email no existe en la base de datos");
+  }
+  const passwword_comapre = await bcrypt.compare(
+    password,
+    emailExists.password
+  );
+  if (!passwword_comapre) {
+    return res.status(400).json("Contraseña incorrecta");
+  }
+  const userr = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true },
+  });
+  const id = userr?.id;
   const user = await prisma.user
     .delete({
       where: { id },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
+      throw res.status(400).json(err.message);
     });
-  return res.status(200).json(user);
+  return res.status(200).json("El usuario ah sido eliminado correctamente");
 }
 export async function deletePost(req: Request, res: Response) {
-  const { post_id } = req.params;
-  const posts = await prisma.post
-    .delete({
-      where: { id: parseInt(post_id) },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
-      return res.status(400).json(err.message);
-    });
-  return res.status(200).json("Operation succesful");
+  const { id } = req.params;
+  const { email, password } = req.body;
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { email: true, password: true },
+  });
+  if (
+    !user ||
+    email !== user.email ||
+    !(await bcrypt.compare(password, user.password))
+  ) {
+    return res.status(400).json("Credenciales invalidas");
+  }
+  const postId = parseInt(id);
+  if (isNaN(postId)) {
+    return res.status(400).json("El id de la publicacion no es valido");
+  }
+  const postExist = await prisma.post.findUnique({
+    where: { id: postId },
+  });
+  if (!postExist) {
+    return res.status(404).json("La publicacion no existe");
+  }
+  await prisma.post.delete({
+    where: { id: postId },
+  });
+  return res.status(200).json("La publicacion ah sido eliminada correctamente");
 }
 export async function updatePassword(req: Request, res: Response) {
   const { email, password, new_password } = req.body;

@@ -19,7 +19,7 @@ model User {
 
 model Review {
   id           Int      @id @unique @default(autoincrement())
-  user_id     Int
+  user_id      Int
   review_body  String
   review_score Int
   publish_date DateTime @default(now())
@@ -37,7 +37,7 @@ model Review {
 model Post {
   id           Int      @id @unique @default(autoincrement())
   publish_date DateTime @default(now())
-  user_id     Int
+  user_id      Int
   title        String
   has_defects  Boolean
   description  String
@@ -47,7 +47,9 @@ model Post {
   images  Image[]
   reviews Review[]
 
-  user User @relation(fields: [id], references: [id])
+  user User? @relation(fields: [user_id], references: [id])
+
+
 
   @@index([user_id])
 }
