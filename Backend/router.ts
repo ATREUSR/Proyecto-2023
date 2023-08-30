@@ -9,7 +9,7 @@ router.get("/post/:id/reviews", controllers.getPostReview);
 router.get("/user/:id/home", controllers.getHome);
 router.post("/register", controllers.createUser);
 router.post("/login", controllers.logInUser);
-router.patch("/user/:id/update", controllers.updateUser)
+router.patch("/user/:id/update", controllers.updateUser);
 router.patch("/user/:id/updatePassword", controllers.updatePassword);
 router.post("/createpost", controllers.createPost);
 router.get("/posts", controllers.getPostsBySearch);
