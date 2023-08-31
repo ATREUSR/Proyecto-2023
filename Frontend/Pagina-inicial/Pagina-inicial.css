@@ -332,36 +332,62 @@ body{
 }
 
 
-.apartado-empresas{
-    border: solid #199ebf;
-    margin: 20px;
-    bottom: 0;
+.apartado-empresas {
+    margin: 500px;
 }
-
-.titulo-apartado-empresa{
-    border: solid #d5f051;
-}
-
-.titulo-apartado-empresa a{
+  
+.titulo-apartado-empresas {
     
 }
-
-.apartado-empresas-container{
-
+  
+.titulo-apartado-empresas h2 {
+    
 }
-
-.item-empresas{
-
+  
+.titulo-apartado-empresas a {
+    
 }
-
-.banner-empresa{
-
+  
+.apartado-empresas-container {
+    
 }
-
-.icono-empresa{
-
+  
+.item-empresa {
+    
 }
-
-.info-empresa{
-
+  
+.item-empresa:hover {
+    
+}
+  
+.banner-empresa {
+    
+}
+  
+.icono-empresa {
+    
+}
+  
+.icono-empresa img {
+    
+}
+  
+.info-empresa h3 {
+    
+}
+  
+.productos-demo {
+    
+}
+  
+.producto-demo {
+    
+}
+  
+.ver-tienda {
+    
+}
+  
+.ver-tienda:hover {
+    
 }
