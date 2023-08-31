@@ -402,3 +402,32 @@ export async function updatePassword(req: Request, res: Response) {
 
   return res.status(200).json("Contraseña actualizada correctamente");
 }
+export async function deleteReview(req: Request, res: Response) {
+  const { id } = req.params;
+  const { email, password } = req.body;
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { email: true, password: true },
+  });
+  if (
+    !user ||
+    email !== user.email ||
+    !(await bcrypt.compare(password, user.password))
+  ) {
+    return res.status(400).json("Credenciales invalidas");
+  }
+  const reviewId = parseInt(id);
+  if (isNaN(reviewId)) {
+    return res.status(400).json("El id de la publicacion no es valido");
+  }
+  const reviewExist = await prisma.review.findUnique({
+    where: { id: reviewId },
+  });
+  if (!reviewExist) {
+    return res.status(404).json("La publicacion no existe");
+  }
+  await prisma.review.delete({
+    where: { id: reviewId },
+  });
+  return res.status(200).json("La publicacion ah sido eliminada correctamente");
+}
