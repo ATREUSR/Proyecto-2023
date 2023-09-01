@@ -38,9 +38,9 @@ submitbtn.addEventListener('click', ()=>{
     })
   })
   .then(response => {
-    // handle response
+    response.json()
   })
   .catch(error => {
-    // handle error
+    console.error(error)
   });
 });
