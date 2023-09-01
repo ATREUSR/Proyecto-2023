@@ -13,6 +13,7 @@ router.delete("/user/:id/delete", controllers.deleteUser);
 router.get("/user/:id/home", controllers.getHome);
 router.patch("/user/:id/updateUser", controllers.updateUser);
 router.patch("/user/:id/updatePassword", controllers.updatePassword);
+router.get("/post", controllers.getPost);
 router.get("/post/:id/reviews", controllers.getPostReview);
 router.post("/post/createPost", controllers.createPost);
 router.post("/post/:id/createReview", controllers.createReview);

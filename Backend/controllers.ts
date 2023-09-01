@@ -431,3 +431,32 @@ export async function deleteReview(req: Request, res: Response) {
   });
   return res.status(200).json("La publicacion ah sido eliminada correctamente");
 }
+export async function getPost(req: Request, res: Response) {
+  const id = parseInt(req.params.id);
+  const post = await prisma.post
+    .findUnique({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        publish_date: true,
+        price: true,
+        description: true,
+        defects: true,
+        has_defects: true,
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
+    })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      throw res.status(400).json(err.message);
+    });
+
+  if (!post) {
+    return res.status(404).json("Post not found");
+  }
+  return res.status(200).json(post);
+}
