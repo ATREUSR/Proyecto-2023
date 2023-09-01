@@ -179,7 +179,7 @@ body{
 
 .sections {
     position: relative;
-    top: 400px;
+    top: 600px;
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -200,7 +200,7 @@ body{
 
 .section-title {
     height: 40px;
-    background: #199ebf;
+    background: #199ebf; 
     text-align: center;
     border-radius: 15px 15px 0 0;
     line-height: 40px;
@@ -333,7 +333,12 @@ body{
 
 
 .apartado-empresas {
-    margin: 500px;
+    position: relative;
+    top: 1000px;
+    padding-bottom: 50px;
+    background-color: #545561;
+    border-radius: 15px;
+    width: 100%;
 }
   
 .titulo-apartado-empresas {
@@ -345,19 +350,35 @@ body{
 }
   
 .titulo-apartado-empresas a {
+    position: relative;
+    bottom: 28px;
+    left: 390px;
+    text-decoration: none;
+    color: #199ebf;
+    
+}
+
+.titulo-apartado-empresas a:hover {
+    text-decoration: underline;
     
 }
   
 .apartado-empresas-container {
+    background-color: #2696E9;
     
 }
   
 .item-empresa {
+    background-color: #5ae69b;
+    margin: 50px;
+    width: 25%;
+    height: 300px;
+    border-radius: 15px;
     
 }
   
 .item-empresa:hover {
-    
+    box-shadow: #162938;
 }
   
 .banner-empresa {
@@ -365,7 +386,9 @@ body{
 }
   
 .icono-empresa {
-    
+    position: relative;
+    bottom: 50px;
+    left: 100px;
 }
   
 .icono-empresa img {
