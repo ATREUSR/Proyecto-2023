@@ -179,7 +179,7 @@ body{
 
 .sections {
     position: relative;
-    top: 600px;
+    top: 550px;
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -193,7 +193,7 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     flex: 0 0 auto;
-    width: 100%; 
+    width: 90%; 
     border-radius: 15px;
     overflow: hidden;
 }
@@ -238,7 +238,7 @@ body{
   
 .item-container {
     flex: 0 0 auto;
-    width: 240px; 
+    width: 221px; 
     margin-right: 17.5px;
     transition: transform 0.3s, box-shadow 0.3s;
     border-radius: 15px;
@@ -334,11 +334,13 @@ body{
 
 .apartado-empresas {
     position: relative;
-    top: 1000px;
-    padding-bottom: 50px;
-    background-color: #545561;
+    top: 50px;
+    background-color: #162938; /* Cambiar el color de fondo */
     border-radius: 15px;
-    width: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
   
 .titulo-apartado-empresas {
@@ -364,53 +366,69 @@ body{
 }
   
 .apartado-empresas-container {
-    background-color: #2696E9;
-    
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    gap: 10px; /* Reducir el espacio entre elementos */
+    padding: 10px; /* Agregar espacio alrededor del contenedor */
 }
+
   
 .item-empresa {
-    background-color: #5ae69b;
-    margin: 50px;
-    width: 25%;
-    height: 300px;
-    border-radius: 15px;
-    
+    background-color: #fff; /* Cambiar el color de fondo de los elementos */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Agregar sombra para resaltar los elementos */
+    width: calc(25% - 20px);
+    height: auto;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
   
 .item-empresa:hover {
-    box-shadow: #162938;
-}
-  
-.banner-empresa {
-    
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    transform: translateY(-10px);
+    cursor: pointer;
 }
   
 .icono-empresa {
-    position: relative;
-    bottom: 50px;
-    left: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0vh;
 }
   
 .icono-empresa img {
-    
+    border-radius: 15px;
 }
   
 .info-empresa h3 {
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
 }
   
 .productos-demo {
-    
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 0vh;
 }
-  
-.producto-demo {
-    
+
+
+.producto-demo img{
+    width: 90px;
+    margin: 5px;
+    border-radius: 15px;
 }
   
 .ver-tienda {
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    color: #7a827c;
+    text-decoration: none;
 }
   
 .ver-tienda:hover {
-    
+    color: #199ebf;
 }
