@@ -193,7 +193,7 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     flex: 0 0 auto;
-    width: 90%; 
+    width: 95%; 
     border-radius: 15px;
     overflow: hidden;
 }
@@ -238,7 +238,7 @@ body{
   
 .item-container {
     flex: 0 0 auto;
-    width: 221px; 
+    width: 235px; 
     margin-right: 17.5px;
     transition: transform 0.3s, box-shadow 0.3s;
     border-radius: 15px;
