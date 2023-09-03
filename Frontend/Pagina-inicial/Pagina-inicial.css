@@ -377,7 +377,7 @@ body{
 .item-empresa {
     background-color: #fff; /* Cambiar el color de fondo de los elementos */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Agregar sombra para resaltar los elementos */
-    width: calc(25% - 20px);
+    width: calc(25% - 10px);
     height: auto;
     transition: transform 0.3s, box-shadow 0.3s;
 }
