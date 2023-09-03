@@ -7,7 +7,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-
 header {
     position: fixed;
     top: 0;
@@ -179,7 +178,7 @@ body{
 
 .sections {
     position: relative;
-    top: 550px;
+    top: 650px;
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -315,6 +314,7 @@ body{
     color: #fff;
     text-align: center;
     cursor: pointer;
+    transition: color 0.3s;
 }
 
 .categoria:hover {
@@ -430,5 +430,61 @@ body{
 }
   
 .ver-tienda:hover {
+    color: #199ebf;
+}
+
+.footer {
+    background-color: green;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative; 
+    top: 100px;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section-info {
+    flex: 1;
+    text-align: left;
+    padding: 10px;
+    margin-right: 90px;
+}
+
+
+.footer-section {
+    flex: 1;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 14px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
     color: #199ebf;
 }
