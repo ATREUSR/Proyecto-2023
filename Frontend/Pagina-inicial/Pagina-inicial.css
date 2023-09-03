@@ -69,6 +69,11 @@ body{
     color: #fff;
     margin: 0 10px;
     cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-icons :hover{
+    color: #199ebf;
 }
 
 .img-slider{
