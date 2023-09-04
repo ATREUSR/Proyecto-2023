@@ -38,7 +38,13 @@ submitbtn.addEventListener('click', ()=>{
     })
   })
   .then(response => {
-    response.json()
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+    if(data.success){
+        window.location.href = "http://localhost:3000/pagina-inicial";
+    }
   })
   .catch(error => {
     console.error(error)

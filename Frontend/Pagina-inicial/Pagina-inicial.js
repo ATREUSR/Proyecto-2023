@@ -46,15 +46,12 @@ var repeat = function(activeClass){
             }
 
             slides[i].classList.add('active');
-            fetch ('http://localhost:3000/getPost', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body:({
-                    id: 1
-                    //1 es un place holder, idealmente va a ser un id que obtengo desde el frontend
-                })
+            fetch(`http://localhost:3000/post/i`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {}
             })
             btns[i].classList.add('active');
             
