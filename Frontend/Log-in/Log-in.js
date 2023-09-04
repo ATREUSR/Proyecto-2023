@@ -23,7 +23,9 @@ iconClose.addEventListener('click', ()=>{
     wrapper.classList.remove('active-popup');
 })
 
-submitbtn.addEventListener('click', ()=>{
+submitbtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
     //testing
     console.log(emailInput.value);
     console.log(passwordInput.value);
