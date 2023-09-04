@@ -4,7 +4,7 @@
   "description": "r",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon dist/index.js",
+    "start": "nodemon index.ts",
     "build": "npx tsc",
     "buildstart": "npm run build && npm run start"
   },
