@@ -1,5 +1,6 @@
 var slides = document.querySelectorAll('.slide');
 var btns = document.querySelectorAll('.btn');
+var slideId = button.dataset.postId;
 let currentSlide = 0;
 
 var manualNav = function(manual){
@@ -46,15 +47,9 @@ var repeat = function(activeClass){
             }
 
             slides[i].classList.add('active');
-            fetch(`http://localhost:3000/post/i`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: {}
-            })
-            btns[i].classList.add('active');
-            
+            slides[1].addEventListener('click', ()=>{
+                const url = "http://localhost:3000/post/${post.id}";
+            });
             repeater(); 
         }, 5000);
     }
