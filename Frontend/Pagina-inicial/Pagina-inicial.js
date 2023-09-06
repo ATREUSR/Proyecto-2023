@@ -3,6 +3,24 @@ var btns = document.querySelectorAll('.btn');
 /*var slideId = button.dataset.postId;*/
 let currentSlide = 0;
 
+fetch('http://localhost:3000/user/${id}/home'),{
+    method : 'GET',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({
+      id: id
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+    })
+  }
+  .then(response => response.json())
+  .then(data => {
+  console.log(data.message);
+});
+
 var manualNav = function(manual){
     slides.forEach((slide) => {
         slide.classList.remove('active');
