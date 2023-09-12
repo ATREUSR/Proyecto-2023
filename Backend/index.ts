@@ -6,6 +6,14 @@ import cors from "cors";
 
 import cookieParser from "cookie-parser";
 
+import { v2 as cloudinaryV2 } from "cloudinary";
+
+cloudinaryV2.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
 const app = express();
 app.use(express.json());
 app.use(cors());

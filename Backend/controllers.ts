@@ -45,6 +45,7 @@ export async function getUser(req: Request, res: Response) {
   if (!user) {
     return res.status(404).json("User not found");
   }
+
   return res.status(200).json(user);
 }
 export async function getUserPosts(req: Request, res: Response) {
@@ -212,6 +213,8 @@ export async function logInUser(req: Request, res: Response) {
   if (!passwordsMatch) {
     return res.status(401).json("Contraseña incorrecta");
   }
+  res.cookie('cookieName', 'cookieValue', { maxAge: 900000, httpOnly: true });
+  res.send('Cookie is set');
   return res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
