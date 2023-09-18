@@ -44,7 +44,7 @@ model Post {
   defects      String
   price        Float
 
-  images  Image[]
+  Image  Image[]
   reviews Review[]
 
   user User? @relation(fields: [user_id], references: [id])

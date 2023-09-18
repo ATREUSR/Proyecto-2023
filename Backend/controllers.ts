@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
-import { PrismaClient, User, Review, Post, Prisma } from "@prisma/client";
+import { v2 as cloudinary } from "cloudinary";
+
+import { PrismaClient, User, Review, Post, Prisma, Image } from "@prisma/client";
 
 const bcrypt = require("bcrypt");
 
@@ -213,8 +215,8 @@ export async function logInUser(req: Request, res: Response) {
   if (!passwordsMatch) {
     return res.status(401).json("Contraseña incorrecta");
   }
-  res.cookie('cookieName', 'cookieValue', { maxAge: 900000, httpOnly: true });
-  res.send('Cookie is set');
+  res.cookie("cookieName", "cookieValue", { maxAge: 900000, httpOnly: true });
+  res.send("Cookie is set");
   return res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
@@ -226,7 +228,21 @@ export async function createPost(req: Request, res: Response) {
     description,
     defects,
     has_defects,
+    image_type,
+    file,
   } = req.body;
+
+  let url;
+
+  if (file){
+    try {
+      const result = await cloudinary.uploader.upload(file.path);
+      url = result.secure_url;
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Error uploading image" });
+    }
+  }
   const post = await prisma.post
     .create({
       data: {
@@ -237,6 +253,14 @@ export async function createPost(req: Request, res: Response) {
         description,
         defects,
         has_defects,
+        Image: {
+          create: [
+            {
+                url: url || '',
+              image_type,
+            },
+          ],
+        },
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
@@ -290,7 +314,19 @@ export async function updateUser(req: Request, res: Response) {
     return res.status(400).json({ message: "User not found" });
   }
 
-  const { name, surname, email, pfp_url } = req.body;
+  const { name, surname, email } = req.body;
+
+  let pfp_url = user.pfp_url;
+
+  if (req.file) {
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      pfp_url = result.secure_url;
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Error uploading image" });
+    }
+  }
 
   const data: any = {};
 
@@ -306,22 +342,12 @@ export async function updateUser(req: Request, res: Response) {
     data.email = email;
   }
 
-  if (pfp_url) {
-    data.pfp_url = pfp_url;
-  }
+  data.pfp_url = pfp_url;
 
   const updatedUser = await prisma.user.update({
     where: { id: parseInt(id) },
     data,
-    select: {
-      id: true,
-      name: true,
-      surname: true,
-      email: true,
-      pfp_url: true,
-    },
   });
-
   return res.status(200).json(updatedUser);
 }
 export async function deleteUser(req: Request, res: Response) {
