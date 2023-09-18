@@ -194,13 +194,27 @@ export async function createUser(req: Request, res: Response) {
   return res.status(201).json(user);
 }
 export async function logInUser(req: Request, res: Response) {
-  const { email } = req.body;
+  const { email, password } = req.body;
   const user = await prisma.user
     .findUnique({
       where: {
         email,
       },
     })
+    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      throw new Error(err.message);
+    });
+  if (!user) {
+    return res
+      .status(401)
+      .json("Ese Email no esta registrado en nuestra base de datos");
+  }
+  const passwordsMatch: boolean = await bcrypt.compare(password, user.password);
+  if (!passwordsMatch) {
+    return res.status(401).json("Contraseña incorrecta");
+  }
+  res.cookie('cookieName', 'cookieValue', { maxAge: 900000, httpOnly: true });
+  res.send('Cookie is set');
   return res.status(200).json(user);
 }
 export async function createPost(req: Request, res: Response) {
