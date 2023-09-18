@@ -31,7 +31,7 @@ export async function getUser(req: Request, res: Response) {
             description: true,
             defects: true,
             has_defects: true,
-            images: {
+            Image: {
               select: {
                 url: true,
               },
@@ -64,7 +64,7 @@ export async function getUserPosts(req: Request, res: Response) {
       description: true,
       defects: true,
       has_defects: true,
-      images: {
+      Image: {
         select: {
           url: true,
         },
@@ -473,7 +473,7 @@ export async function getPost(req: Request, res: Response) {
         description: true,
         defects: true,
         has_defects: true,
-        images: {
+        Image: {
           select: {
             url: true,
           },
