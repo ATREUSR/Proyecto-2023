@@ -1,11 +1,7 @@
 import express from "express";
-
 import router from "./router";
-
 import cors from "cors";
-
 import cookieParser from "cookie-parser";
-
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({

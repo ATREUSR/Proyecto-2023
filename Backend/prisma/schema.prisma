@@ -7,7 +7,6 @@ model User {
   dni      Int?     @unique
   name     String
   surname  String?
-  pfp_url  String?
   email    String   @unique
   password String
   comapny  Boolean  @default(false)
@@ -54,7 +53,7 @@ model Post {
 }
 
 model Image {
-  image_id   Int       @id @unique @default(autoincrement())
+  image_id   Int        @id @unique @default(autoincrement())
   image_type ImageType?
   url        String
 
@@ -72,6 +71,7 @@ model Image {
 }
 
 enum ImageType {
+  PFP
   GOOD
   TUMBNAIL
   PREVIEW

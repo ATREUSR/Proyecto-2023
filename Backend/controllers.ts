@@ -22,11 +22,17 @@ export async function getUser(req: Request, res: Response) {
     .findUnique({
       where: { id },
       select: {
+        Image: {
+          where: { image_id: id },
+          select: {
+            image_type: true,
+            url: true,
+          },
+        },
         id: true,
         name: true,
         surname: true,
         email: true,
-        pfp_url: true,
         address: true,
         comapny: true,
         phone: true,
@@ -136,7 +142,13 @@ export async function getHome(req: Request, res: Response) {
         id: true,
         name: true,
         surname: true,
-        pfp_url: true,
+        Image: {
+          where: { image_id: id },
+          select: {
+            url: true,
+            image_type: true,
+          },
+        },
       },
     });
     if (!user) {
@@ -191,7 +203,14 @@ export async function createUser(req: Request, res: Response) {
         name,
         surname,
         email,
-        pfp_url,
+        Image: {
+          create: [
+            {
+              url: pfp_url,
+              image_type: "PFP",
+            },
+          ],
+        },
         password: hashed_password,
         phone,
         address,
@@ -297,10 +316,10 @@ export async function createReview(req: Request, res: Response) {
   if (files) {
     try {
       for (const file of files) {
-      const result = await cloudinary.uploader.upload(file.path);
-      urls.push(result.secure_url);
-    }
-  } catch (error) {
+        const result = await cloudinary.uploader.upload(file.path);
+        urls.push(result.secure_url);
+      }
+    } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error uploading image" });
     }
@@ -353,14 +372,21 @@ export async function updateUser(req: Request, res: Response) {
     return res.status(400).json({ message: "User not found" });
   }
 
-  const { name, surname, email } = req.body;
+  const { name, surname, email, file } = req.body;
 
-  let pfp_url = user.pfp_url;
+  let pfp_url = file.url;
 
   if (req.file) {
     try {
       const result = await cloudinary.uploader.upload(req.file.path);
       pfp_url = result.secure_url;
+      const image = await prisma.image.create({
+        data: {
+          url: pfp_url,
+          image_type: "PFP",
+        },
+      });
+      console.log("Image created: ", image);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error uploading image" });
@@ -380,8 +406,7 @@ export async function updateUser(req: Request, res: Response) {
   if (email) {
     data.email = email;
   }
-
-  data.pfp_url = pfp_url;
+  
 
   const updatedUser = await prisma.user.update({
     where: { id: parseInt(id) },
