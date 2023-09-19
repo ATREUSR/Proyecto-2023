@@ -14,6 +14,8 @@ import {
 
 const bcrypt = require("bcrypt");
 
+import { v4 as uuidv4 } from "uuid";
+
 const prisma: PrismaClient = new PrismaClient();
 
 export async function getUser(req: Request, res: Response) {
@@ -242,9 +244,20 @@ export async function logInUser(req: Request, res: Response) {
   if (!passwordsMatch) {
     return res.status(401).json("Contraseña incorrecta");
   }
-  res.cookie("cookieName", "cookieValue", { maxAge: 900000, httpOnly: true });
-  res.send("Cookie is set");
-  return res.status(200).json(user);
+  const sessionId = uuidv4();
+  res.cookie('sessionId', sessionId, { httpOnly: true });
+
+  const pfp = await prisma.image.findUnique({
+    where: { image_id: user.id, image_type: "PFP" },
+  });
+
+  return res.status(200).json({
+    id: user.id,
+    name: user.name,
+    surname: user.surname,
+    email: user.email,
+    pfp_url: pfp?.url,
+  });
 }
 export async function createPost(req: Request, res: Response) {
   const {
