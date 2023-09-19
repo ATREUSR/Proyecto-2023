@@ -2,7 +2,15 @@ import { Request, Response } from "express";
 
 import { v2 as cloudinary } from "cloudinary";
 
-import { PrismaClient, User, Review, Post, Prisma, Image } from "@prisma/client";
+import {
+  PrismaClient,
+  User,
+  Review,
+  Post,
+  Prisma,
+  Image,
+  ImageType,
+} from "@prisma/client";
 
 const bcrypt = require("bcrypt");
 
@@ -105,7 +113,7 @@ export async function getPostReview(req: Request, res: Response) {
         review_body: true,
         publish_date: true,
         post_id: true,
-        images: { select: { url: true } },
+        Image: { select: { url: true } },
       },
     })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
@@ -234,7 +242,7 @@ export async function createPost(req: Request, res: Response) {
 
   let url;
 
-  if (file){
+  if (file) {
     try {
       const result = await cloudinary.uploader.upload(file.path);
       url = result.secure_url;
@@ -256,7 +264,7 @@ export async function createPost(req: Request, res: Response) {
         Image: {
           create: [
             {
-                url: url || '',
+              url: url || "",
               image_type,
             },
           ],
@@ -269,7 +277,14 @@ export async function createPost(req: Request, res: Response) {
   return res.status(201).json(post);
 }
 export async function createReview(req: Request, res: Response) {
-  const { user_id, review_score, review_body, publish_date } = req.body;
+  const {
+    user_id,
+    review_score,
+    review_body,
+    publish_date,
+    files,
+    image_types,
+  } = req.body;
 
   const post_id = parseInt(req.params.id);
 
@@ -277,11 +292,32 @@ export async function createReview(req: Request, res: Response) {
     where: { id: post_id },
   });
 
+  let urls: string[] = [];
+
+  if (files) {
+    try {
+      for (const file of files) {
+      const result = await cloudinary.uploader.upload(file.path);
+      urls.push(result.secure_url);
+    }
+  } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Error uploading image" });
+    }
+  }
+
   if (!post) {
     return res
       .status(404)
       .json({ error: "No existe un post con el id: " + post_id });
   }
+
+  const images = image_types.map((type: ImageType, index: number) => {
+    return {
+      url: urls[index] || "",
+      image_type: type,
+    };
+  });
 
   const review = await prisma.review.create({
     data: {
@@ -297,6 +333,9 @@ export async function createReview(req: Request, res: Response) {
         connect: {
           id: post_id,
         },
+      },
+      Image: {
+        create: images,
       },
     },
   });

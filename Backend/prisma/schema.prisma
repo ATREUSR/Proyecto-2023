@@ -11,10 +11,11 @@ model User {
   email    String   @unique
   password String
   comapny  Boolean  @default(false)
-  phone    String?
-  address  String?
+  phone    String?  @default("0000000000")
+  address  String?  @default("No address")
   reviews  Review[]
   posts    Post[]
+  Image    Image[]
 }
 
 model Review {
@@ -25,7 +26,7 @@ model Review {
   publish_date DateTime @default(now())
   post_id      Int
 
-  images Image[]
+  Image Image[]
 
   user User  @relation(fields: [user_id], references: [id])
   post Post? @relation(fields: [post_id], references: [id])
@@ -44,7 +45,7 @@ model Post {
   defects      String
   price        Float
 
-  Image  Image[]
+  Image   Image[]
   reviews Review[]
 
   user User? @relation(fields: [user_id], references: [id])
@@ -53,21 +54,29 @@ model Post {
 }
 
 model Image {
-  post_id    Int       @id
-  image_type ImageType
+  image_id   Int       @id @unique @default(autoincrement())
+  image_type ImageType?
   url        String
 
-  post      Post    @relation(fields: [post_id], references: [id])
-  review    Review? @relation(fields: [review_id], references: [id])
+  post_id   Int?
   review_id Int?
+  user_id   Int?
 
+  post   Post?   @relation(fields: [post_id], references: [id])
+  review Review? @relation(fields: [review_id], references: [id])
+  user   User?   @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
   @@index([review_id])
   @@index([post_id])
 }
 
 enum ImageType {
   GOOD
+  TUMBNAIL
+  PREVIEW
   BAD
+  REVIEW
 }
 
 datasource db {

@@ -6,13 +6,26 @@ import cors from "cors";
 
 import cookieParser from "cookie-parser";
 
-import { v2 as cloudinaryV2 } from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 
-cloudinaryV2.config({
+cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
+  secure: true,
+  rejectUnauthorized: false,
 });
+
+async function testCloudinaryConnection() {
+  try {
+    const result = await cloudinary.api.ping();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+testCloudinaryConnection();
 
 const app = express();
 app.use(express.json());
