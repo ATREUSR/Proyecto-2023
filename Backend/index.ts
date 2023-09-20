@@ -22,7 +22,6 @@ async function testCloudinaryConnection() {
 }
 
 testCloudinaryConnection();
-console.log();
 
 const app = express();
 app.use(express.json());

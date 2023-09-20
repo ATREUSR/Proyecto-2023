@@ -308,239 +308,194 @@ export async function createPost(req: Request, res: Response) {
     });
   return res.status(201).json(post);
 }
+
 export async function createReview(req: Request, res: Response) {
-  const {
-    user_id,
-    review_score,
-    review_body,
-    publish_date,
-    files,
-    image_types,
-  } = req.body;
+  const { user_id, review_score, review_body, publish_date, files, image_types } = req.body;
 
   const post_id = parseInt(req.params.id);
 
-  const post = await prisma.post.findUnique({
-    where: { id: post_id },
-  });
+  const post = await prisma.post.findUnique({ where: { id: post_id } });
 
   let urls: string[] = [];
 
-  if (files) {
+  if (files)
     try {
       for (const file of files) {
         const result = await cloudinary.uploader.upload(file.path);
         urls.push(result.secure_url);
-      }
-    } catch (error) {
+      }} 
+    catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Error uploading image" });
+      return res.status(500).json({ message: "Error uploading image" }); 
     }
-  }
 
-  if (!post) {
-    return res
-      .status(404)
-      .json({ error: "No existe un post con el id: " + post_id });
-  }
+  if (!post) return res.status(404).json({ error: "No existe un post con el id: " + post_id });
 
-  const images = image_types.map((type: ImageType, index: number) => {
-    return {
-      url: urls[index] || "",
-      image_type: type,
-    };
-  });
+  const images = image_types.map(( type: ImageType, index: number ) => {
+    return { url: urls[index] || "" , image_type: type } } );
 
   const review = await prisma.review.create({
     data: {
-      user: {
-        connect: {
-          id: user_id,
-        },
-      },
+      user: { connect: { id: user_id } },
       review_score,
       review_body,
       publish_date,
-      post: {
-        connect: {
-          id: post_id,
-        },
-      },
+      post: { connect: { id: post_id } },
       Image: {
-        create: images,
-      },
-    },
-  });
+        create: images } } } );
 
   return res.status(201).json(review);
 }
+
 export async function updateUser(req: Request, res: Response) {
   const id = req.params.id;
 
   const user = await prisma.user.findUnique({
-    where: { id: parseInt(id) },
-  });
+    where: { id: parseInt(id) } } );
 
-  if (!user) {
-    return res.status(400).json({ message: "User not found" });
-  }
+  if (!user) return res.status(400).json({ message: "User not found" });
 
   const { name, surname, email, file } = req.body;
 
   let pfp_url = file.url;
 
-  if (req.file) {
+  if (req.file)
     try {
       const result = await cloudinary.uploader.upload(req.file.path);
       pfp_url = result.secure_url;
       const image = await prisma.image.create({
-        data: {
-          url: pfp_url,
-          image_type: "PFP",
-        },
-      });
+        data: { url: pfp_url, image_type: "PFP" } } );
+
       console.log("Image created: ", image);
-    } catch (error) {
+
+    } 
+    catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error uploading image" });
     }
-  }
 
   const data: any = {};
 
-  if (name) {
-    data.name = name;
-  }
+  if (name) data.name = name;
 
-  if (surname) {
-    data.surname = surname;
-  }
+  if (surname) data.surname = surname;
 
-  if (email) {
-    data.email = email;
-  }
+  if (email) data.email = email;
   
 
   const updatedUser = await prisma.user.update({
-    where: { id: parseInt(id) },
-    data,
-  });
+    where: { id: parseInt(id) }, data } );
+
   return res.status(200).json(updatedUser);
 }
+
 export async function deleteUser(req: Request, res: Response) {
   const { email, password } = req.body;
+
   const emailExists = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (!emailExists) {
-    return res.status(400).json("El Email no existe en la base de datos");
-  }
-  const passwword_comapre = await bcrypt.compare(
-    password,
-    emailExists.password
-  );
-  if (!passwword_comapre) {
-    return res.status(400).json("Contraseña incorrecta");
-  }
+    where: { email } } );
+
+  if (!emailExists) return res.status(400).json("El Email no existe en la base de datos");
+
+  const passwword_comapre = await bcrypt.compare( password, emailExists.password );
+
+  if (!passwword_comapre) return res.status(400).json("Contraseña incorrecta");
+
   const userr = await prisma.user.findUnique({
     where: { email },
-    select: { id: true },
-  });
+    select: { id: true } } );
+
   const id = userr?.id;
-  const user = await prisma.user
-    .delete({
+  const user = await prisma.user.delete({
       where: { id },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+      }).catch((err: Prisma.PrismaClientKnownRequestError) => {
       throw res.status(400).json(err.message);
     });
+
   return res.status(200).json("El usuario ah sido eliminado correctamente");
 }
+
 export async function deletePost(req: Request, res: Response) {
   const { id } = req.params;
   const { email, password } = req.body;
+
   const user = await prisma.user.findUnique({
     where: { email },
-    select: { email: true, password: true },
-  });
+    select: { email: true, password: true } } );
+
   if (
     !user ||
     email !== user.email ||
     !(await bcrypt.compare(password, user.password))
-  ) {
-    return res.status(400).json("Credenciales invalidas");
-  }
+  ) return res.status(400).json("Credenciales invalidas");
+
   const postId = parseInt(id);
-  if (isNaN(postId)) {
-    return res.status(400).json("El id de la publicacion no es valido");
-  }
+
+  if (isNaN(postId)) return res.status(400).json("El id de la publicacion no es valido");
+
   const postExist = await prisma.post.findUnique({
-    where: { id: postId },
-  });
-  if (!postExist) {
-    return res.status(404).json("La publicacion no existe");
-  }
+    where: { id: postId } } );
+
+  if (!postExist) return res.status(404).json("La publicacion no existe");
+
   await prisma.post.delete({
     where: { id: postId },
   });
   return res.status(200).json("La publicacion ah sido eliminada correctamente");
 }
+
 export async function updatePassword(req: Request, res: Response) {
   const { email, password, new_password } = req.body;
+
   const user = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (!user) {
-    return res.status(400).json("El Email no existe en la base de datos");
-  }
+    where: { email } } );
+    
+  if (!user) return res.status(400).json("El Email no existe en la base de datos");
+  
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) {
-    return res.status(400).json("Contraseña incorrecta");
-  }
+
+  if (!passwordMatch) return res.status(400).json("Contraseña incorrecta");
+
   const hashed_password = await bcrypt.hash(new_password, 10);
 
   await prisma.user.update({
     where: { email },
-    data: {
-      password: hashed_password,
-    },
-  });
+    data: { password: hashed_password } } );
 
   return res.status(200).json("Contraseña actualizada correctamente");
 }
+
 export async function deleteReview(req: Request, res: Response) {
   const { id } = req.params;
   const { email, password } = req.body;
+
   const user = await prisma.user.findUnique({
     where: { email },
     select: { email: true, password: true },
   });
-  if (
-    !user ||
-    email !== user.email ||
-    !(await bcrypt.compare(password, user.password))
-  ) {
+
+  if ( !user ||
+     email !== user.email || 
+    !(await bcrypt.compare( password, user.password)  ) ) 
     return res.status(400).json("Credenciales invalidas");
-  }
+
   const reviewId = parseInt(id);
-  if (isNaN(reviewId)) {
-    return res.status(400).json("El id de la publicacion no es valido");
-  }
+  if (isNaN(reviewId)) return res.status(400).json("El id de la publicacion no es valido");
+
   const reviewExist = await prisma.review.findUnique({
-    where: { id: reviewId },
-  });
-  if (!reviewExist) {
-    return res.status(404).json("La publicacion no existe");
-  }
+    where: { id: reviewId } } );
+
+  if (!reviewExist) return res.status(404).json("La publicacion no existe");
+
   await prisma.review.delete({
-    where: { id: reviewId },
-  });
+    where: { id: reviewId } } );
+
   return res.status(200).json("La publicacion ah sido eliminada correctamente");
 }
+
 export async function getPost(req: Request, res: Response) {
   const id = parseInt(req.params.id);
-  const post = await prisma.post
-    .findUnique({
+  const post = await prisma.post.findUnique({
       where: { id },
       select: {
         id: true,
@@ -552,17 +507,12 @@ export async function getPost(req: Request, res: Response) {
         has_defects: true,
         Image: {
           select: {
-            url: true,
-          },
-        },
-      },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+            url: true } } },
+    }).catch((err: Prisma.PrismaClientKnownRequestError) => {
       throw res.status(400).json(err.message);
     });
 
-  if (!post) {
-    return res.status(404).json("Post not found");
-  }
+  if (!post) return res.status(404).json("Post not found");
+
   return res.status(200).json(post);
 }
