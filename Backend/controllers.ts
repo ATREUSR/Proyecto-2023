@@ -66,6 +66,7 @@ export async function getUser(req: Request, res: Response) {
 
   return res.status(200).json(user);
 }
+
 export async function getUserPosts(req: Request, res: Response) {
   const id = parseInt(req.params.id);
   const posts = await prisma.post.findMany({
@@ -90,6 +91,7 @@ export async function getUserPosts(req: Request, res: Response) {
 
   return res.json(posts);
 }
+
 export async function getUserReviews(req: Request, res: Response) {
   const id = parseInt(req.params.id);
   const review = await prisma.review
@@ -109,6 +111,7 @@ export async function getUserReviews(req: Request, res: Response) {
     });
   return res.status(200).json(review);
 }
+
 export async function getPostReview(req: Request, res: Response) {
   const id = parseInt(req.params.id);
   const review = await prisma.review
@@ -129,6 +132,7 @@ export async function getPostReview(req: Request, res: Response) {
     });
   return res.status(200).json(review);
 }
+
 export async function getHome(req: Request, res: Response) {
   const id = parseInt(req.params.id!);
   const user_exist = await prisma.user.findUnique({
@@ -161,6 +165,7 @@ export async function getHome(req: Request, res: Response) {
     return res.status(400).json(err.message);
   }
 }
+
 export async function getPostsBySearch(req: Request, res: Response) {
   const { q } = req.query;
 
@@ -175,6 +180,7 @@ export async function getPostsBySearch(req: Request, res: Response) {
 
   return res.status(200).json(posts);
 }
+
 export async function createUser(req: Request, res: Response) {
   const {
     dni,
@@ -210,9 +216,7 @@ export async function createUser(req: Request, res: Response) {
             {
               url: pfp_url,
               image_type: "PFP",
-            },
-          ],
-        },
+            } ] },
         password: hashed_password,
         phone,
         address,
@@ -224,6 +228,7 @@ export async function createUser(req: Request, res: Response) {
     });
   return res.status(201).json(user);
 }
+
 export async function logInUser(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = await prisma.user
@@ -259,6 +264,7 @@ export async function logInUser(req: Request, res: Response) {
     pfp_url: pfp?.url,
   });
 }
+
 export async function createPost(req: Request, res: Response) {
   const {
     title,
