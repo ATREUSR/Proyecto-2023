@@ -21,3 +21,24 @@ if version:
     print(version)
 else:
     print('Not connected.')
+
+result = [[entry[2], entry[3], entry[7], entry[8]] for entry in version]
+
+print(result)
+
+import csv
+
+csv_file_path = 'user.csv'
+
+# Write the extracted information to a CSV file
+with open(csv_file_path, mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['nombre', 'apellido', 'numero de telefono', 'direccion'])  # Write header
+    writer.writerows(result)
+
+# The data is now saved in 'output.csv' without displaying it
+print(f"CSV file '{csv_file_path}' has been created.")
+
+import pandas as pd
+user = pd.read_csv("user.csv")
+print(user)
