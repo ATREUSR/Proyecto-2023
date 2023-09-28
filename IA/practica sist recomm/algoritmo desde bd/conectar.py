@@ -24,7 +24,7 @@ else:
 
 result = [[entry[2], entry[3], entry[7], entry[8]] for entry in version]
 
-print(result)
+#print(result)
 
 import csv
 
@@ -36,9 +36,16 @@ with open(csv_file_path, mode='w', newline='') as file:
     writer.writerow(['nombre', 'apellido', 'numero de telefono', 'direccion'])  # Write header
     writer.writerows(result)
 
-# The data is now saved in 'output.csv' without displaying it
-print(f"CSV file '{csv_file_path}' has been created.")
-
 import pandas as pd
 user = pd.read_csv("user.csv")
 print(user)
+
+print(user.shape)
+
+import ast
+def convert(obj): 
+    L = []           
+    for i in ast.literal_eval(obj): 
+        L.append(i['name']) 
+    return L
+user.info()
