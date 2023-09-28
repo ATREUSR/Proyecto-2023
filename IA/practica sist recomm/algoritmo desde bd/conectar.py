@@ -39,13 +39,4 @@ with open(csv_file_path, mode='w', newline='') as file:
 import pandas as pd
 user = pd.read_csv("user.csv")
 print(user)
-
 print(user.shape)
-
-import ast
-def convert(obj): 
-    L = []           
-    for i in ast.literal_eval(obj): 
-        L.append(i['name']) 
-    return L
-user.info()
