@@ -3,7 +3,7 @@ var btns = document.querySelectorAll('.btn');
 /*var slideId = button.dataset.postId;*/
 let currentSlide = 0;
 
-fetch('http://localhost:3000/user/${id}/home'),{
+/*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
     headers : {
       'Content-Type' : 'application/json'
@@ -20,6 +20,7 @@ fetch('http://localhost:3000/user/${id}/home'),{
   .then(data => {
   console.log(data.message);
 });
+*/
 
 var manualNav = function(manual){
     slides.forEach((slide) => {

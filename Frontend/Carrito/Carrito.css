@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #B1F49D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.img-container {
+    width: 200px;
+    height: 50px;
+}
+
+.logo-img {
+    width: 100%;
+    position: relative;
+    bottom: 30px;
+}
+
+.search-bar {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    padding: 5px;
+    color: #fff;
+}
+
+.search-bar button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.user-icons ion-icon {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-icons :hover{
+    color: #199ebf;
+}
+
+
+
+.seccion-carrito{
+    position: relative;
+    border: 1px solid black;
+    width: 80%;
+    height: 90%;
+    top: 100px;
+}
+
+.items-carrito{
+    background-color: #E7E7E7;
+    width: 80%;
+    margin: 20px;
+}
+
+.imagen-carrito img{
+    width: 18%;
+    height: 18%;
+}
+
+.imagen-con-descripcion{
+    float: left;
+} 
