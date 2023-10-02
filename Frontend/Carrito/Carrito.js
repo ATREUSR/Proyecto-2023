@@ -1,7 +1,8 @@
+// get all the buttons
 var deleteButtons = document.querySelectorAll('.delete');
 var buyButtons = document.querySelectorAll('.buy');
-var decreaseButtons = document.querySelectorAll('.quantity button:first-of-type');
-var increaseButtons = document.querySelectorAll('.quantity button:last-of-type');
+var decreaseButtons = document.querySelectorAll('.buttons button:first-of-type');
+var increaseButtons = document.querySelectorAll('.buttons button:last-of-type');
 
 // add event listeners to the buttons
 for (var i = 0; i < deleteButtons.length; i++) {
@@ -36,23 +37,23 @@ function buyItem(event) {
 function decreaseQuantity(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
-    var quantity = item.querySelector('.quantity input');
-    var value = parseInt(quantity.value, 10);
+    var quantity = item.querySelector('.quantity');
+    var value = parseInt(quantity.innerText, 10);
 
     value--;
     if (value < 1) {
         value = 1;
     }
-    quantity.value = value;
+    quantity.innerText = value;
 }
 
 // function to increase the quantity
 function increaseQuantity(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
-    var quantity = item.querySelector('.quantity input');
-    var value = parseInt(quantity.value, 10);
+    var quantity = item.querySelector('.quantity');
+    var value = parseInt(quantity.innerText, 10);
 
     value++;
-    quantity.value = value;
+    quantity.innerText = value;
 }
