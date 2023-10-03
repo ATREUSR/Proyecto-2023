@@ -28,6 +28,7 @@ btnPopup.addEventListener('click', () => {
 iconClose.addEventListener('click', () => {
   wrapper.classList.remove('active-popup');
 })
+
 register.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();

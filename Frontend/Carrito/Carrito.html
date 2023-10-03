@@ -36,7 +36,45 @@
                         <span class="quantity">1</span>
                         <button>+</button>
                     </div>
-                    <div class="price">$3000</div>
+                    <div class="price" data-unitPrice="3000"><span data-unitPrice="3000"></span></div>
+                </div>
+                <div class="actions">
+                    <button class="buy">Comprar</button>
+                    <button class="delete">Eliminar</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="Imagenes-Carritos/iphone.jpg" alt="">
+                </div>
+                <div class="details">
+                    <h3>iphone</h3>
+                    <p>Iphone con pixeles muertos</p>
+                    <div class="buttons">
+                        <button>-</button>
+                        <span class="quantity">1</span>
+                        <button>+</button>
+                    </div>
+                    <div class="price" data-unitPrice="4000"><span data-unitPrice="4000"></span></div>
+                </div>
+                <div class="actions">
+                    <button class="buy">Comprar</button>
+                    <button class="delete">Eliminar</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="Imagenes-Carritos/g203.jpg" alt="">
+                </div>
+                <div class="details">
+                    <h3>Logitech g203</h3>
+                    <p>G203 con input lag</p>
+                    <div class="buttons">
+                        <button>-</button>
+                        <span class="quantity">1</span>
+                        <button>+</button>
+                    </div>
+                    <div class="price" data-unitPrice="1500"><span data-unitPrice="1500"></span></div>
                 </div>
                 <div class="actions">
                     <button class="buy">Comprar</button>
@@ -46,19 +84,28 @@
             <!-- more items -->
         </div>
         <div class="receipt">
-            <h2>Resumen de compra</h2>
+            <div class="receipt-text">
+                <h2>Resumen de compra</h2>
+            </div>
+            <details>
+                <summary>Detalles de la compra</summary>
+                <div class="cart-details" id="cart-details">
+                    <!-- Aquí se mostrarán los elementos individuales seleccionados -->
+                </div>
+            </details>
             <div class="summary">
                 <div class="total-items">
                     <span class="label">Total de productos:</span>
-                    <span class="value">2</span>
+                    <span class="value" id="total-items">0</span>
                 </div>
                 <div class="total-price">
                     <span class="label">Total:</span>
-                    <span class="value">$6000</span>
+                    <span class="value" id="total-price">$0.00</span>
                 </div>
             </div>
             <button class="buy">Comprar</button>
         </div>
+        
     </div>
 
 

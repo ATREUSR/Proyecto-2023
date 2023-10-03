@@ -1,8 +1,11 @@
 // get all the buttons
-var deleteButtons = document.querySelectorAll('.delete');
-var buyButtons = document.querySelectorAll('.buy');
-var decreaseButtons = document.querySelectorAll('.buttons button:first-of-type');
-var increaseButtons = document.querySelectorAll('.buttons button:last-of-type');
+const deleteButtons = document.querySelectorAll('.delete');
+const buyButtons = document.querySelectorAll('.buy');
+const decreaseButtons = document.querySelectorAll('.buttons button:first-of-type');
+const increaseButtons = document.querySelectorAll('.buttons button:last-of-type');
+const priceElements = document.querySelectorAll('.price[data-unitPrice]'); // Seleccionar todos los elementos de precio con data-unitPrice
+const priceElementsArray = Array.from(document.querySelectorAll('.price[data-unitPrice]'));
+const unitPrices = priceElements.map((priceElement) => parseFloat(priceElement.getAttribute('data-unitPrice')));
 
 // add event listeners to the buttons
 for (var i = 0; i < deleteButtons.length; i++) {
@@ -45,6 +48,13 @@ function decreaseQuantity(event) {
         value = 1;
     }
     quantity.innerText = value;
+
+    // Get the price unit from data-unitPrice attribute
+    var unitPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
+
+    // Calculate and update the total price
+    var totalPrice = unitPrice * value;
+    item.querySelector('.price').innerText = '$' + totalPrice.toFixed(0);
 }
 
 // function to increase the quantity
@@ -56,4 +66,27 @@ function increaseQuantity(event) {
 
     value++;
     quantity.innerText = value;
+
+    // Get the price unit from data-unitPrice attribute
+    var unitPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
+
+    // Calculate and update the total price
+    var totalPrice = unitPrice * value;
+    item.querySelector('.price').innerText = '$' + totalPrice.toFixed(0);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtén todos los elementos de precio
+    var priceElements = document.querySelectorAll('.price');
+
+    // Recorre cada elemento de precio
+    priceElements.forEach(function (priceElement) {
+        // Obtén el precio unitario del atributo data-unitPrice
+        var unitPrice = parseFloat(priceElement.querySelector('span').getAttribute('data-unitPrice'));
+
+        // Establece el contenido del div de precio en el formato deseado (por ejemplo, $3000)
+        priceElement.querySelector('span').innerText = '$' + unitPrice.toFixed(0);
+    });
+});
+
+
