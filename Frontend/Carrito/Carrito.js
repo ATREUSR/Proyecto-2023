@@ -4,8 +4,6 @@ const buyButtons = document.querySelectorAll('.buy');
 const decreaseButtons = document.querySelectorAll('.buttons button:first-of-type');
 const increaseButtons = document.querySelectorAll('.buttons button:last-of-type');
 const priceElements = document.querySelectorAll('.price[data-unitPrice]'); // Seleccionar todos los elementos de precio con data-unitPrice
-const priceElementsArray = Array.from(document.querySelectorAll('.price[data-unitPrice]'));
-const unitPrices = priceElements.map((priceElement) => parseFloat(priceElement.getAttribute('data-unitPrice')));
 
 // add event listeners to the buttons
 for (var i = 0; i < deleteButtons.length; i++) {
