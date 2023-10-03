@@ -22,7 +22,7 @@ if version:
 else:
     print('Not connected.')
 
-result = [[entry[2], entry[3], entry[7], entry[8]] for entry in version]
+result = [[entry[2], entry[3], entry[7], entry[1], entry[8]] for entry in version]
 
 #print(result)
 
@@ -33,7 +33,7 @@ csv_file_path = 'user.csv'
 # Write the extracted information to a CSV file
 with open(csv_file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['nombre', 'apellido', 'numero de telefono', 'direccion'])  # Write header
+    writer.writerow(['nombre', 'apellido', 'numero de telefono', 'DNI', 'direccion'])  # Write header
     writer.writerows(result)
 
 import pandas as pd
