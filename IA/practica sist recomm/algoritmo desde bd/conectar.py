@@ -13,7 +13,7 @@ conn = sql.connect(host = db_host,
                    password = db_passwd,
                    db = db_name)
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM User")
+cursor.execute("SELECT user_id,title,defects,description,price FROM Post")
 version = cursor.fetchall()
 
 
@@ -22,46 +22,46 @@ if version:
 else:
     print('Not connected.')
 
-result = [[entry[2], entry[3], entry[7], entry[1], entry[8]] for entry in version]
+# result = [[entry[2], entry[3], entry[7], entry[1], entry[8]] for entry in version]
 
-#print(result)
+# #print(result)
 
-import csv
+# import csv
 
-csv_file_path = 'user.csv'
+# csv_file_path = 'user.csv'
 
-# Write the extracted information to a CSV file
-with open(csv_file_path, mode='w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(['nombre', 'apellido', 'numero de telefono', 'DNI', 'direccion'])  # Write header
-    writer.writerows(result)
+# # Write the extracted information to a CSV file
+# with open(csv_file_path, mode='w', newline='') as file:
+#     writer = csv.writer(file)
+#     writer.writerow(['nombre', 'apellido', 'numero de telefono', 'DNI', 'direccion'])  # Write header
+#     writer.writerows(result)
 
-import pandas as pd
-user = pd.read_csv("user.csv")
-print(user)
-print(user.shape)
+# import pandas as pd
+# user = pd.read_csv("user.csv")
+# print(user)
+# print(user.shape)
 
-cursor.execute("SELECT * FROM Review")
-version2 = cursor.fetchall()
-if version2:
-    print(version2)
-else:
-    print('Not connected.')
+# cursor.execute("SELECT * FROM Review")
+# version2 = cursor.fetchall()
+# if version2:
+#     print(version2)
+# else:
+#     print('Not connected.')
 
-result2 = [[entry[0], entry[1], entry[2], entry[3], entry[4]] for entry in version2]
+# result2 = [[entry[0], entry[1], entry[2], entry[3], entry[4]] for entry in version2]
 
-csv_file_path = 'Review.csv'
+# csv_file_path = 'Review.csv'
 
-# Write the extracted information to a CSV file
-with open(csv_file_path, mode='w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(['0', '1', '2', '3', '4'])  # Write header
-    writer.writerows(result2)
+# # Write the extracted information to a CSV file
+# with open(csv_file_path, mode='w', newline='') as file:
+#     writer = csv.writer(file)
+#     writer.writerow(['0', '1', '2', '3', '4'])  # Write header
+#     writer.writerows(result2)
 
-Review = pd.read_csv("Review.csv")
-print(Review)
+# Review = pd.read_csv("Review.csv")
+# print(Review)
 
-descripcion_columna = Review['4']
+# descripcion_columna = Review['4']
 
-# Imprimir los primeros 5 valores de la columna 'descripcion'
-print(descripcion_columna.head())
+# # Imprimir los primeros 5 valores de la columna 'descripcion'
+# print(descripcion_columna.head())
