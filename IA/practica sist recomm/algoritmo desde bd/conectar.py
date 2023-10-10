@@ -22,23 +22,23 @@ if version:
 else:
     print('Not connected.')
 
-# result = [[entry[2], entry[3], entry[7], entry[1], entry[8]] for entry in version]
+#result = [[entry[1], entry[2], entry[3], entry[4], entry[6], entry[5], entry[7]] for entry in version]
 
-# #print(result)
+#print(result)
 
-# import csv
+import csv
 
-# csv_file_path = 'user.csv'
+csv_file_path = 'post.csv'
 
-# # Write the extracted information to a CSV file
-# with open(csv_file_path, mode='w', newline='') as file:
-#     writer = csv.writer(file)
-#     writer.writerow(['nombre', 'apellido', 'numero de telefono', 'DNI', 'direccion'])  # Write header
-#     writer.writerows(result)
+# Write the extracted information to a CSV file
+with open(csv_file_path, mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['publish date', 'id', 'title', 'defectos?', 'defectos', 'descripcion', 'price'])  # Write header
+    writer.writerows(version)
 
-# import pandas as pd
-# user = pd.read_csv("user.csv")
-# print(user)
+import pandas as pd
+post = pd.read_csv("post.csv")
+print(post)
 # print(user.shape)
 
 # cursor.execute("SELECT * FROM Review")
