@@ -40,3 +40,28 @@ import pandas as pd
 user = pd.read_csv("user.csv")
 print(user)
 print(user.shape)
+
+cursor.execute("SELECT * FROM Post")
+version2 = cursor.fetchall()
+if version2:
+    print(version2)
+else:
+    print('Not connected.')
+
+result2 = [[entry[1], entry[2], entry[4], entry[5], entry[6]] for entry in version2]
+
+csv_file_path = 'post.csv'
+
+# Write the extracted information to a CSV file
+with open(csv_file_path, mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['id', 'titulo', 'descripcion', 'defectos', 'precio'])  # Write header
+    writer.writerows(result2)
+
+post = pd.read_csv("post.csv")
+print(post)
+
+descripcion_columna = post['precio']
+
+# Imprimir los primeros 5 valores de la columna 'descripcion'
+print(descripcion_columna.head())
