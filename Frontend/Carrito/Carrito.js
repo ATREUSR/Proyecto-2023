@@ -108,6 +108,46 @@ function buyItem(event) {
     alert('Gracias por su compra!');
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtén todos los elementos de precio
+    var priceElements = document.querySelectorAll('.price');
+    var cartItems = JSON.parse(localStorage.getItem('cart')) || {};
+
+    // Recorre cada elemento de precio y agrega 1 de cada artículo al resumen de compra
+    priceElements.forEach(function (priceElement) {
+        var unitPrice = parseFloat(priceElement.getAttribute('data-unitPrice'));
+        priceElement.querySelector('span').innerText = '$' + unitPrice.toFixed(0);
+
+        // Agrega 1 de cada artículo al resumen de compra
+        var itemName = priceElement.parentElement.parentElement.querySelector('h3').textContent;
+        addItemToSummary(itemName, 1, unitPrice);
+    });
+
+    // Agrega elementos del carrito al resumen de compra y actualiza los totales
+    for (var itemName in cartItems) {
+        addItemToSummary(itemName, cartItems[itemName].quantity, cartItems[itemName].price);
+    }
+
+    updateTotal();
+
+    // Agrega event listeners para cambios de cantidad
+    addQuantityChangeListeners();
+});
+
+function addDefaultQuantities(cartItems) {
+    for (var itemName in cartItems) {
+        var item = document.querySelector(`h3:contains("${itemName}")`).parentNode.parentNode;
+        var quantityElement = item.querySelector('.quantity');
+        var currentQuantity = parseInt(quantityElement.textContent, 10);
+
+        if (!isNaN(currentQuantity)) {
+            currentQuantity += cartItems[itemName].quantity;
+            quantityElement.textContent = currentQuantity;
+            addItemToSummary(itemName, cartItems[itemName].quantity, cartItems[itemName].price);
+        }
+    }
+}
+
 function updateQuantity(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
@@ -128,50 +168,36 @@ function updateQuantity(event) {
     // Calculate and update the total price
     var totalPrice = unitPrice * value;
     item.querySelector('.price').innerText = '$' + totalPrice.toFixed(0);
-    
-    // Actualiza el resumen de compra
-    updateCartDetails();
+
+    // Actualiza el resumen de compra inmediatamente después de cambiar la cantidad
+    addItemToSummary(item.querySelector('h3').textContent, value, unitPrice);
+
+    // Actualiza el almacenamiento local con el nuevo carrito
+    updateLocalStorage();
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Obtén todos los elementos de precio
-    var priceElements = document.querySelectorAll('.price');
-    var cartItems = JSON.parse(localStorage.getItem('cart')) || {};
-
-    // Recorre cada elemento de precio
-    priceElements.forEach(function (priceElement) {
-        // Obtén el precio unitario del atributo data-unitPrice
-        var unitPrice = parseFloat(priceElement.getAttribute('data-unitPrice'));
-        priceElement.querySelector('span').innerText = '$' + unitPrice.toFixed(0);
-    });
-
-    // Agrega elementos del carrito al resumen de compra y actualiza los totales
-    for (var itemName in cartItems) {
-        addItemToSummary(itemName, cartItems[itemName].quantity, cartItems[itemName].price);
-    }
-
-    updateTotal();
-});
 
 function addItemToSummary(name, quantity, unitPrice) {
     var cartDetails = document.getElementById('cart-details');
     var cartItems = cartDetails.children;
-    
+    var found = false;
+
     for (var i = 0; i < cartItems.length; i++) {
         if (cartItems[i].textContent.includes(name)) {
             var currentItem = cartItems[i];
             var currentQuantity = parseInt(currentItem.textContent.split('x')[1], 10);
-            currentQuantity += quantity;
+            currentQuantity = quantity; // Establece la cantidad en lugar de sumarla
             currentItem.textContent = 'x' + currentQuantity + ' ' + name;
-            return;
+            found = true;
+            break;
         }
     }
 
-    var cartItem = document.createElement('div');
-    cartItem.textContent = 'x' + quantity + ' ' + name;
-    cartDetails.appendChild(cartItem);
+    if (!found) {
+        var cartItem = document.createElement('div');
+        cartItem.textContent = 'x' + quantity + ' ' + name;
+        cartDetails.appendChild(cartItem);
+    }
 }
-
 function updateTotal() {
     var cartDetails = document.getElementById('cart-details');
     var cartItems = cartDetails.children;
