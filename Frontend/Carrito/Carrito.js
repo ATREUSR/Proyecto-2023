@@ -3,7 +3,7 @@ const deleteButtons = document.querySelectorAll('.delete');
 const buyButtons = document.querySelectorAll('.buy');
 const quantityButtons = document.querySelectorAll('.buttons button');
 const priceElements = document.querySelectorAll('.price[data-unitPrice]'); // Seleccionar todos los elementos de precio con data-unitPrice
-var cartItems = {};
+var cartItems = JSON.parse(localStorage.getItem('cart')) || {};
 
 // add event listeners to the buttons
 for (var i = 0; i < deleteButtons.length; i++) {
@@ -128,10 +128,15 @@ document.addEventListener('DOMContentLoaded', function () {
         addItemToSummary(itemName, cartItems[itemName].quantity, cartItems[itemName].price);
     }
 
+    quantityButtons.forEach(function (button) {
+        var quantity = button.parentElement.querySelector('.quantity');
+        quantity.setAttribute('data-quantity', quantity.innerText);
+    });
+
     updateTotal();
 
-    // Agrega event listeners para cambios de cantidad
-    addQuantityChangeListeners();
+    // Llama a la función correcta para agregar cantidades predeterminadas
+    addDefaultQuantities(cartItems);
 });
 
 function addDefaultQuantities(cartItems) {
@@ -160,7 +165,11 @@ function updateQuantity(event) {
         value = Math.max(value - 1, 1); // Asegúrate de no disminuir la cantidad por debajo de 1
     }
 
+    // Calculate the difference between the new quantity and the old quantity
+    var diff = value - parseInt(quantity.getAttribute('data-quantity'), 10);
+
     quantity.innerText = value;
+    quantity.setAttribute('data-quantity', value);
 
     // Get the price unit from data-unitPrice attribute
     var unitPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
@@ -169,10 +178,13 @@ function updateQuantity(event) {
     var totalPrice = unitPrice * value;
     item.querySelector('.price').innerText = '$' + totalPrice.toFixed(0);
 
-    // Actualiza el resumen de compra inmediatamente después de cambiar la cantidad
+    // Update the total items
+    updateTotalItems(diff);
+
+    // Update the cart details immediately after changing the quantity
     addItemToSummary(item.querySelector('h3').textContent, value, unitPrice);
 
-    // Actualiza el almacenamiento local con el nuevo carrito
+    // Update the local storage with the new cart
     updateLocalStorage();
 }
 
@@ -198,6 +210,7 @@ function addItemToSummary(name, quantity, unitPrice) {
         cartDetails.appendChild(cartItem);
     }
 }
+
 function updateTotal() {
     var cartDetails = document.getElementById('cart-details');
     var cartItems = cartDetails.children;
@@ -217,6 +230,18 @@ function updateTotal() {
     document.getElementById('total-price').textContent = '$' + totalPrice.toFixed(0);
 }
 
+function updateTotalItems(quantity) {
+    var totalItemsElement = document.getElementById('total-items');
+    var currentQuantity = parseInt(totalItemsElement.textContent, 10);
+
+    // Verifica si el contenido de totalItemsElement es NaN
+    if (isNaN(currentQuantity)) {
+        currentQuantity = 0;
+    }
+
+    currentQuantity += quantity;
+    totalItemsElement.textContent = currentQuantity;
+}
 
 function updateLocalStorage() {
     // Obtén el carrito actual del almacenamiento local (si existe)
