@@ -20,12 +20,24 @@ for (var i = 0; i < quantityButtons.length; i++) {
 
 function updateCartDetails() {
     var cartDetails = document.getElementById('cart-details');
-    cartDetails.innerHTML = ''; // Limpia la lista
+    var emptyCartMessage = document.getElementById('empty-cart-message');
+    var receipt = document.querySelector('.receipt'); // Selecciona el resumen de compra
+
+    // Limpia la lista
+    cartDetails.innerHTML = '';
+
+    if (Object.keys(cartItems).length === 0) {
+        emptyCartMessage.style.display = 'block'; // Muestra el mensaje
+        receipt.style.display = 'none'; // Oculta el resumen de compra
+    } else {
+        emptyCartMessage.style.display = 'none'; // Oculta el mensaje
+        receipt.style.display = 'block'; // Muestra el resumen de compra
+    }
 
     for (var itemName in cartItems) {
         var item = cartItems[itemName];
         var cartItem = document.createElement('div');
-        cartItem.textContent = `x${item.quantity} ${itemName}`;
+        cartItem.textContent = `x${item.quantity} ${itemName} - Precio: $${item.price.toFixed(0)}`;
         cartDetails.appendChild(cartItem);
     }
 }
@@ -68,7 +80,7 @@ function updateTotalPrice(price) {
     var totalPriceElement = document.getElementById('total-price');
     var currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));
     currentTotal += price;
-    totalPriceElement.textContent = '$' + currentTotal.toFixed(2);
+    totalPriceElement.textContent = '$' + currentTotal.toFixed(0);
 }
 
 function calculateTotalQuantity() {
@@ -87,14 +99,23 @@ function updateTotalItems(quantity) {
     totalItemsElement.textContent = currentQuantity;
 }
 
-
 // function to delete an item
 function deleteItem(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
-    item.remove();
+    var itemName = item.querySelector('h3').textContent;
+    var itemPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
 
-    updateCartDetails();
+    // Resta el precio del elemento que se va a eliminar del total
+    updateTotalPrice(-itemPrice);
+
+    delete cartItems[itemName]; // Elimina el elemento del carrito
+
+    item.remove(); // Elimina el elemento de la interfaz
+
+    updateCartDetails(); // Actualiza el resumen de compra
+
+    updateTotal(); // Actualiza el total
 
     localStorage.setItem('cart', JSON.stringify(cartItems));
 }
@@ -109,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var priceElements = document.querySelectorAll('.price');
     cartItems = JSON.parse(localStorage.getItem('cart')) || {};
 
-    // Recorre cada elemento de precio y agrega 1 de cada artículo al resumen de compra
+    // Agrega elementos del carrito al resumen de compra y actualiza los totales
     priceElements.forEach(function (priceElement) {
         var unitPrice = parseFloat(priceElement.getAttribute('data-unitPrice'));
         priceElement.querySelector('span').innerText = '$' + unitPrice.toFixed(0);
@@ -119,23 +140,18 @@ document.addEventListener('DOMContentLoaded', function () {
         addItemToSummary(itemName, 1, unitPrice);
     });
 
-    // Agrega elementos del carrito al resumen de compra y actualiza los totales
-    for (var itemName in cartItems) {
-        var item = cartItems[itemName];
-        addItemToSummary(itemName, item.quantity, item.price);
-    }
-
     quantityButtons.forEach(function (button) {
         var quantity = button.parentElement.querySelector('.quantity');
         quantity.setAttribute('data-quantity', quantity.innerText);
     });
 
-    updateCartDetails();
-
     updateTotal();
-
+    updateCartDetails(); // Llama a esta función para mostrar los precios en los detalles de compra
+    
     // Llama a la función correcta para agregar cantidades predeterminadas
     addDefaultQuantities(cartItems);
+
+    updateItemInCart(itemName, value, itemPrice);
 });
 
 function addDefaultQuantities(cartItems) {
@@ -247,7 +263,3 @@ function updateLocalStorage() {
     // Guarda el carrito actualizado en el almacenamiento local
     localStorage.setItem('cart', JSON.stringify(currentCart));
 }
-
-
-
-
