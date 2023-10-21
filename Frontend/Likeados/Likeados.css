@@ -15,17 +15,16 @@ header {
     padding: 20px 100px;
     background: green;
     display: flex;
-    justify-content: space-between;
+    /* Elimina esta propiedad para que el encabezado no esté centrado horizontalmente */
     align-items: center;
     z-index: 99;
 }
 
-body{
+body {
     height: 330vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #162938;
+    justify-content: flex-start; /* Cambia esto a flex-start para alinear a la izquierda */
+    background: #fff;
 }
 
 .img-container {
@@ -75,3 +74,83 @@ body{
 .user-icons :hover{
     color: #199ebf;
 }
+
+.liked-section {
+    margin-top: 80px; /* Ajusta el valor del margen según tu preferencia */
+}
+
+/* Alineación de los elementos a la izquierda */
+.liked-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.liked-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.liked-item {
+    width: calc(25% - 20px);
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.liked-item:hover {
+    cursor: pointer;
+}
+
+.liked-item img {
+    width: 100%; /* Haz que todas las imágenes tengan el mismo ancho */
+    height: auto;
+    transition: transform 0.2s;
+}
+
+.liked-item:hover img {
+    transform: scale(1.1);
+}
+
+.item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    text-align: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.liked-item:hover .item-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.like-button {
+    position: absolute;
+    font-size: 1.5em;
+    top: 10px;
+    right: 10px;
+    color: #00ff00;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.3s;
+    shape-rendering: auto;
+}
+
+.like-button:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+
