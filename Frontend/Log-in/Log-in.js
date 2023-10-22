@@ -10,7 +10,7 @@ const register = document.querySelectorAll('.btn')[1].querySelector('button');
 const nameInput = document.querySelectorAll('.input-box')[2].querySelector('input');
 const surnameInput = document.querySelectorAll('.input-box')[3].querySelector('input');
 const emailInput = document.querySelectorAll('.input-box')[4].querySelector('input'); 
-const passwordInput = document.querySelectorAll('.input-box')[5].querySelector('input');
+//const passwordInput = document.querySelectorAll('.input-box')[5].querySelector('input');
 
 
 registerLink.addEventListener('click', () => {
@@ -29,7 +29,7 @@ iconClose.addEventListener('click', () => {
   wrapper.classList.remove('active-popup');
 })
 
-register.addEventListener('click', (e) => {
+/*register.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
   fetch('http://localhost:3000/register', {
@@ -80,3 +80,4 @@ logIn.addEventListener('click', (e) => {
     .catch(error => {
       console.error(error)
 });
+*/
