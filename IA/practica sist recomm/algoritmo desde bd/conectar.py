@@ -33,7 +33,7 @@ csv_file_path = 'post.csv'
 # Write the extracted information to a CSV file
 with open(csv_file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['publish date', 'id', 'title', 'defectos?', 'defectos', 'descripcion', 'price'])  # Write header
+    writer.writerow(['id', 'title', 'defectos', 'description', 'Price'])  # Write header
     writer.writerows(version)
 
 import pandas as pd
