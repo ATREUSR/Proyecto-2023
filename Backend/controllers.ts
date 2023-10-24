@@ -522,3 +522,22 @@ export async function getPost(req: Request, res: Response) {
 
   return res.status(200).json(post);
 }
+
+export async function postLike(req: Request, res: Response) {
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  try {
+    const like = await prisma.liked.create({
+      data: {
+        user_id: userId,
+        post_id: parseInt(id)
+      }
+    });
+
+    return res.status(201).json(like);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Error al likear el producto"});  
+  }
+}

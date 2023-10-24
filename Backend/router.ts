@@ -14,10 +14,12 @@ router.get("/user/:id/home", controllers.getHome);
 router.patch("/user/:id/updateUser", controllers.updateUser);
 router.patch("/user/:id/updatePassword", controllers.updatePassword);
 router.get("/post/:id", controllers.getPost);
+router.post("/post/:id", controllers.postLike);
 router.get("/post/:id/reviews", controllers.getPostReview);
 router.post("/post/createPost", controllers.createPost);
 router.post("/post/:id/createReview", controllers.createReview);
 router.delete("/post/:id/deletePost", controllers.deletePost);
 router.delete("/post/:id/deleteReview", controllers.deleteReview);
+
 
 export default router;
