@@ -38,7 +38,24 @@ with open(csv_file_path, mode='w', newline='') as file:
 
 import pandas as pd
 post = pd.read_csv("post.csv")
+post = post.dropna()
 print(post)
+user = pd.read-csv("user.csv")
+user = user.dropna()
+print(user)
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Vectorización de descripciones de productos
+tfidf_vectorizer = TfidfVectorizer()
+producto_descripciones = tfidf_vectorizer.fit_transform(post['description'])
+
+from sklearn.preprocessing import LabelEncoder
+
+label_encoder = LabelEncoder()
+#user['UsuarioID'] = label_encoder.fit_transform(user['UsuarioID'])
+
+
+
 # print(user.shape)
 
 # cursor.execute("SELECT * FROM Review")
@@ -65,20 +82,4 @@ print(post)
 
 # # Imprimir los primeros 5 valores de la columna 'descripcion'
 # print(descripcion_columna.head())
-
-post = post.dropna()
-user = pd.read-csv("user.csv")
-user = user.dropna()
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-# Vectorización de descripciones de productos
-tfidf_vectorizer = TfidfVectorizer()
-producto_descripciones = tfidf_vectorizer.fit_transform(post['description'])
-
-from sklearn.preprocessing import LabelEncoder
-
-label_encoder = LabelEncoder()
-#user['UsuarioID'] = label_encoder.fit_transform(user['UsuarioID'])
-
 
