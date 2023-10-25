@@ -23,7 +23,7 @@ header{
     left: 0;
     width: 100%;
     padding: 20px 100px; 
-    background: green;
+    background: #B1F49D;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -267,6 +267,7 @@ header{
     text-align: center;
     font-weight: 500;
     margin: 25px 0 10px;
+    cursor: pointer;
 }
 
 .login-register p a{
