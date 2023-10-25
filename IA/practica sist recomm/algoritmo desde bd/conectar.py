@@ -65,3 +65,20 @@ print(post)
 
 # # Imprimir los primeros 5 valores de la columna 'descripcion'
 # print(descripcion_columna.head())
+
+post = post.dropna()
+user = pd.read-csv("user.csv")
+user = user.dropna()
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Vectorización de descripciones de productos
+tfidf_vectorizer = TfidfVectorizer()
+producto_descripciones = tfidf_vectorizer.fit_transform(post['description'])
+
+from sklearn.preprocessing import LabelEncoder
+
+label_encoder = LabelEncoder()
+#user['UsuarioID'] = label_encoder.fit_transform(user['UsuarioID'])
+
+
