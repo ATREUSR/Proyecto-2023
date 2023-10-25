@@ -212,6 +212,8 @@ body{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     overflow: hidden;
+    position: sticky;
+    top: 100px;
 }
 
 .receipt h2 {

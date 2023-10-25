@@ -84,27 +84,29 @@
             <!-- more items -->
         </div>
         <p id="empty-cart-message" style="display: none; text-align: center;">No tienes objetos en el carrito</p> <!-- Mensaje para carrito vacío -->
-        <div class="receipt" style="display: none;">
-            <div class="receipt-text">
-                <h2>Resumen de compra</h2>
+        <div class="receipt-container">
+            <div class="receipt" style="display: none;">
+                <div class="receipt-text">
+                    <h2>Resumen de compra</h2>
+                </div>
+                <details>
+                    <summary>Detalles de la compra</summary>
+                    <div class="cart-details" id="cart-details">
+                        <!-- Aquí se mostrarán los elementos individuales seleccionados -->
+                    </div>
+                </details>
+                <div class="summary">
+                    <div class="total-items">
+                        <span class="label">Total de productos:</span>
+                        <span class="value" id="total-items">0</span>
+                    </div>
+                    <div class="total-price">
+                        <span class="label">Total:</span>
+                        <span class="value" id="total-price">$0</span>
+                    </div>
+                </div>
+                <button class="buy">Comprar</button>
             </div>
-            <details>
-                <summary>Detalles de la compra</summary>
-                <div class="cart-details" id="cart-details">
-                    <!-- Aquí se mostrarán los elementos individuales seleccionados -->
-                </div>
-            </details>
-            <div class="summary">
-                <div class="total-items">
-                    <span class="label">Total de productos:</span>
-                    <span class="value" id="total-items">0</span>
-                </div>
-                <div class="total-price">
-                    <span class="label">Total:</span>
-                    <span class="value" id="total-price">$0</span>
-                </div>
-            </div>
-            <button class="buy">Comprar</button>
         </div>
         
     </div>
