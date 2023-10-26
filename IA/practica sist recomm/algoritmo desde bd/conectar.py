@@ -13,7 +13,7 @@ conn = sql.connect(host = db_host,
                    password = db_passwd,
                    db = db_name)
 cursor = conn.cursor()
-cursor.execute("SELECT Liked")
+cursor.execute("SELECT User")
 version = cursor.fetchall()
 
 
