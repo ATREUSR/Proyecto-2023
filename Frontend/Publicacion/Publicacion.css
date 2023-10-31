@@ -21,9 +21,11 @@ header {
 }
 
 body {
+    background-color: #f5f5f5; /* Cambia el color de fondo */
     display: flex;
-    justify-content: flex-start; /* Cambia esto a flex-start para alinear a la izquierda */
-    background: #fff;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px; /* Aumenta el espacio alrededor del contenido */
 }
 
 .img-container {
@@ -74,4 +76,101 @@ body {
     color: #199ebf;
 }
 
+
+.post {
+    max-width: none; /* Elimina el ancho máximo */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    background: #fff; /* Fondo blanco para el contenedor principal */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Agrega sombra al contenedor */
+    padding: 40px; /* Aumenta el espacio alrededor del contenido */
+    margin: 100px; /* Elimina el margen para ocupar toda la pantalla */
+}
+
+.post * {
+    font-size: 18px; /* Aumenta el tamaño de la fuente para todos los elementos */
+    line-height: 1.6; /* Ajusta el espaciado entre líneas */
+}
+
+
+.thumbnails {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    align-items: center; /* Alinea las miniaturas al centro */
+}
+
+.thumbnails img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.product {
+    display: flex;
+    flex: 1;
+    align-items: center; /* Alinea la imagen y los detalles al centro verticalmente */
+}
+
+.image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-details {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.seller {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.stock {
+    margin-top: 20px;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
 
