@@ -1,11 +1,11 @@
 // get all the buttons
-const deleteButtons = document.querySelectorAll('.delete');
-const buyButtons = document.querySelectorAll('.buy');
-const quantityButtons = document.querySelectorAll('.buttons button');
+const deleteButtons = document.querySelectorAll('.delete');//Declaro una variable para guardar los botones para eliminar prodctos
+const buyButtons = document.querySelectorAll('.buy'); //Declaro una variable para guardar los botones para comprar productos
+const quantityButtons = document.querySelectorAll('.buttons button'); //Declaro una variable para guardar los botones para aumentar y restar cantidades de un producto
 const priceElements = document.querySelectorAll('.price[data-unitPrice]'); // Seleccionar todos los elementos de precio con data-unitPrice
-var cartItems = JSON.parse(localStorage.getItem('cart')) || {};
+var cartItems = JSON.parse(localStorage.getItem('cart')) || {}; //Declaro una variable para guardar los items del carrito
 
-// add event listeners to the buttons
+//hago los event listener de los botones, primero los de borrar, despues comprar y despues el de las cantidades
 for (var i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener('click', deleteItem);
 }
@@ -18,6 +18,7 @@ for (var i = 0; i < quantityButtons.length; i++) {
     quantityButtons[i].addEventListener('click', updateQuantity);
 }
 
+//funcion que actualiza los detalles en el resumen de compra
 function updateCartDetails() {
     var cartDetails = document.getElementById('cart-details');
     var emptyCartMessage = document.getElementById('empty-cart-message');
@@ -41,6 +42,8 @@ function updateCartDetails() {
         cartDetails.appendChild(cartItem);
     }
 }
+
+//funcionamienti de los botones de compra, tengo dudas de algunas cosas
 
 for (var i = 0; i < buyButtons.length; i++) {
     buyButtons[i].addEventListener('click', function (event) {
@@ -67,6 +70,7 @@ for (var i = 0; i < buyButtons.length; i++) {
     });
 }
 
+//funcion para calclar el precio total
 function calculateTotalPrice() {
     var total = 0;
     for (var itemName in cartItems) {
@@ -76,6 +80,7 @@ function calculateTotalPrice() {
     return total;
 }
 
+//funcion para atalicar el precio total
 function updateTotalPrice(price) {
     var totalPriceElement = document.getElementById('total-price');
     var currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));

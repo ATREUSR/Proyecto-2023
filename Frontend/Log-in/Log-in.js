@@ -1,32 +1,35 @@
-const wrapper = document.querySelector('.wrapper');
-const loginLink = document.querySelector('.login-link');
-const registerLink = document.querySelector('.register-link');
-const btnPopup = document.querySelector('.btnLogin-popup');
-const iconClose = document.querySelector('.icon-close')
-const email = document.querySelectorAll('.input-box')[0].querySelector('input');
-const password = document.querySelectorAll('.input-box')[1].querySelector('input');
-const logIn = document.querySelectorAll('.btn')[0].querySelector('button');
-const register = document.querySelectorAll('.btn')[1].querySelector('button');
-const nameInput = document.querySelectorAll('.input-box')[2].querySelector('input');
-const surnameInput = document.querySelectorAll('.input-box')[3].querySelector('input');
-const emailInput = document.querySelectorAll('.input-box')[4].querySelector('input'); 
+const wrapper = document.querySelector('.wrapper'); //Declaro una variable en la que voy a guardar el wrapper
+const loginLink = document.querySelector('.login-link'); //Declaro una variable para guardar el boton/link que hara que cambia el wrapper de la pestaña de registrar a la de iniciar sesion
+const registerLink = document.querySelector('.register-link'); //Declaro una variable para guardar el boton/link que hara que cambia el wrapper de la pestaña de iniciar sesion a la de registrar
+const btnPopup = document.querySelector('.btnLogin-popup'); //Declaro una variable para guardar el boton que hara que aparezca el wrapper
+const iconClose = document.querySelector('.icon-close') //Declaro una variable para guardar el boton que cerrara el wrapper
+const email = document.querySelectorAll('.input-box')[0].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de gmail del log in
+const password = document.querySelectorAll('.input-box')[1].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del log in
+const logIn = document.querySelectorAll('.btn')[0].querySelector('button'); //Declaro una variable para guardar el boton que confiramara el logueo
+const register = document.querySelectorAll('.btn')[1].querySelector('button'); //Declaro una variable para guardar el boton que confirmara el registro
+const nameInput = document.querySelectorAll('.input-box')[2].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de nombre del Registro
+const surnameInput = document.querySelectorAll('.input-box')[3].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de apellido del Registro
+const emailInput = document.querySelectorAll('.input-box')[4].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de email del Registro
+const phoneNumberInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio del numero de telefono del Registro
+const PasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
+const ConfirmPasswordInput = document.querySelectorAll('.input-box')[7].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
 //const passwordInput = document.querySelectorAll('.input-box')[5].querySelector('input');
 
 
 registerLink.addEventListener('click', () => {
-  wrapper.classList.add('active');
+  wrapper.classList.add('active'); //funcion que al clickear el boton para cambiar al registro, este efectivamente cambia a la pestaña de registro
 });
 
 loginLink.addEventListener('click', () => {
-  wrapper.classList.remove('active');
+  wrapper.classList.remove('active'); //funcion que al clickear el boton para cambiar al log ig, este efectivamente cambia a la pestaña de log in
 });
 
 btnPopup.addEventListener('click', () => {
-  wrapper.classList.add('active-popup');
+  wrapper.classList.add('active-popup'); //funcion que al tocar el boton de log in arriba a la derecha acriva el wrapper
 });
 
 iconClose.addEventListener('click', () => {
-  wrapper.classList.remove('active-popup');
+  wrapper.classList.remove('active-popup'); //boton que saca el wrapper
 })
 
 /*register.addEventListener('click', (e) => {
