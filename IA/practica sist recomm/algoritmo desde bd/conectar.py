@@ -13,7 +13,7 @@ conn = sql.connect(host = db_host,
                    password = db_passwd,
                    db = db_name)
 cursor = conn.cursor()
-cursor.execute("SELECT User")
+cursor.execute("SELECT * FROM Liked")
 version = cursor.fetchall()
 
 
@@ -21,6 +21,26 @@ if version:
     print(version)
 else:
     print('Not connected.')
+    
+def recommend_posts(quantity):
+    conn = sql.connect(host = db_host,
+                   user = db_user,
+                   password = db_passwd,
+                   db = db_name)
+    cursor = conn.cursor()
+    cursor.execute("SELECT count(user_id) as likes, post_id FROM Liked order by likes desc")
+    version = cursor.fetchall()
+    
+
+
+
+
+
+
+
+
+
+
 
 #result = [[entry[1], entry[2], entry[3], entry[4], entry[6], entry[5], entry[7]] for entry in version]
 
