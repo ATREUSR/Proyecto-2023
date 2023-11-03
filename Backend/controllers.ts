@@ -19,15 +19,15 @@ import { v4 as uuidv4 } from "uuid";
 const prisma: PrismaClient = new PrismaClient();
 
 export async function getUser(req: Request, res: Response) {
+  
   const id = parseInt(req.params.id);
   const user = await prisma.user
     .findUnique({
       where: { id },
       select: {
         Image: {
-          where: { image_id: id },
+          where: { user_id: id, image_type: "PFP" },
           select: {
-            image_type: true,
             url: true,
           },
         },
@@ -182,50 +182,37 @@ export async function getPostsBySearch(req: Request, res: Response) {
 }
 
 export async function createUser(req: Request, res: Response) {
-  const {
-    dni,
-    id,
-    name,
-    surname,
-    email,
-    pfp_url,
-    password,
-    phone,
-    address,
-    comapny,
-  } = req.body;
+  const { id, dni, name, surname, email, password } = req.body;
+
+  const dniInt = parseInt(dni);
+
   const emailExists = await prisma.user.findUnique({
     where: {
       email,
     },
   });
+  
+  const dniExists = await prisma.user.findUnique({
+    where: {
+      dni,
+    },
+  });
+
+  if (dniExists) {
+    return res.status(400).json("El DNI ya existe en la base de datos");
+  }
   if (emailExists) {
     return res.status(400).json("El Email ya existe en la base de datos");
   }
+
   const hashed_password = await bcrypt.hash(password, 10);
-  const user = await prisma.user
-    .create({
-      data: {
-        dni,
-        id,
-        name,
-        surname,
-        email,
-        Image: {
-          create: [
-            {
-              url: pfp_url,
-              image_type: "PFP",
-            } ] },
-        password: hashed_password,
-        phone,
-        address,
-        comapny,
-      },
-    })
-    .catch((err: Prisma.PrismaClientKnownRequestError) => {
+
+  const user = await prisma.user.create({
+      data: { id, dni: dniInt, name, surname, email, password: hashed_password } } )
+      .catch( ( err: Prisma.PrismaClientKnownRequestError ) => {
       throw res.status(400).json(err.message);
     });
+
   return res.status(201).json(user);
 }
 
@@ -269,7 +256,6 @@ export async function createPost(req: Request, res: Response) {
   const {
     title,
     user_id,
-    publish_date,
     price,
     description,
     defects,
@@ -277,6 +263,11 @@ export async function createPost(req: Request, res: Response) {
     image_type,
     file,
   } = req.body;
+
+  const userExists = await prisma.user.findUnique({
+    where: { id: user_id } } );
+  
+  if (!userExists) return res.status(400).json("El usuario no existe");
 
   let url;
 
@@ -286,7 +277,7 @@ export async function createPost(req: Request, res: Response) {
       url = result.secure_url;
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Error uploading image" });
+      return res.status(500).json( { message: "Error uploading image" } );
     }
   }
   const post = await prisma.post
@@ -294,7 +285,7 @@ export async function createPost(req: Request, res: Response) {
       data: {
         title,
         user_id,
-        publish_date,
+        publish_date: new Date(),
         price,
         description,
         defects,

@@ -47,7 +47,7 @@ model Post {
 
   Image   Image[]
   reviews Review[]
-  liked   Liked[]
+  Liked   Liked[]
 
   user User? @relation(fields: [user_id], references: [id])
 
