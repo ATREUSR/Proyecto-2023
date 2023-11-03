@@ -43,7 +43,7 @@ function updateCartDetails() {
     }
 }
 
-//funcionamienti de los botones de compra, tengo dudas de algunas cosas
+//funcionamiento de los botones de compra, tengo dudas de algunas cosas
 
 for (var i = 0; i < buyButtons.length; i++) {
     buyButtons[i].addEventListener('click', function (event) {
@@ -70,7 +70,7 @@ for (var i = 0; i < buyButtons.length; i++) {
     });
 }
 
-//funcion para calclar el precio total
+//funcion para calcular el precio total
 function calculateTotalPrice() {
     var total = 0;
     for (var itemName in cartItems) {
@@ -80,7 +80,7 @@ function calculateTotalPrice() {
     return total;
 }
 
-//funcion para atalicar el precio total
+//funcion para actualizar el precio total
 function updateTotalPrice(price) {
     var totalPriceElement = document.getElementById('total-price');
     var currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));
@@ -88,6 +88,7 @@ function updateTotalPrice(price) {
     totalPriceElement.textContent = '$' + currentTotal.toFixed(0);
 }
 
+//funciona para calclar la cantidad de cada item
 function calculateTotalQuantity() {
     var total = 0;
     for (var itemName in cartItems) {
@@ -97,6 +98,7 @@ function calculateTotalQuantity() {
     return total;
 }
 
+//funcion ara actualizar la cantidad total de item en el resumen de compra 
 function updateTotalItems(quantity) {
     var totalItemsElement = document.getElementById('total-items');
     var currentQuantity = parseInt(totalItemsElement.textContent, 10);
@@ -104,7 +106,7 @@ function updateTotalItems(quantity) {
     totalItemsElement.textContent = currentQuantity;
 }
 
-// function to delete an item
+// funcion para borrar un objeto
 function deleteItem(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
@@ -125,11 +127,12 @@ function deleteItem(event) {
     localStorage.setItem('cart', JSON.stringify(cartItems));
 }
 
-// function to buy an item
+// funcion que al apretar el boton de comprar sale una ventanita con un mensaje, la idea es que esto te lleve a comprar el item por separado, pero todavia no esta hecho
 function buyItem(event) {
     alert('Gracias por su compra!');
 }
 
+//funcion que usa el DOM para mantener los valores aunque recargues la pagina
 document.addEventListener('DOMContentLoaded', function () {
     // Obtén todos los elementos de precio
     var priceElements = document.querySelectorAll('.price');
@@ -159,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateItemInCart(itemName, value, itemPrice);
 });
 
+//funcion que pone las cantidades predetermiandas de los items
 function addDefaultQuantities(cartItems) {
     var items = document.querySelectorAll('.item');
     for (var itemName in cartItems) {
@@ -175,6 +179,7 @@ function addDefaultQuantities(cartItems) {
     }
 }
 
+//actualiza la cantidad del objeto al sumarle o restar con los botones
 function updateQuantity(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
@@ -198,6 +203,7 @@ function updateQuantity(event) {
     updateCartDetails(); // Llama a la función para actualizar el resumen de compra
 }
 
+//actualiza el item en el resumen de compra, usano los valores de nombre, cantidad y precio
 function updateItemInCart(itemName, quantity, itemPrice) {
     cartItems[itemName] = {
         price: itemPrice,
@@ -206,6 +212,7 @@ function updateItemInCart(itemName, quantity, itemPrice) {
     localStorage.setItem('cart', JSON.stringify(cartItems)); // Actualiza el almacenamiento local
 }
 
+//añade los items al resumen de compra cuando detecta(por apretar ciertos botones por ejemplo)  que esya en el carrito
 function addItemToSummary(name, quantity, unitPrice) {
     var cartDetails = document.getElementById('cart-details');
     var cartItems = cartDetails.children;
@@ -229,6 +236,7 @@ function addItemToSummary(name, quantity, unitPrice) {
     }
 }
 
+//actualiza el precio total que se ven en el resumen de compra
 function updateTotal() {
     var totalItems = calculateTotalQuantity(); // Calcula la cantidad total
     var totalPrice = calculateTotalPrice(); // Calcula el precio total
@@ -245,6 +253,7 @@ function updateTotal() {
     document.getElementById('total-price').textContent = '$' + totalPrice.toFixed(0);
 }
 
+//2 funciones que hacen lo mismo? el mismo parametro? tengo que revisar esto.
 function updateTotalItems(quantity) {
     var totalItemsElement = document.getElementById('total-items');
     var currentQuantity = parseInt(totalItemsElement.textContent, 10);
@@ -258,6 +267,7 @@ function updateTotalItems(quantity) {
     totalItemsElement.textContent = currentQuantity;
 }
 
+//funciona que usa el almacenamiento local para guardar los datos
 function updateLocalStorage() {
     // Obtén el carrito actual del almacenamiento local (si existe)
     var currentCart = JSON.parse(localStorage.getItem('cart')) || {};
