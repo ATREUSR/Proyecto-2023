@@ -204,16 +204,17 @@ export async function createUser(req: Request, res: Response) {
   if (emailExists) {
     return res.status(400).json("El Email ya existe en la base de datos");
   }
-
+  const sessionId = uuidv4();
   const hashed_password = await bcrypt.hash(password, 10);
 
-  const user = await prisma.user.create({
+  await prisma.user.create({
       data: { id, dni: dniInt, name, surname, email, password: hashed_password } } )
       .catch( ( err: Prisma.PrismaClientKnownRequestError ) => {
       throw res.status(400).json(err.message);
     });
 
-  return res.status(201).json(user);
+  res.cookie('sessionId', sessionId, { httpOnly: true });
+  return res.status(201).json( { msg: "User created succesfully" } );
 }
 
 export async function logInUser(req: Request, res: Response) {
@@ -243,13 +244,7 @@ export async function logInUser(req: Request, res: Response) {
     where: { image_id: user.id, image_type: "PFP" },
   });
 
-  return res.status(200).json({
-    id: user.id,
-    name: user.name,
-    surname: user.surname,
-    email: user.email,
-    pfp_url: pfp?.url,
-  });
+  return res.status(200).json( { msg: "Login succesfully"} );
 }
 
 export async function createPost(req: Request, res: Response) {
