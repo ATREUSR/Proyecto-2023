@@ -43,7 +43,6 @@ register.addEventListener('click', (e) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      dni: dniInput.value,
       name: nameInput.value,
       surname: surnameInput.value,
       email: emailInput.value,
