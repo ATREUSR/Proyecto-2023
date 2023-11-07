@@ -10,10 +10,8 @@ const register = document.querySelectorAll('.btn')[1].querySelector('button'); /
 const nameInput = document.querySelectorAll('.input-box')[2].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de nombre del Registro
 const surnameInput = document.querySelectorAll('.input-box')[3].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de apellido del Registro
 const emailInput = document.querySelectorAll('.input-box')[4].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de email del Registro
-const phoneNumberInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio del numero de telefono del Registro
-const PasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
-const ConfirmPasswordInput = document.querySelectorAll('.input-box')[7].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
-//const passwordInput = document.querySelectorAll('.input-box')[5].querySelector('input');
+const PasswordInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
+const ConfirmPasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
 
 
 registerLink.addEventListener('click', () => {
