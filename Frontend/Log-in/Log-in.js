@@ -5,13 +5,13 @@ const btnPopup = document.querySelector('.btnLogin-popup'); //Declaro una variab
 const iconClose = document.querySelector('.icon-close') //Declaro una variable para guardar el boton que cerrara el wrapper
 const email = document.querySelectorAll('.input-box')[0].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de gmail del log in
 const password = document.querySelectorAll('.input-box')[1].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del log in
-const logIn = document.querySelectorAll('.btn')[0].querySelector('button'); //Declaro una variable para guardar el boton que confiramara el logueo
-const register = document.querySelectorAll('.btn')[1].querySelector('button'); //Declaro una variable para guardar el boton que confirmara el registro
+const logIn = document.querySelectorAll('.btn')[0]; //Declaro una variable para guardar el boton que confiramara el logueo
+const register = document.querySelectorAll('.btn')[1] //Declaro una variable para guardar el boton que confirmara el registro
 const nameInput = document.querySelectorAll('.input-box')[2].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de nombre del Registro
 const surnameInput = document.querySelectorAll('.input-box')[3].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de apellido del Registro
 const emailInput = document.querySelectorAll('.input-box')[4].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de email del Registro
-const PasswordInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
-const ConfirmPasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
+const passwordInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
+const confirmPasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
 
 registerLink.addEventListener('click', () => {
   wrapper.classList.add('active'); //funcion que al clickear el boton para cambiar al registro, este efectivamente cambia a la pestaña de registro
@@ -30,6 +30,7 @@ iconClose.addEventListener('click', () => {
 })
 
 register.addEventListener('click', (e) => {
+  console.log("yeah register");
   e.preventDefault();
   e.stopPropagation();
   fetch('http://localhost:3000/register', {
@@ -55,6 +56,7 @@ register.addEventListener('click', (e) => {
 });
 
 logIn.addEventListener('click', (e) => {
+  console.log("yeah log in");
   e.preventDefault();
   e.stopPropagation();
   fetch('http://localhost:3000/login', {
