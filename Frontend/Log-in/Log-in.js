@@ -29,7 +29,7 @@ iconClose.addEventListener('click', () => {
   wrapper.classList.remove('active-popup'); //boton que saca el wrapper
 })
 
-register.addEventListener('click', (e) => {
+register.addEventListener('click', async (e) => {
   console.log("yeah register");
   if (PasswordInput.value != ConfirmPasswordInput.value) {
     console.log('click');
@@ -38,42 +38,38 @@ register.addEventListener('click', (e) => {
   }
   e.preventDefault();
   e.stopPropagation();
-  fetch('http://localhost:3000/register', {
+  await fetch('http://localhost:3000/register', {
     method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: nameInput.value,
+      name: nameInput.value, 
       surname: surnameInput.value,
       email: emailInput.value,
       password: passwordInput.value,
     })
   })
-    .then(response => {
-      console.log(response)
-      return response.json();
-      
-    })
+    .then(response => response.json())
     .catch(error => {
       console.error(error)
     });
 })
-  logIn.addEventListener('click', (e) => {
+  logIn.addEventListener('click', async (e) => {
     console.log("yeah login");
     e.preventDefault();
     e.stopPropagation();
 
-    fetch('http://localhost:3000/login', {
+    await fetch('http://localhost:3000/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: email,
-        password: password
+        email: "jorgegomex@gmai.com",
+        password: "123123123"
       })
     })
     .then(response => response.json())
