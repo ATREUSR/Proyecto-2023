@@ -13,7 +13,6 @@ const emailInput = document.querySelectorAll('.input-box')[4].querySelector('inp
 const PasswordInput = document.querySelectorAll('.input-box')[5].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de contraseña del Registro
 const ConfirmPasswordInput = document.querySelectorAll('.input-box')[6].querySelector('input'); //Declaro una variable para guardar lo puesto en el espacio de confirmar contraseña del Registro
 
-
 registerLink.addEventListener('click', () => {
   wrapper.classList.add('active'); //funcion que al clickear el boton para cambiar al registro, este efectivamente cambia a la pestaña de registro
 });
@@ -30,11 +29,12 @@ iconClose.addEventListener('click', () => {
   wrapper.classList.remove('active-popup'); //boton que saca el wrapper
 })
 
-/*register.addEventListener('click', (e) => {
+register.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
   fetch('http://localhost:3000/register', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -43,10 +43,6 @@ iconClose.addEventListener('click', () => {
       surname: surnameInput.value,
       email: emailInput.value,
       password: passwordInput.value,
-      pfp_url: 'url de la foto de perfil',
-      phone: 'telefono',
-      address: 'direccion',
-      company: 'true/false',
     })
   })
     .then(response => {
@@ -63,12 +59,13 @@ logIn.addEventListener('click', (e) => {
   e.stopPropagation();
   fetch('http://localhost:3000/login', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: email.value,
-      password: password.value
+      password: password.value,
+      email: email.value
     })
   })
     })
@@ -81,4 +78,4 @@ logIn.addEventListener('click', (e) => {
     .catch(error => {
       console.error(error)
 });
-*/
+

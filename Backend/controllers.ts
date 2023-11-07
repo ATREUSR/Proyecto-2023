@@ -18,6 +18,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const prisma: PrismaClient = new PrismaClient();
 
+let usarcookies: boolean = false;
+
 export async function getUser(req: Request, res: Response) {
   
   const id = parseInt(req.params.id);
@@ -70,9 +72,7 @@ export async function getUser(req: Request, res: Response) {
 export async function getUserPosts(req: Request, res: Response) {
   const id = parseInt(req.params.id);
   const posts = await prisma.post.findMany({
-    where: {
-      id,
-    },
+    where: { id },
     select: {
       id: true,
       title: true,
@@ -89,14 +89,14 @@ export async function getUserPosts(req: Request, res: Response) {
     },
   });
 
-  return res.json(posts);
+  return res.json({posts: posts });
 }
 
 export async function getUserReviews(req: Request, res: Response) {
   const id = parseInt(req.params.id);
-  const review = await prisma.review
+  const reviews = await prisma.review
     .findMany({
-      where: { id },
+      where: { user_id: id },
       select: {
         id: true,
         user_id: true,
@@ -109,12 +109,12 @@ export async function getUserReviews(req: Request, res: Response) {
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
       throw res.status(400).json(err.message);
     });
-  return res.status(200).json(review);
+  return res.status(200).json( {reviews: reviews } );
 }
 
-export async function getPostReview(req: Request, res: Response) {
+export async function getPostReviews(req: Request, res: Response) {
   const id = parseInt(req.params.id);
-  const review = await prisma.review
+  const reviews = await prisma.review
     .findMany({
       where: { post_id: id },
       select: {
@@ -130,14 +130,15 @@ export async function getPostReview(req: Request, res: Response) {
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
       return res.status(400).json(err.message);
     });
-  return res.status(200).json(review);
+  return res.status(200).json( { reviews } );
 }
 
 export async function getHome(req: Request, res: Response) {
-  const id = parseInt(req.params.id!);
-  const user_exist = await prisma.user.findUnique({
-    where: { id },
-  });
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
+  const id = req.cookies.userId;
+  const user_exist = await prisma.user.findUnique( { where: { id } } );
   if (!user_exist) {
     return res.status(404).json("El usuario no existe");
   }
@@ -165,6 +166,7 @@ export async function getHome(req: Request, res: Response) {
     return res.status(400).json(err.message);
   }
 }
+//para esta faltaria el algoritmo de recomendacion
 
 export async function getPostsBySearch(req: Request, res: Response) {
   const { q } = req.query;
@@ -182,38 +184,28 @@ export async function getPostsBySearch(req: Request, res: Response) {
 }
 
 export async function createUser(req: Request, res: Response) {
-  const { id, dni, name, surname, email, password } = req.body;
-
-  const dniInt = parseInt(dni);
+  const { name, surname, email, password } = req.body;
 
   const emailExists = await prisma.user.findUnique({
     where: {
       email,
     },
   });
-  
-  const dniExists = await prisma.user.findUnique({
-    where: {
-      dni,
-    },
-  });
 
-  if (dniExists) {
-    return res.status(400).json("El DNI ya existe en la base de datos");
-  }
   if (emailExists) {
     return res.status(400).json("El Email ya existe en la base de datos");
   }
-
+  const sessionId = uuidv4();
   const hashed_password = await bcrypt.hash(password, 10);
 
-  const user = await prisma.user.create({
-      data: { id, dni: dniInt, name, surname, email, password: hashed_password } } )
+  await prisma.user.create({
+      data: { name, surname, email, password: hashed_password } } )
       .catch( ( err: Prisma.PrismaClientKnownRequestError ) => {
       throw res.status(400).json(err.message);
     });
 
-  return res.status(201).json(user);
+  res.cookie('sessionId', sessionId, { httpOnly: true });
+  return res.status(201).json( { msg: "User created succesfully" } );
 }
 
 export async function logInUser(req: Request, res: Response) {
@@ -229,27 +221,16 @@ export async function logInUser(req: Request, res: Response) {
     });
   if (!user) {
     return res
-      .status(401)
-      .json("Ese Email no esta registrado en nuestra base de datos");
+      .status(401).json( { msg: "Ese Email no esta registrado en nuestra base de datos" } );
   }
   const passwordsMatch: boolean = await bcrypt.compare(password, user.password);
   if (!passwordsMatch) {
-    return res.status(401).json("Contraseña incorrecta");
+    return res.status(401).json( {msg: "Contraseña incorrecta" } );
   }
   const sessionId = uuidv4();
-  res.cookie('sessionId', sessionId, { httpOnly: true });
-
-  const pfp = await prisma.image.findUnique({
-    where: { image_id: user.id, image_type: "PFP" },
-  });
-
-  return res.status(200).json({
-    id: user.id,
-    name: user.name,
-    surname: user.surname,
-    email: user.email,
-    pfp_url: pfp?.url,
-  });
+  res.cookie('sessionId', sessionId, { httpOnly: true } );
+  res.cookie('userId', user.id, { httpOnly: true } );
+  return res.status(200).json( { msg: "Login succesfully"} );
 }
 
 export async function createPost(req: Request, res: Response) {
@@ -263,6 +244,8 @@ export async function createPost(req: Request, res: Response) {
     image_type,
     file,
   } = req.body;
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( { msg: "No estas logeado" } );
 
   const userExists = await prisma.user.findUnique({
     where: { id: user_id } } );
@@ -284,7 +267,7 @@ export async function createPost(req: Request, res: Response) {
     .create({
       data: {
         title,
-        user_id,
+        user_id: req.cookies.userId,
         publish_date: new Date(),
         price,
         description,
@@ -307,7 +290,10 @@ export async function createPost(req: Request, res: Response) {
 }
 
 export async function createReview(req: Request, res: Response) {
-  const { user_id, review_score, review_body, publish_date, files, image_types } = req.body;
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
+  const { review_score, review_body, publish_date, files, image_types } = req.body;
 
   const post_id = parseInt(req.params.id);
 
@@ -333,7 +319,7 @@ export async function createReview(req: Request, res: Response) {
 
   const review = await prisma.review.create({
     data: {
-      user: { connect: { id: user_id } },
+      user: { connect: { id: req.cookies.userId } },
       review_score,
       review_body,
       publish_date,
@@ -345,7 +331,10 @@ export async function createReview(req: Request, res: Response) {
 }
 
 export async function updateUser(req: Request, res: Response) {
-  const id = req.params.id;
+
+  const id = req.cookies.userId;
+
+  if (!id && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
 
   const user = await prisma.user.findUnique({
     where: { id: parseInt(id) } } );
@@ -387,6 +376,9 @@ export async function updateUser(req: Request, res: Response) {
 }
 
 export async function deleteUser(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
   const { email, password } = req.body;
 
   const emailExists = await prisma.user.findUnique({
@@ -413,6 +405,9 @@ export async function deleteUser(req: Request, res: Response) {
 }
 
 export async function deletePost(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
   const { id } = req.params;
   const { email, password } = req.body;
 
@@ -420,11 +415,7 @@ export async function deletePost(req: Request, res: Response) {
     where: { email },
     select: { email: true, password: true } } );
 
-  if (
-    !user ||
-    email !== user.email ||
-    !(await bcrypt.compare(password, user.password))
-  ) return res.status(400).json("Credenciales invalidas");
+  if ( !user || email !== user.email || !( await bcrypt.compare(password, user.password ) ) ) return res.status(400).json( { msg: "Credenciales invalidas"} );
 
   const postId = parseInt(id);
 
@@ -442,6 +433,9 @@ export async function deletePost(req: Request, res: Response) {
 }
 
 export async function updatePassword(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
   const { email, password, new_password } = req.body;
 
   const user = await prisma.user.findUnique({
@@ -463,6 +457,9 @@ export async function updatePassword(req: Request, res: Response) {
 }
 
 export async function deleteReview(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
   const { id } = req.params;
   const { email, password } = req.body;
 
@@ -491,6 +488,9 @@ export async function deleteReview(req: Request, res: Response) {
 }
 
 export async function getPost(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
   const id = parseInt(req.params.id);
   const post = await prisma.post.findUnique({
       where: { id },
@@ -516,7 +516,9 @@ export async function getPost(req: Request, res: Response) {
 
 export async function postLike(req: Request, res: Response) {
   const { id } = req.params;
-  const { userId } = req.body;
+  const userId = req.cookies.userId;
+  if ( userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+
 
   try {
     const like = await prisma.liked.create({
