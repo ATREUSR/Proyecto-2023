@@ -142,7 +142,7 @@ body {
 
 .price {
     position: relative;
-    bottom: 150px;
+    bottom: 130px;
     font-size: 35px;
     font-weight: bold;
     color: #4CAF50;
@@ -155,8 +155,28 @@ body {
     margin-top: 10px;
 }
 
-.stock {
-    margin-top: 30px;
+.highlighted-text {
+    color: #199ebf; /* Color celeste */
+    font-size: 25px;
+}
+
+.highlighted-text:hover{
+    cursor: pointer;
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+.stock{
+    position: relative;
+    bottom: 80px;
+}
+
+.stock h2 {
+    font-size: 30px;
+}
+.stock p {
+    position: relative;
+    top: 40px;
+    font-size: 25px;
 }
 
 .actions {
