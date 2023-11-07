@@ -31,6 +31,11 @@ iconClose.addEventListener('click', () => {
 
 register.addEventListener('click', (e) => {
   console.log("yeah register");
+  if (PasswordInput.value != ConfirmPasswordInput.value) {
+    console.log('click');
+    alert('Las contraseñas no coinciden');
+    return;
+  }
   e.preventDefault();
   e.stopPropagation();
   fetch('http://localhost:3000/register', {
@@ -47,37 +52,36 @@ register.addEventListener('click', (e) => {
     })
   })
     .then(response => {
-      return response.json()
-
+      console.log(response)
+      return response.json();
+      
     })
     .catch(error => {
       console.error(error)
     });
-});
+})
+  logIn.addEventListener('click', (e) => {
+    console.log("yeah login");
+    e.preventDefault();
+    e.stopPropagation();
 
-logIn.addEventListener('click', (e) => {
-  console.log("yeah log in");
-  e.preventDefault();
-  e.stopPropagation();
-  fetch('http://localhost:3000/login', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      password: password.value,
-      email: email.value
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
     })
-  })
-    })
+    .then(response => response.json())
     .then(data => {
-      console.log(data)
+      console.log(data);
       if (data.success) {
         window.location.href = "http://localhost:3000/pagina-inicial";
       }
     })
-    .catch(error => {
-      console.error(error)
-});
-
+    .catch(error => console.error('Error:', error));
+  });
