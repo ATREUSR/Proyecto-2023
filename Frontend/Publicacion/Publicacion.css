@@ -122,8 +122,12 @@ body {
 }
 
 .image img {
-    max-width: 100%;
+    max-width: 100%; 
     height: auto;
+    max-height: 80vh; 
+    width: auto; 
+    display: block; 
+    margin: 0 auto; 
 }
 
 .product-details {
@@ -131,23 +135,28 @@ body {
     padding: 20px;
 }
 
-h1 {
-    font-size: 24px;
+.item-name {
+    font-size: 40px;
+    margin-bottom: 150px;
 }
 
 .price {
-    font-size: 18px;
+    position: relative;
+    bottom: 150px;
+    font-size: 35px;
     font-weight: bold;
     color: #4CAF50;
 }
 
 .seller {
-    font-size: 16px;
+    position: relative;
+    bottom: 120px;
+    font-size: 25px;
     margin-top: 10px;
 }
 
 .stock {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .actions {
