@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(router);
-app.use( cors( { origin: 'http://localhost', credentials: true  } ) );
+app.use(cors () );
 
 const PORT: Number = 3000;
 app.listen(PORT, () => console.log("Alive on localhost: " + PORT));
