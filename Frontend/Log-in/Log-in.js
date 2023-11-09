@@ -31,6 +31,10 @@ iconClose.addEventListener('click', () => {
 
 register.addEventListener('click', async (e) => {
   console.log("yeah register");
+  if(passwordInput != confirmPasswordInput){
+    window.alert("No yeah");
+  }
+
   if (PasswordInput.value != ConfirmPasswordInput.value) {
     console.log('click');
     alert('Las contraseñas no coinciden');
@@ -56,7 +60,8 @@ register.addEventListener('click', async (e) => {
       console.error(error)
     });
 })
-  logIn.addEventListener('click', async (e) => {
+
+logIn.addEventListener('click', async (e) => {
     console.log("yeah login");
     e.preventDefault();
     e.stopPropagation();
@@ -80,4 +85,4 @@ register.addEventListener('click', async (e) => {
       }
     })
     .catch(error => console.error('Error:', error));
-  });
+});
