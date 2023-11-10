@@ -122,10 +122,10 @@ body {
 }
 
 .image img {
-    max-width: 100%; 
+    max-width: 100%;
     height: auto;
     max-height: 80vh; 
-    width: auto; 
+    width: 400px; 
     display: block; 
     margin: 0 auto; 
 }
@@ -186,7 +186,7 @@ body {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #B1F49D;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -197,6 +197,22 @@ button {
     text-transform: uppercase;
     border-radius: 4px;
     transition: background-color 0.3s;
+}
+
+.buy-button h2{
+    color: #1B6406;
+}
+
+.add-to-cart-button{
+    background-color: #609D4A;
+}
+
+.add-to-cart-button h2{
+    color: #B1F49D;
+}
+
+.add-to-cart-button {
+    background-color: #609D4A;
 }
 
 button:hover {
