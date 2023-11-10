@@ -27,7 +27,8 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(router);
-app.use(cors () );
-
+app.use(cors({
+  origin: ["http://localhost:80", "http://localhost:3000", "http://localhost:443", "http://localhost:8080"], credentials: true
+}))
 const PORT: Number = 3000;
 app.listen(PORT, () => console.log("Alive on localhost: " + PORT));
