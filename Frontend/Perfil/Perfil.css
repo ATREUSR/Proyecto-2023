@@ -247,7 +247,6 @@ body{
     bottom: 50px;
     display: flex;
     justify-content: flex-end;
-    
 }
   
 .discard-changes-button button {
@@ -285,3 +284,80 @@ input[type="file"]::file-selector-button:hover {
     background-color: #f3f4f6;
 }
 
+
+#security-content {
+    position: fixed;
+    top: 0;
+    right: 200px;
+    margin-top: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 15px;
+    width: 800px; 
+    height: 525px;
+    display: flex;
+    flex-direction: column;
+}
+
+.security h2 {
+    color: #609D4A;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.security h3 {
+    color: #609D4A;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.security-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.security-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box-security {
+    margin-bottom: 16px; 
+}
+
+.input-box-security label {
+    display: block;
+    color: #609D4A;
+    margin-bottom: 4px;
+}
+
+.input-box-security input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.privacy-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.save-changes {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.save-changes button {
+    border: 2px solid #609D4A;
+    background-color: #609D4A;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
