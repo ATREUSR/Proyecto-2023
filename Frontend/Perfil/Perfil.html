@@ -73,49 +73,57 @@
         <div class="security-privacy">
             <div class="security">
                 <h2>Seguridad</h2>
-                <div class="security-form">
-                    <form>
-                        <div class="input-box-privacy">
-                            <label>Usuario</label>
-                            <input type="text" required>
-                        </div>
+                <div class="security-box">
+                    <div class="security-form">
+                        <form>
+                            <div class="input-box-security">
+                                <label for="user_id">Usuario</label>
+                                <input type="text" name="user" id="user_id" value="Atreus_r" required>
+                            </div>
+        
+                            <div class="input-box-security">
+                                <label for="password_id" >Contraseña</label>
+                                <input type="password" name="password" id="password_id" value="yeahyeah" required >
+                            </div>
+        
+                            <h3>Preguntas de seguridad</h3>
+        
+                            <div class="input-box-security">
+                                <label for="ice_cream_quest_id" >¿tipo de helado favorito?</label>
+                                <input type="password" name="Ice-cream" id="ice_cream_quest_id" value="chocolate" required>
+                            </div>
+        
+                            <div class="input-box-security">
+                                <label for="superhero_quest_id" >¿superheroe favorito?</label>
+                                <input type="password" name="superhero" id="superhero_quest_id" value="batman" required>
+                            </div>
     
-                        <div class="input-box-privacy">
-                            <label>Contraseña</label>
-                            <input type="password" required >
-                        </div>
-    
-                        <h3>Preguntas de seguridad</h3>
-    
-                        <div class="input-box-privacy">
-                            <label>¿tipo de helado favorito?</label>
-                            <input type="password" required >
-                        </div>
-    
-                        <div class="input-box-privacy">
-                            <label>¿superheroe favorito?</label>
-                            <input type="password" required >
-                        </div>
-
-                        <div class="save-changes">
-                            <button type="submit">Guardar cambios</button>
-                        </div>
-                    </form>
+                            <div class="save-changes">
+                                <button type="submit">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <h2>Privacidad</h2>
-                <div class="privacy-form">
-                    <label>Perfil publico</label>
-                    <input type="checkbox">
-                </div>
-
-                <div class="privacy-form">
-                    <label>Cookies</label>
-                    <input type="checkbox">
-                </div>
-
-                <a>Cerrar sesion</a>
             </div>
+
+                <div class="privacy-form">
+                    <h2>Privacidad</h2>
+                    <div class="privacy-agreement">
+                        <a>Politicas de privacidad</a>
+                    </div>
+                    <div class="input-box-security">
+                        <label>Perfil publico</label>
+                        <input type="checkbox">
+                    </div>
+    
+                    <div class="input-box-security">
+                        <label>Cookies</label>
+                        <input type="checkbox">
+                    </div>
+
+                    <div class="log-out"><a>Cerrar sesion</a></div>
+
+                </div>
         </div>
     </security>
 

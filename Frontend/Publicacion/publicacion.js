@@ -4,6 +4,12 @@ const addToCartButton = document.querySelector('.add-to-cart-button');
 // Agrega un evento de clic al botón "Añadir al carrito"
 addToCartButton.addEventListener('click', addToCart);
 
+function changeImage(event) {
+    if (event.target.tagName === 'IMG') {
+        var mainImage = document.querySelector('.image img');
+        mainImage.src = event.target.src;
+    }
+}
 
 
 // Función para manejar el evento de clic en "Añadir al carrito"
