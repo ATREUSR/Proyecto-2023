@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #B1F49D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.img-container {
+    width: 200px;
+    height: 50px;
+}
+
+.logo-img {
+    width: 100%;
+    position: relative;
+    bottom: 30px;
+}
+
+.search-bar {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    padding: 5px;
+    color: #fff;
+}
+
+.search-bar button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.user-icons ion-icon {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-icons :hover{
+    color: #199ebf;
+}
+
+.profile{
+    position: relative;
+    top: 200px;
+}
+
+.setting-options-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 200px;
+    height: 330px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 100px;
+    margin-left: 50px;
+    border-radius: 15px;
+}
+
+.settings-title {
+    margin-bottom: 20px;
+}
+
+.setting-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    position: relative; /* Agrega posición relativa para posicionar el seudoelemento */
+}
+
+.setting-option::after {
+    content: "";
+    width: 5px;
+    height: 20px;
+    background-color: #ccc;
+    position: absolute;
+    right: 0;
+    transition: background-color 0.3s, height 0.3s ease-in-out;
+}
+
+.setting-option ion-icon {
+    margin-right: 10px;
+    color: #666666;
+}
+
+.setting-option a {
+    text-decoration: none;
+    color: #666666;
+}
+
+.setting-option.active,
+.setting-option.active a,
+.setting-option.active ion-icon {
+    color: #609D4A;
+}
+
+.setting-option.active::after {
+    background-color: #609D4A;
+}
+
+.setting-content {
+    display: none;
+}
+
+.setting-content.active {
+    display: block;
+}
+
+.profile-content {
+    position: fixed;
+    right: 200px;
+    margin-top: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 15px;
+    width: 800px; 
+    height: 525px;
+}
+
+.profile-title {
+    color: #609D4A;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.profile-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-profile-container {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.user-profile-container label:nth-child(1) {
+    font-weight: 700;
+}
+
+.user-profile-img-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.user-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.labels-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.labels-container label {
+    color: #609D4A;
+    margin-bottom: 8px;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box-user {
+    margin-bottom: 1px; /* Reducir el margen inferior */
+}
+  
+.input-box-user label {
+    display: block;
+    color: #609D4A;
+    margin-bottom: 4px;
+}
+  
+.input-box-user input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.profile-details label {
+    color: #609D4A;
+    margin-bottom: 4px;
+}
+
+.profile-details input {
+    margin-bottom: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.discard-save-container {
+    position: relative;
+    bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+  
+.discard-changes-button button {
+    border: 2px solid #609D4A;
+    background-color: #fff;
+    color: #609D4A;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+  
+.save-changes-button button {
+    border: 2px solid #609D4A;
+    background-color: #609D4A;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #f3f4f6;
+}
+

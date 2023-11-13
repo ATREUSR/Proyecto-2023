@@ -4,8 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
+    <link rel="stylesheet" href="Perfil.css">
 </head>
 <body>
-    Perfil
+    <header>
+        <div class="img-container">
+          <!--<a href="../Log-in/Log-in.html">--><img class="logo-img" src="imagenes-perfil/Logo Outller.png" alt="Logo Outller">
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Barra de busqueda">
+            <button><ion-icon name="search"></ion-icon></button>
+        </div>
+        <div class="user-icons">
+            <a href="/Likeados/Likeados.html"><ion-icon name="heart"></ion-icon></a>
+            <a href="/Carrito/Carrito.html"><ion-icon name="cart"></ion-icon></a>
+            <a href=""><ion-icon name="person"></ion-icon></a>
+        </div>
+    </header>
+
+    <profile class="setting-content" id="profile-content">
+        <div class="profile-content">
+          <h2 class="profile-title">Perfil</h2>
+          <div class="profile-box">
+            <div class="user-profile-container">
+              <div class="user-profile-img-container">
+                <img class="user-profile-img" src="imagenes-perfil/default-user-pfp.jpg" alt="">
+              </div>
+              <div class="labels-container">
+                <label>Roman Alexander Slisaransky</label>
+                <label>romanljsa@gmail.com</label>
+              </div>
+            </div>
+            <div id="profileForm" class="profile-details">
+              <div class="input-box-user">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" value="Roman" required>
+              </div>
+      
+              <div class="input-box-user">
+                <label for="last-name">Apellido</label>
+                <input type="text" id="last-name" name="last-name" value="Slisaransky" required>
+              </div>
+      
+              <div class="input-box-user">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="romanljsa@gmail.com" required>
+              </div>
+      
+              <div class="input-box-user">
+                <label for="phone-number">Teléfono (opcional)</label>
+                <input type="tel" id="phone-number" name="phone-number" value="+54 9 11 4424 0379">
+              </div>
+              <div class="discard-save-container">
+                <div class="discard-changes-button">
+                  <button type="submit">Descartar cambios</button>
+                </div>
+      
+                <div class="save-changes-button">
+                  <button type="submit">Guardar cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </profile>
+
+    <security class="setting-content" id="security-content">
+        <div class="security-privacy">
+            <div class="security">
+                <h2>Seguridad</h2>
+                <div class="security-form">
+                    <form>
+                        <div class="input-box-privacy">
+                            <label>Usuario</label>
+                            <input type="text" required>
+                        </div>
+    
+                        <div class="input-box-privacy">
+                            <label>Contraseña</label>
+                            <input type="password" required >
+                        </div>
+    
+                        <h3>Preguntas de seguridad</h3>
+    
+                        <div class="input-box-privacy">
+                            <label>¿tipo de helado favorito?</label>
+                            <input type="password" required >
+                        </div>
+    
+                        <div class="input-box-privacy">
+                            <label>¿superheroe favorito?</label>
+                            <input type="password" required >
+                        </div>
+
+                        <div class="save-changes">
+                            <button type="submit">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+
+                <h2>Privacidad</h2>
+                <div class="privacy-form">
+                    <label>Perfil publico</label>
+                    <input type="checkbox">
+                </div>
+
+                <div class="privacy-form">
+                    <label>Cookies</label>
+                    <input type="checkbox">
+                </div>
+
+                <a>Cerrar sesion</a>
+            </div>
+        </div>
+    </security>
+
+    <products class="setting-content" id="products-content">
+        <div class="products">
+            <h2>Productos</h2>
+
+            <div class="my-posts">
+                <h3>mis publicaciones</h3>
+                <div class="my-posts-box">
+                    <div class="my-post">
+                        <div class="my-post-img">
+                            <img src="imagenes-perfil/default-user-pfp.jpg" alt="">
+                        </div>
+                        <div class="my-post-info">
+                            <h4>Producto</h4>
+                            <p>Descripcion</p>
+                            <div class="my-post-buttons">
+                                <button>Editar</button>
+                                <button>Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="browsing-history">
+                <h3>Historial</h3>
+                <div class="history-box">
+                    <div class="history-item">
+                        <div class="history-item-img">
+                            <img src="imagenes-perfil/default-user-pfp.jpg" alt="">
+                        </div>
+                        <div class="history-item-info">
+                            <h4>Producto</h4>
+                            <p>Descripcion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirmation-box">
+            <p>¿estas seguro que quieres eliminar este producto?</p>
+            <button>Cancelar</button>
+            <button>Eliminar</button>
+        </div>
+    </products>
+        
+    <payment class="setting-content" id="payment-content">
+        <div class="payment">
+            <h2>Pago</h2>
+            <div class="payment-form">
+                <form>
+                    <div class="input-box-payment">
+                        <label>Nombre</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="input-box-payment">
+                        <label>Apellido</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="input-box-payment">
+                        <label>Numero de tarjeta</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="input-box-payment">
+                        <label>Fecha de vencimiento</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="input-box-payment">
+                        <label>Codigo de seguridad</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="save-changes">
+                        <button type="submit">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </payment>
+
+    <setting-menu>
+        <div class="setting-options-menu">
+
+            <div class="settings-title">
+                <h2>Configuracion</h2>
+            </div>
+
+            <div setting-options>
+                <div class="setting-option" id="Profile-option">
+                    <ion-icon name="person"></ion-icon><a>Perfil</a>
+                </div>
+            
+                <div class="setting-option" id="Security-option">
+                    <ion-icon name="lock-closed"></ion-icon><a>Seguridad y privacidad</a>
+                </div>
+            
+                <div class="setting-option" id="Product-option">
+                    <ion-icon name="cart"></ion-icon><a>Productos</a>
+                </div>
+            
+                <div class="setting-option" id="Payment-option">
+                    <ion-icon name="card"></ion-icon><a>Pago</a>
+                </div>
+            </div>
+
+            <div class="upload-product">
+                <a>Subir producto</a>
+            </div>
+
+        </div>
+    </setting-menu>
+
+    <script src="Perfil.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
