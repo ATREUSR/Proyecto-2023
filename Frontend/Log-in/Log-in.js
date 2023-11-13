@@ -31,58 +31,47 @@ iconClose.addEventListener('click', () => {
 
 register.addEventListener('click', async (e) => {
   console.log("yeah register");
-  if(passwordInput != confirmPasswordInput){
-    window.alert("No yeah");
-  }
 
-  if (PasswordInput.value != ConfirmPasswordInput.value) {
+  if (passwordInput.value != confirmPasswordInput.value) {
     console.log('click');
     alert('Las contraseñas no coinciden');
     return;
   }
   e.preventDefault();
   e.stopPropagation();
+
   await fetch('http://localhost:3000/register', {
     method: 'POST',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: nameInput.value, 
+      name: nameInput.value,
       surname: surnameInput.value,
       email: emailInput.value,
       password: passwordInput.value,
     })
-  })
-    .then(response => response.json())
-    .catch(error => {
-      console.error(error)
-    });
+  }).then(response => response.json()).catch(error => { console.error(error) });
 })
 
 logIn.addEventListener('click', async (e) => {
-    console.log("yeah login");
-    e.preventDefault();
-    e.stopPropagation();
+  console.log("yeah login");
+  e.preventDefault();
+  e.stopPropagation();
 
-    await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: "jorgegomex@gmai.com",
-        password: "123123123"
-      })
+  await fetch('http://localhost:3000/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
     })
+  })
     .then(response => response.json())
     .then(data => {
       console.log(data);
       if (data.success) {
-        window.location.href = "http://localhost:3000/pagina-inicial";
-      }
-    })
-    .catch(error => console.error('Error:', error));
+        window.location.href = "http://localhost:3000/pagina-inicial"; } } ).catch( error => console.error( 'Error:', error ) );
 });
