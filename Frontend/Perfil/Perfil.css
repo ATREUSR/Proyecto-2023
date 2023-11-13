@@ -147,10 +147,10 @@ body{
     display: block;
 }
 
-.profile-content {
+#profile-content.active {
     position: fixed;
     right: 200px;
-    margin-top: 100px;
+    margin-top: 725px;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
@@ -285,7 +285,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 
-#security-content {
+#security-content.active {
     position: fixed;
     top: 0;
     right: 200px;
@@ -298,6 +298,22 @@ input[type="file"]::file-selector-button:hover {
     height: 525px;
     display: flex;
     flex-direction: column;
+}
+
+.security {
+    order: 1; /* Establece el orden en 1 para que aparezca primero */
+}
+
+.privacy {
+    position: relative;
+    bottom: 450px;
+    left: 500px;
+    order: 2; /* Establece el orden en 2 para que aparezca después de security */
+}
+
+/* Agregado para que ocupen el ancho completo */
+.security, .privacy {
+    width: 100%;
 }
 
 .security h2 {
@@ -340,11 +356,34 @@ input[type="file"]::file-selector-button:hover {
     border-radius: 8px;
 }
 
-.privacy-form{
+.privacy-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     margin-top: 20px;
+}
+
+.privacy-form h2 {
+    color: #609D4A;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.privacy-agreement{
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.privacy-agreement a{
+    color: #609D4A;
+}
+
+.privacy-agreement:hover{
+    text-decoration: underline #609D4A;
+}
+
+.input-box-privacy{
+    margin-bottom: 40px;
 }
 
 .save-changes {
