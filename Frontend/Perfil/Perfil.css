@@ -193,10 +193,27 @@ body{
     margin-right: 20px;
 }
 
+.pfp-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.pfp-label:hover{
+    cursor: pointer;
+    filter: brightness(70%);
+}
+
 .user-profile-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.pfp-input{
+    display: none;
 }
 
 .labels-container {
@@ -268,7 +285,7 @@ body{
     cursor: pointer;
 }
 
-input[type="file"]::file-selector-button {
+/*input[type="file"]::file-selector-button {
     border-radius: 4px;
     padding: 0 16px;
     height: 40px;
@@ -283,6 +300,7 @@ input[type="file"]::file-selector-button {
 input[type="file"]::file-selector-button:hover {
     background-color: #f3f4f6;
 }
+*/
 
 
 #security-content.active {

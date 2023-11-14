@@ -1,3 +1,6 @@
+const pfpInput = document.getElementById('profile-pfp-input_id');
+const profileImage = document.getElementById('profile-image');
+
 document.addEventListener("DOMContentLoaded", function () {
     const settingOptions = document.querySelectorAll(".setting-option");
     const settingContents = document.querySelectorAll(".setting-content");
@@ -21,9 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+pfpInput.addEventListener('change', function () {
+    const selectedFile = pfpInput.files[0];
 
+    if (selectedFile) {
+        // Lee el contenido del archivo como un objeto de datos URL
+        const reader = new FileReader();
 
+        reader.onload = function (e) {
+            // Cambia la fuente de la imagen de perfil
+            profileImage.src = e.target.result;
+        };
 
+        // Lee el contenido del archivo como un objeto de datos URL
+        reader.readAsDataURL(selectedFile);
+    }
+});
 
 
 
