@@ -193,7 +193,7 @@ export async function createUser(req: Request, res: Response) {
   });
 
   if (emailExists) {
-    return res.status(400).json("El Email ya existe en la base de datos");
+    return res.status(400).json( { msg: "El Email ya existe en la base de datos" } );
   }
   const sessionId = uuidv4();
   const hashed_password = await bcrypt.hash(password, 10);
@@ -533,4 +533,49 @@ export async function postLike(req: Request, res: Response) {
     console.log(error);
     return res.status(500).json({ message: "Error al likear el producto"});  
   }
+}
+
+export async function updatePost(req: Request, res: Response) {
+
+  if (!req.cookies.userId && usarcookies == true) return res.status(400).json( {msg: "No estas logeado" } );
+  const userId = parseInt(req.cookies.userId);
+
+  const post_id = parseInt(req.params.id);
+
+  const esDelUsuario = await prisma.post.findFirst( { 
+    where: { user_id: userId  } } );
+  if (!esDelUsuario) return res.status(403).json( { msg: "Acceso denegado" } );
+  
+  const { title, price, description, defects, has_defects, image_type, file } = req.body;
+
+  if (file) {
+    try {
+      const result = await cloudinary.uploader.upload(file.path);
+      file.url = result.secure_url;
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ msg: "Error uploading image" });
+    }
+  }
+
+  await prisma.post.update({
+    where: { id: post_id },
+    data: {
+      title,
+      price,
+      description,
+      defects,
+      has_defects,
+      Image: {
+        create: [
+          {
+            url: file.url || "",
+            image_type,
+          },
+        ],
+      },
+    },
+  });
+
+  return res.status(200).json( { msg: "Post actualizado correctamente" } );
 }
