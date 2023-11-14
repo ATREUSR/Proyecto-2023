@@ -359,7 +359,7 @@ input[type="file"]::file-selector-button:hover {
 .privacy-form {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .privacy-form h2 {
@@ -370,8 +370,8 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .privacy-agreement{
-    margin-bottom: 20px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .privacy-agreement a{
@@ -383,7 +383,72 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .input-box-privacy{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.privacy-form input[type="checkbox"] {
+    display: none;
+}
+  
+.privacy-form input[type="checkbox"] + label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 120px;
+    top: 45px;
+    width: 3em;
+    height: 1.6em;
+    margin-bottom: 20px;
+    border-radius: 1em;
+    background: #ccc;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    -webkit-transition: background 0.1s ease-in-out;
+    transition: background 0.1s ease-in-out;
+}
+
+.privacy-form input[type="checkbox"] + label:before {
+    content: "";
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 1em;
+    background: #fff;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 0.2em;
+    top: 0.2em;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+  
+.privacy-form input[type="checkbox"]:checked + label {
+    background: #609D4A;
+}
+  
+.privacy-form input[type="checkbox"]:checked + label:before {
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    left: 1.6em;
+}
+
+.privacy-form label {
+    color: #609D4A;
+}
+
+.cookies-labe{
+    margin-left: 20px;
+
+}
+
+.log-out{
+    position: relative;
+    top: 50px;
+    color: #609D4A;
+}
+
+.log-out:hover{
+    cursor: pointer;
+    text-decoration: underline #609D4A;
 }
 
 .save-changes {
