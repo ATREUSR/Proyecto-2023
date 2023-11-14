@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const settingOptions = document.querySelectorAll(".setting-option");
     const settingContents = document.querySelectorAll(".setting-content");
 
-    settingOptions[0].classList.add("active");
+    settingOptions[2].classList.add("active");
 
-    settingContents[0].classList.add("active");
+    settingContents[2].classList.add("active");
 
     settingOptions.forEach((option, index) => {
         option.addEventListener("click", () => {
