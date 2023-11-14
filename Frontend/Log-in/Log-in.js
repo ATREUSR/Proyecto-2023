@@ -51,7 +51,11 @@ register.addEventListener('click', async (e) => {
       email: emailInput.value,
       password: passwordInput.value,
     })
-  }).then(response => response.json()).catch(error => { console.error(error) });
+  }).then(response => response.json())
+    .then(data => { 
+    console.log(data); 
+    if (data.success) {
+      window.location.href = "http://localhost:3000/pagina-inicial"; } } ) .catch( error => console.error( 'Error:', error ) );
 })
 
 logIn.addEventListener('click', async (e) => {

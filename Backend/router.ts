@@ -18,6 +18,7 @@ router.post("/post/:id", controllers.postLike);
 router.get("/post/:id/reviews", controllers.getPostReviews);
 router.post("/post/createPost", controllers.createPost);
 router.post("/post/:id/createReview", controllers.createReview);
+router.patch("/post/:id/updatePost", controllers.updatePost);
 router.delete("/post/:id/deletePost", controllers.deletePost);
 router.delete("/post/:id/deleteReview", controllers.deleteReview);
 
