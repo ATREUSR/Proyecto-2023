@@ -59,11 +59,7 @@
                 <label for="phone-number">Teléfono (opcional)</label>
                 <input type="tel" id="phone-number" name="phone-number" value="+54 9 11 4424 0379">
               </div>
-              <div class="discard-save-container">
-                <div class="discard-changes-button">
-                  <button type="submit">Descartar cambios</button>
-                </div>
-      
+              <div class="discard-save-container">     
                 <div class="save-changes-button">
                   <button type="submit">Guardar cambios</button>
                 </div>
@@ -149,7 +145,7 @@
                             <h4>Producto</h4>
                             <p>Descripción del producto</p>
                             <div class="delete-button">
-                                <a>Eliminar</a>
+                                <a id="delete-button_id">Eliminar</a>
                             </div>
                         </div>
                     </div>
@@ -178,8 +174,10 @@
     
         <div class="confirmation-box">
             <p>¿Estás seguro de que quieres eliminar este producto?</p>
-            <button>Cancelar</button>
-            <button>Eliminar</button>
+            <div class="buttons-confirmation">
+                <button class="cancel-button">Cancelar</button>
+                <button class="delete-button-confrimation">Eliminar</button>
+            </div>
         </div>
     </products>
         

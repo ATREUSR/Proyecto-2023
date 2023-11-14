@@ -1,13 +1,18 @@
 const pfpInput = document.getElementById('profile-pfp-input_id');
 const profileImage = document.getElementById('profile-image');
+const deletebtn = document.getElementById('delete-button_id');
+const confirmationBox = document.querySelector('.confirmation-box');
+const cancelBtn = document.querySelector('.cancel-button');
+const deleteBtnConfirmation = document.querySelector('.delete-button-confrimation');
+const mypost = document.querySelector('.my-post');
 
 document.addEventListener("DOMContentLoaded", function () {
     const settingOptions = document.querySelectorAll(".setting-option");
     const settingContents = document.querySelectorAll(".setting-content");
 
-    settingOptions[0].classList.add("active");
+    settingOptions[2].classList.add("active");
 
-    settingContents[0].classList.add("active");
+    settingContents[2].classList.add("active");
 
     settingOptions.forEach((option, index) => {
         option.addEventListener("click", () => {
@@ -22,6 +27,19 @@ document.addEventListener("DOMContentLoaded", function () {
             settingContents[index].classList.add("active");
         });
     });
+});
+
+deletebtn.addEventListener('click', function () {
+    confirmationBox.classList.add('active');
+});
+
+cancelBtn.addEventListener('click', function () {
+    confirmationBox.classList.remove('active');
+});
+
+deleteBtnConfirmation.addEventListener('click', function () {
+    mypost.remove();
+    confirmationBox.classList.remove('active');
 });
 
 pfpInput.addEventListener('change', function () {
@@ -40,12 +58,3 @@ pfpInput.addEventListener('change', function () {
         reader.readAsDataURL(selectedFile);
     }
 });
-
-
-
-
-
-
-
-
-

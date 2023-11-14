@@ -266,16 +266,6 @@ body{
     justify-content: flex-end;
 }
   
-.discard-changes-button button {
-    border: 2px solid #609D4A;
-    background-color: #fff;
-    color: #609D4A;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-  
 .save-changes-button button {
     border: 2px solid #609D4A;
     background-color: #609D4A;
@@ -283,6 +273,12 @@ body{
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+    transition: .5s;
+}
+
+.save-changes-button button:hover {
+    background-color: #fff;
+    color: #609D4A;
 }
 
 /*input[type="file"]::file-selector-button {
@@ -657,5 +653,56 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .confirmation-box{
-    display: none;
+    transform: scale(0);
+    position: relative;
+    bottom: 300px;
+    left: 300px;
+    border:  1px solid #ccc;
+    border-radius: 8px;
+    width: 35%;
+    padding: 20px;
+    background-color: #fff;
+    justify-content: center;
+    transition: transform .3s ease, height .2s ease;
+}
+
+.confirmation-box.active{
+    transform: scale(1);
+}
+
+.confirmation-box p{
+    display: flex;
+    position: relative;
+    bottom: 10px;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.buttons-confirmation{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.cancel-button{
+    border: 2px solid #666666;
+    background-color: #fff;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.delete-button-confrimation{
+    border: 2px solid #609D4A;
+    background-color: #609D4A;
+    color: #fff;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
 }
