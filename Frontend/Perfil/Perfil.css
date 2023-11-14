@@ -465,3 +465,80 @@ input[type="file"]::file-selector-button:hover {
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+#products-content.active {
+    position: fixed;
+    top: 0;
+    right: 200px;
+    margin-top: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 15px;
+    width: 800px; 
+    height: 525px;
+    display: flex;
+    flex-direction: column;
+}
+
+.products {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.products-header h2 {
+    color: #609D4A;
+    font-size: 24px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.products-header h3 {
+    color: #609D4A;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.my-posts-box,
+.history-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 48%; /* Ajusta según sea necesario */
+}
+
+.my-post,
+.history-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.my-post-buttons {
+    margin-top: 10px;
+}
+
+.confirmation-box {
+    margin-top: 20px;
+    /* Agrega estilos según sea necesario */
+}
