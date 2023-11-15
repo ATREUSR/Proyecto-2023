@@ -3,6 +3,11 @@ var btns = document.querySelectorAll('.btn');
 /*var slideId = button.dataset.postId;*/
 let currentSlide = 0;
 
+const itemContainer = document.querySelectorAll('item-container');
+const nameElements = document.querySelectorAll('.item-name[data-name]');
+const descElements = document.querySelectorAll('.item-info[data-desc]');
+const priceElements = document.querySelectorAll('.item-price[data-price]');
+
 /*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
     headers : {
@@ -21,6 +26,18 @@ let currentSlide = 0;
   console.log(data.message);
 });
 */
+
+itemContainers.forEach((itemContainer, index) => {
+    itemContainer.addEventListener("click", () => {
+        // Obtén el ID del producto (puedes usar el índice actual como ejemplo)
+        const productId = index + 1; // Puedes ajustar esto según tus necesidades
+
+        // Redirige a la página de publicación con el ID en la URL
+        window.location.href = `http://localhost/Proyecto2023/Proyecto-2023/Frontend/Publicacion/Publicacion.html${productId}`;
+    });
+});
+
+
 
 var manualNav = function(manual){
     slides.forEach((slide) => {

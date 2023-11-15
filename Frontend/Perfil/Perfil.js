@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const settingOptions = document.querySelectorAll(".setting-option");
     const settingContents = document.querySelectorAll(".setting-content");
 
-    settingOptions[2].classList.add("active");
+    settingOptions[0].classList.add("active");
 
-    settingContents[2].classList.add("active");
+    settingContents[0].classList.add("active");
 
     settingOptions.forEach((option, index) => {
         option.addEventListener("click", () => {
@@ -29,20 +29,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-deletebtn.addEventListener('click', function () {
+deletebtn.addEventListener('click', () => {
     confirmationBox.classList.add('active');
 });
 
-cancelBtn.addEventListener('click', function () {
+cancelBtn.addEventListener('click', () => {
     confirmationBox.classList.remove('active');
 });
 
-deleteBtnConfirmation.addEventListener('click', function () {
+deleteBtnConfirmation.addEventListener('click', () => {
     mypost.remove();
     confirmationBox.classList.remove('active');
 });
 
-pfpInput.addEventListener('change', function () {
+pfpInput.addEventListener('change', () => {
     const selectedFile = pfpInput.files[0];
 
     if (selectedFile) {
