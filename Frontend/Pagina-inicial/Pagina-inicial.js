@@ -7,6 +7,7 @@ const itemContainer = document.querySelectorAll('item-container');
 const nameElements = document.querySelectorAll('.item-name[data-name]');
 const descElements = document.querySelectorAll('.item-info[data-desc]');
 const priceElements = document.querySelectorAll('.item-price[data-price]');
+const itemIds = document.querySelectorAll('item-container[item_id]');
 
 /*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
@@ -39,7 +40,7 @@ itemContainer.forEach((itemContainer, index) => {
 
 
 
-//en el html tieve que haber una variable como las de precio que va a guardar un id. El atributo de este id va a ser asignado aca. Ylos valkores de nombre y demas van a ser los que encuentre en ese id. Osea que el valor de los atributos sera el del valor que tenga el id de esos atributos. Va a habr un for que revise cada item preguntado por su id y rellenando los valors con sus id values.
+//Toda las pusblicaciones van a tener una variable id. Por aca voy a hacer un foreach que va a pasar por todas las variables y se les va a asignar un id de la base de datos}. Les tiene que poner un id random, y si detecta, con un if, que un id es igual a otro, vuelve a cambiarlo por uno random. Luego se va a poner en cada variable del nombre, precio y demas el valor que guarda el id.
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -90,9 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function changeInfo(item)
+
+//un array de datos de item que tiene el nombre, precio, descripcion. tiene que haber un for que le de un id a los items, y dependiendo ese id puede haber otro for que va a ir pasando por los valores y les va poniendo el valor que tiene el id de ese parametro.
+function changeInfo()
 {
-    item = document.querySelectorAll('item-container');
+
+    let itemValuesArray = [];
+
+    itemIds = [];//poner los ids en un array
+
+    itemIds.forEach(function (itemId){
+        itemId = a;//aca tiene que estar el id, puede ser mejor hacer una funcion y poner el item id como parametro
+
+
+    });
 }
 
 var manualNav = function(manual){
