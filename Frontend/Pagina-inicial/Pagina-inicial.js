@@ -3,11 +3,11 @@ var btns = document.querySelectorAll('.btn');
 /*var slideId = button.dataset.postId;*/
 let currentSlide = 0;
 
-const itemContainer = document.querySelectorAll('item-container');
-const nameElements = document.querySelectorAll('.item-name[data-name]');
+let items = document.querySelectorAll(".item-container");
+/*const nameElements = document.querySelectorAll('.item-name[data-name]');
 const descElements = document.querySelectorAll('.item-info[data-desc]');
 const priceElements = document.querySelectorAll('.item-price[data-price]');
-const itemIds = document.querySelectorAll('item-container[item_id]');
+const itemIds = document.querySelectorAll('item-container[item_id]');¨*/
 
 /*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
@@ -28,7 +28,7 @@ const itemIds = document.querySelectorAll('item-container[item_id]');
 });
 */
 
-itemContainer.forEach((itemContainer, index) => {
+/*itemContainer.forEach((itemContainer, index) => {
     itemContainer.addEventListener("click", () => {
         // Obtén el ID del producto (puedes usar el índice actual como ejemplo)
         const productId = index + 1; // Puedes ajustar esto según tus necesidades
@@ -37,14 +37,48 @@ itemContainer.forEach((itemContainer, index) => {
         window.location.href = `http://localhost/Proyecto2023/Proyecto-2023/Frontend/Publicacion/Publicacion.html${productId}`;
     });
 });
-
+*/
 
 
 //Toda las pusblicaciones van a tener una variable id. Por aca voy a hacer un foreach que va a pasar por todas las variables y se les va a asignar un id de la base de datos}. Les tiene que poner un id random, y si detecta, con un if, que un id es igual a otro, vuelve a cambiarlo por uno random. Luego se va a poner en cada variable del nombre, precio y demas el valor que guarda el id.
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const specificPriceElement = document.querySelector('.item-price[data-price="5000"]');
+    let data = [
+        {
+          id: 1,
+          name: "iPhone 13",
+          desc: "Iphone con pixeles muertos",
+          price: "4000"
+        },
+        {
+            id: 2,
+            name: "Samsung Galaxy S21",
+            desc: "Smamsung con bateria defectuosa",
+            price: "$3000"
+          },
+          // Más objetos con los datos de otros ítems
+        ];
+
+
+        for (let i = 0; i < data.length; i++) {
+            // Asignar el ID de cada objeto al atributo de datos item_id de cada elemento item-container
+            items[i].dataset.item_id = data[i].id;
+          
+            // Seleccionar los elementos hijos de cada item-container que tienen las clases item-name, item-info y item-price
+            let name = items[i].querySelector(".item-name h3");
+            let info = items[i].querySelector(".item-info p");
+            let price = items[i].querySelector(".item-price h3");
+          
+            // Asignarles los valores correspondientes de cada objeto usando el dataset
+            name.textContent = data[i].name;
+            info.textContent = data[i].desc;
+            price.textContent = data[i].price;
+          }
+
+
+
+    /*const specificPriceElement = document.querySelector('.item-price[data-price="5000"]');
     const specificNameElement = document.querySelector('.item-name[data-name="Iphone 14"]');
     const specificDescElement = document.querySelector('.item-info[data-desc="Iphone 14 con pixeles muertos"]');
 
@@ -89,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var newUnitDesc = specificDescElement.getAttribute('data-desc')
         specificDescElement.querySelector('p').innerText = newUnitDesc;
     }
+    */
 });
 
 
