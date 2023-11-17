@@ -4,10 +4,6 @@ var btns = document.querySelectorAll('.btn');
 let currentSlide = 0;
 
 let items = document.querySelectorAll(".item-container");
-/*const nameElements = document.querySelectorAll('.item-name[data-name]');
-const descElements = document.querySelectorAll('.item-info[data-desc]');
-const priceElements = document.querySelectorAll('.item-price[data-price]');
-const itemIds = document.querySelectorAll('item-container[item_id]');¨*/
 
 /*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
@@ -76,71 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             price.textContent = data[i].price;
           }
 
-
-
-    /*const specificPriceElement = document.querySelector('.item-price[data-price="5000"]');
-    const specificNameElement = document.querySelector('.item-name[data-name="Iphone 14"]');
-    const specificDescElement = document.querySelector('.item-info[data-desc="Iphone 14 con pixeles muertos"]');
-
-    priceElements.forEach(function (priceElement) {
-        var unitPrice = parseFloat(priceElement.getAttribute('data-price'));
-        priceElement.querySelector('h3').innerText = '$' + unitPrice.toFixed(0);
-    });  
-
-    nameElements.forEach(function (nameElement){
-        var uniteName = nameElement.getAttribute('data-name');
-        nameElement.querySelector('h3').innerText = uniteName;
-    });
-
-    descElements.forEach(function (descElement){
-        var uniteDesc = descElement.getAttribute('data-desc');
-        descElement.querySelector('p').innerText = uniteDesc;
-    });
-
-    if (specificPriceElement) {
-        // Cambia el valor del data-price
-        specificPriceElement.setAttribute('data-price', '6000');
-
-        // Obtiene el nuevo valor y lo muestra en el elemento
-        var newUnitPrice = parseFloat(specificPriceElement.getAttribute('data-price'));
-        specificPriceElement.querySelector('h3').innerText = '$' + newUnitPrice.toFixed(0);
-    }
-
-    if (specificNameElement) {
-        // Cambia el valor del data-price
-        specificNameElement.setAttribute('data-name', 'samsung');
-
-        // Obtiene el nuevo valor y lo muestra en el elemento
-        var newUnitName = specificNameElement.getAttribute('data-name')
-        specificNameElement.querySelector('h3').innerText = newUnitName;
-    }
-
-    if (specificDescElement) {
-        // Cambia el valor del data-price
-        specificDescElement.setAttribute('data-desc', 'S21 con pantalla rota');
-
-        // Obtiene el nuevo valor y lo muestra en el elemento
-        var newUnitDesc = specificDescElement.getAttribute('data-desc')
-        specificDescElement.querySelector('p').innerText = newUnitDesc;
-    }
-    */
 });
-
-
-//un array de datos de item que tiene el nombre, precio, descripcion. tiene que haber un for que le de un id a los items, y dependiendo ese id puede haber otro for que va a ir pasando por los valores y les va poniendo el valor que tiene el id de ese parametro.
-function changeInfo()
-{
-
-    let itemValuesArray = [];
-
-    itemIds = [];//poner los ids en un array
-
-    itemIds.forEach(function (itemId){
-        itemId = a;//aca tiene que estar el id, puede ser mejor hacer una funcion y poner el item id como parametro
-
-
-    });
-}
 
 var manualNav = function(manual){
     slides.forEach((slide) => {
