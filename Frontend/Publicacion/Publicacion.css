@@ -31,6 +31,7 @@ body {
 .img-container {
     width: 200px;
     height: 50px;
+    cursor: pointer;
 }
 
 .logo-img {

@@ -5,6 +5,21 @@ let currentSlide = 0;
 
 let items = document.querySelectorAll(".item-container");
 
+for (let item of items) {
+  item.addEventListener("click", abrirPublicacion);
+}
+
+function abrirPublicacion(event) {
+  // Obtener el elemento al que se le agregó el evento de clic
+  let item = event.currentTarget; // Cambiar event.target por event.currentTarget
+
+  // Obtener el ID del item usando el atributo de datos item_id
+  let item_id = item.dataset.item_id;
+
+  // Abrir una nueva ventana con la URL de la página de publicación y el ID del item como parámetro
+  window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Publicacion/Publicacion.html?item_id=" + item_id;
+}
+
 /*fetch('http://localhost:3000/user/${id}/home'),{
     method : 'GET',
     headers : {
@@ -39,24 +54,6 @@ let items = document.querySelectorAll(".item-container");
 //Toda las pusblicaciones van a tener una variable id. Por aca voy a hacer un foreach que va a pasar por todas las variables y se les va a asignar un id de la base de datos}. Les tiene que poner un id random, y si detecta, con un if, que un id es igual a otro, vuelve a cambiarlo por uno random. Luego se va a poner en cada variable del nombre, precio y demas el valor que guarda el id.
 
 document.addEventListener('DOMContentLoaded', () => {
-    /*
-        let data = [
-            {
-              id: 1,
-              name: "iPhone 13",
-              desc: "Iphone con pixeles muertos",
-              price: "4000"
-            },
-            {
-                id: 2,
-                name: "Samsung Galaxy S21",
-                desc: "Smamsung con bateria defectuosa",
-                price: "$3000"
-              },
-              // Más objetos con los datos de otros ítems
-            ];
-            */
-
             fetch('http://localhost:3000/random/2', {
 
             //el numero al final, despue se la barra, e: "/2" indica la cantidad de post que devuelve el fetch, ponerle la misma cantidad de productos que hagan falta en la pagina de inicio
@@ -83,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   price.textContent = data[i].price;
                 }
               })
-              .catch(error => console.error('Error:', error));
+              .catch(error => console.error('Error:', error));    
 });
 
 
