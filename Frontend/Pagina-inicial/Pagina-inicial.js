@@ -4,6 +4,26 @@ var btns = document.querySelectorAll('.btn');
 let currentSlide = 0;
 
 let items = document.querySelectorAll(".item-container");
+var input = document.getElementById("search_id");
+
+function buscar() {
+  // Obtener el valor del input
+  var query = document.getElementById("search_id").value;
+  // Verificar que el valor no esté vacío
+  if (query) {
+    // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
+    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Buscar-productos/Buscar-productos.html?=" + query;
+  }
+}
+
+// Agregar el evento keydown
+input.addEventListener("keydown", function(event) {
+  // Verificar que la tecla presionada sea enter (código 13)
+  if (event.key === 'Enter') {
+    // Ejecutar la función buscar()
+    buscar();
+  }
+});
 
 for (let item of items) {
   item.addEventListener("click", abrirPublicacion);

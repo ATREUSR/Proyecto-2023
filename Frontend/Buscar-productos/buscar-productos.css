@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    padding: 20px 100px;
+    background: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+}
+
+body{
+    height: 330vh;
+    display: flex;
+    background: #F6FFF6;
+}
+
+.img-container {
+    width: 200px;
+    height: 50px;
+}
+
+.logo-img {
+    width: 100%;
+    position: relative;
+    bottom: 30px;
+}
+
+.search-bar {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    padding: 5px;
+}
+
+.search-bar button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.user-icons ion-icon {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-icons :hover{
+    color: #199ebf;
+}
+
+.order-by-section {
+    float: left;
+    border: 1px solid black;
+    margin-top: 100px;
+    width: 180px; 
+    box-shadow: 5px 5px 10px gray;
+    position: fixed;
+}
+
+.order-by-title{
+    margin-left: 10px;
+    color: #609D4A;
+}
+
+.order-by-title h2{
+    font-weight: 500;
+}
+
+.order-by-filters {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin: 10px; 
+}
+
+.filter{
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center; 
+}
+
+.filter label{
+    margin-right: 5px;
+    color: #609D4A;
+}
+
+input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+  
+    font: inherit;
+    color: currentColor;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #609D4A;
+    border-radius: 0.15em;
+  
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    background-color: #B1F49D;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 13px;
+    height: 13px;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+}
+  
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+    background-color: #fff;
+}
+
+.filter-submit input {
+    border: 2px solid #609D4A;
+    background-color: #609D4A;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .5s;
+    margin-left: 10px;
+}
+
+.filter-submit input:hover {
+    background-color: #fff;
+    color: #609D4A;
+}
+
+.item-list-container {
+    flex: 1; /* Esto hace que el section ocupe el espacio restante del contenedor */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 300px;
+    z-index: 1;
+}
+
+.items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1;
+    max-height: 800px;
+    align-items: center; /* Esta es la propiedad que debes agregar */
+}
+
+.item {
+    display: flex;
+    align-items: top;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    width: 700px;
+    height: 220px;
+    cursor: pointer;
+}
+
+.item-image {
+    flex: 1;
+    margin-right: 20px;
+    position: relative;
+}
+
+.item-image img {
+    max-width: 100%;
+}
+
+.item-info {
+    flex: 2;
+    padding: 20px;
+}
+
+.item-name h2{
+    font-weight: 600;
+}
+
+.item-price {
+    margin-top: 80px; 
+}
+
+.item-price h2 {
+    color: #609D4A;
+    font-weight: 600;
+}

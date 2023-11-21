@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Buscar Productos</title>
+    <link rel="stylesheet" href="buscar-productos.css">
+</head>
+<body>
+    <header>
+        <div class="img-container">
+          <!--<a href="../Log-in/Log-in.html">--><img class="logo-img" src="Imagenes-buscar-productos/Logo Outller.png" alt="Logo Outller">
+        </div>
+        <div class="search-bar">
+            <input id="search_id" type="text" placeholder="Barra de busqueda">
+            <button><ion-icon name="search"></ion-icon></button>
+        </div>
+        <div class="user-icons">
+            <a href="../Likeados/Likeados.html"><ion-icon name="heart"></ion-icon></a>
+            <a href="../Carrito/Carrito.html"><ion-icon name="cart"></ion-icon></a>
+            <a href="../Perfil/"><ion-icon name="person"></ion-icon></a>
+        </div>
+    </header>
+
+    <aside class="order-by-section">
+        <div class="order-by-title"><h2>Ordenar por:</h2></div>
+        <div class="order-by-filters">
+            <form action="">
+                <div class="filter">
+                    <label for="best-sellers_id">Lo mas vendido</label>
+                    <input type="checkbox" name="best-sellers" id="best-sellers_id">
+                </div>
+                <div class="filter">
+                    <label for="new-releases_id">Lo mas reciente</label>
+                    <input type="checkbox" name="new-releases" id="new-releases_id">
+                </div>
+                <div class="filter">
+                    <label for="lower-price_id">Precio mas bajo</label>
+                    <input type="checkbox" name="lower-price" id="lower-price_id">
+                </div>
+                <div class="filter">
+                    <label for="higher-price_id">Precio mas alto</label>
+                    <input type="checkbox" name="higher-price" id="higher-price_id">
+                </div>
+                <div class="filter-submit">
+                    <input type="submit" value="Aplicar filtros">
+                </div>
+            </form>
+        </div>
+    </aside>
+
+    <item-list id="lista" class="item-list-container">
+        <div class="items">
+            <div class="item" item_id="">
+                <div class="item-image"><img src=""></div>
+                <div class="item-info">
+                    <div class="item-name"><h2></h2></div>
+                    <div class="item-desc"><p></p></div>
+                    <div class="item-price"><h2></h2></div>
+                </div>
+            </div>
+        </div>
+        
+    </item-list>
+
+    <script src="Buscar-productos.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

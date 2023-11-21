@@ -1,0 +1,1 @@
+var DisplayType,SwipeDirection,Bing;(function(n){n[n.None=0]="None";n[n.Block=1]="Block";n[n.InlineBlock=2]="InlineBlock";n[n.Inline=3]="Inline";n[n.Default=4]="Default"})(DisplayType||(DisplayType={})),function(n){n[n.Undefined=0]="Undefined";n[n.Horizontal=1]="Horizontal";n[n.Vertical=2]="Vertical"}(SwipeDirection||(SwipeDirection={}));Bing=Bing||{}
