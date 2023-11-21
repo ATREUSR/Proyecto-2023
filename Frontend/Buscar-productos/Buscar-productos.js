@@ -6,7 +6,7 @@ function buscar() {
   // Verificar que el valor no esté vacío
   if (query) {
     // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
-    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Buscar-productos/Buscar-productos.html?=" + query;
+    window.location.href = "http://localhost/frontend/Buscar-productos/Buscar-productos.html?=" + query;
   }
 }
 
@@ -24,11 +24,8 @@ function filtrar() {
     var url = window.location.href;
     var query = url.split("=")[1]; // El valor buscado está después del signo =
     // Obtener la lista de items desde la base de datos
-    fetch("http://localhost:3000/random/2", { // Usar la URL correcta
+    fetch("http://localhost:3000/search?q=" + query, { // Usar la URL correcta
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
     .then(response => response.json())
     .then(data => {
