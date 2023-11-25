@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { v2 as cloudinary } from "cloudinary";
 
-import { PrismaClient, User, Review, Post, Prisma, Image, ImageType } from "@prisma/client";
+import { PrismaClient, User, Review, Post, Prisma, Image, ImageType, Liked } from "@prisma/client";
 
 const bcrypt = require("bcrypt");
 
@@ -553,18 +553,33 @@ export async function getPost(req: Request, res: Response) {
 export async function postLike(req: Request, res: Response) {
   const { id } = req.params;
   const userId = req.cookies.userId;
-  if (userId && usarcookies == true)
+  if (!userId || usarcookies != true)
     return res.status(400).json({ msg: "No estas logeado" });
 
   try {
-    const like = await prisma.liked.create({
-      data: {
+    const existingLike = await prisma.liked.findFirst({
+      where: {
         user_id: userId,
         post_id: parseInt(id),
       },
     });
 
-    return res.status(201).json(like);
+    if (existingLike) {
+      await prisma.Liked.delete({
+        where: {
+          id: existingLike.id,
+        },
+      });
+      return res.status(200).json({ msg: "Like removed" });
+    } else {
+      const like = await prisma.Liked.create({
+        data: {
+          user_id: userId,
+          post_id: parseInt(id),
+        },
+      });
+      return res.status(201).json(like);
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Error al likear el producto" });
