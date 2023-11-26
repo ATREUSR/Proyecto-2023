@@ -1,11 +1,11 @@
 // get all the buttons
-const deleteButtons = document.querySelectorAll('.delete');//Declaro una variable para guardar los botones para eliminar prodctos
-const buyButtons = document.querySelectorAll('.buy'); //Declaro una variable para guardar los botones para comprar productos
-const quantityButtons = document.querySelectorAll('.buttons button'); //Declaro una variable para guardar los botones para aumentar y restar cantidades de un producto
-const priceElements = document.querySelectorAll('.price[data-unitPrice]'); // Seleccionar todos los elementos de precio con data-unitPrice
-var cartItems = JSON.parse(localStorage.getItem('cart')) || {}; //Declaro una variable para guardar los items del carrito
+const deleteButtons = document.querySelectorAll('.delete');
+const buyButtons = document.querySelectorAll('.buy'); 
+const quantityButtons = document.querySelectorAll('.buttons button'); 
+const priceElements = document.querySelectorAll('.price[data-unitPrice]'); 
+var cartItems = JSON.parse(localStorage.getItem('cart')) || {}; 
 
-//hago los event listener de los botones, primero los de borrar, despues comprar y despues el de las cantidades
+
 for (var i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener('click', deleteItem);
 }
@@ -18,21 +18,21 @@ for (var i = 0; i < quantityButtons.length; i++) {
     quantityButtons[i].addEventListener('click', updateQuantity);
 }
 
-//funcion que actualiza los detalles en el resumen de compra
+
 function updateCartDetails() {
     var cartDetails = document.getElementById('cart-details');
     var emptyCartMessage = document.getElementById('empty-cart-message');
-    var receipt = document.querySelector('.receipt'); // Selecciona el resumen de compra
+    var receipt = document.querySelector('.receipt'); 
 
     // Limpia la lista
     cartDetails.innerHTML = '';
 
     if (Object.keys(cartItems).length === 0) {
-        emptyCartMessage.style.display = 'block'; // Muestra el mensaje
-        receipt.style.display = 'none'; // Oculta el resumen de compra
+        emptyCartMessage.style.display = 'block'; 
+        receipt.style.display = 'none'; 
     } else {
-        emptyCartMessage.style.display = 'none'; // Oculta el mensaje
-        receipt.style.display = 'block'; // Muestra el resumen de compra
+        emptyCartMessage.style.display = 'none'; 
+        receipt.style.display = 'block'; 
     }
 
     for (var itemName in cartItems) {
@@ -43,34 +43,25 @@ function updateCartDetails() {
     }
 }
 
-//funcionamiento de los botones de compra, tengo dudas de algunas cosas
-
 for (var i = 0; i < buyButtons.length; i++) {
     buyButtons[i].addEventListener('click', function (event) {
-        // Encuentra el elemento del artículo
         var item = event.target.parentElement.parentElement;
         var itemName = item.querySelector('h3').textContent;
         var itemPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
         var itemQuantity = parseInt(item.querySelector('.quantity').textContent, 10);
 
-        // Verifica si el artículo ya está en el carrito
         if (cartItems[itemName]) {
-            // Si ya existe en el carrito, actualiza la cantidad
             cartItems[itemName].quantity += itemQuantity;
         } else {
-            // Si no existe, crea un nuevo elemento en el carrito
             cartItems[itemName] = {
                 price: itemPrice,
                 quantity: itemQuantity
             };
         }
-
-        // Actualiza la lista de detalles de compra
         updateCartDetails();
     });
 }
 
-//funcion para calcular el precio total
 function calculateTotalPrice() {
     var total = 0;
     for (var itemName in cartItems) {
@@ -80,7 +71,6 @@ function calculateTotalPrice() {
     return total;
 }
 
-//funcion para actualizar el precio total
 function updateTotalPrice(price) {
     var totalPriceElement = document.getElementById('total-price');
     var currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));
@@ -88,7 +78,6 @@ function updateTotalPrice(price) {
     totalPriceElement.textContent = '$' + currentTotal.toFixed(0);
 }
 
-//funciona para calclar la cantidad de cada item
 function calculateTotalQuantity() {
     var total = 0;
     for (var itemName in cartItems) {
@@ -98,7 +87,6 @@ function calculateTotalQuantity() {
     return total;
 }
 
-//funcion ara actualizar la cantidad total de item en el resumen de compra 
 function updateTotalItems(quantity) {
     var totalItemsElement = document.getElementById('total-items');
     var currentQuantity = parseInt(totalItemsElement.textContent, 10);
@@ -106,44 +94,39 @@ function updateTotalItems(quantity) {
     totalItemsElement.textContent = currentQuantity;
 }
 
-// funcion para borrar un objeto
 function deleteItem(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
     var itemName = item.querySelector('h3').textContent;
     var itemPrice = parseFloat(item.querySelector('.price').getAttribute('data-unitPrice'));
 
-    // Resta el precio del elemento que se va a eliminar del total
     updateTotalPrice(-itemPrice);
 
-    delete cartItems[itemName]; // Elimina el elemento del carrito
+    delete cartItems[itemName]; 
 
-    item.remove(); // Elimina el elemento de la interfaz
+    item.remove();
 
-    updateCartDetails(); // Actualiza el resumen de compra
+    updateCartDetails();
 
-    updateTotal(); // Actualiza el total
+    updateTotal();
 
     localStorage.setItem('cart', JSON.stringify(cartItems));
 }
 
-// funcion que al apretar el boton de comprar sale una ventanita con un mensaje, la idea es que esto te lleve a comprar el item por separado, pero todavia no esta hecho
+
 function buyItem(event) {
     alert('Gracias por su compra!');
 }
 
-//funcion que usa el DOM para mantener los valores aunque recargues la pagina
 document.addEventListener('DOMContentLoaded', function () {
-    // Obtén todos los elementos de precio
     var priceElements = document.querySelectorAll('.price');
     cartItems = JSON.parse(localStorage.getItem('cart')) || {};
+    var itemName;
 
-    // Agrega elementos del carrito al resumen de compra y actualiza los totales
     priceElements.forEach(function (priceElement) {
         var unitPrice = parseFloat(priceElement.getAttribute('data-unitPrice'));
         priceElement.querySelector('span').innerText = '$' + unitPrice.toFixed(0);
 
-        // Agrega 1 de cada artículo al resumen de compra
         var itemName = priceElement.parentElement.parentElement.querySelector('h3').textContent;
         addItemToSummary(itemName, 1, unitPrice);
     });
@@ -154,15 +137,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     updateTotal();
-    updateCartDetails(); // Llama a esta función para mostrar los precios en los detalles de compra
-    
-    // Llama a la función correcta para agregar cantidades predeterminadas
+    updateCartDetails();
     addDefaultQuantities(cartItems);
 
-    updateItemInCart(itemName, value, itemPrice);
 });
 
-//funcion que pone las cantidades predetermiandas de los items
 function addDefaultQuantities(cartItems) {
     var items = document.querySelectorAll('.item');
     for (var itemName in cartItems) {
@@ -171,7 +150,7 @@ function addDefaultQuantities(cartItems) {
             var nameElement = item.querySelector('h3');
             if (nameElement.textContent === itemName) {
                 var quantityElement = item.querySelector('.quantity');
-                quantityElement.setAttribute('data-quantity', cartItems[itemName].quantity); // Set the data-quantity attribute to the default value
+                quantityElement.setAttribute('data-quantity', cartItems[itemName].quantity);
                 addItemToSummary(itemName, cartItems[itemName].quantity, cartItems[itemName].price);
                 break;
             }
@@ -179,7 +158,6 @@ function addDefaultQuantities(cartItems) {
     }
 }
 
-//actualiza la cantidad del objeto al sumarle o restar con los botones
 function updateQuantity(event) {
     var button = event.target;
     var item = button.parentElement.parentElement;
@@ -200,19 +178,18 @@ function updateQuantity(event) {
     var itemPrice = value * unitPrice;
     updateItemInCart(itemName, value, itemPrice);
     updateTotal();
-    updateCartDetails(); // Llama a la función para actualizar el resumen de compra
+    updateCartDetails();
 }
 
-//actualiza el item en el resumen de compra, usano los valores de nombre, cantidad y precio
 function updateItemInCart(itemName, quantity, itemPrice) {
     cartItems[itemName] = {
         price: itemPrice,
         quantity: quantity
     };
-    localStorage.setItem('cart', JSON.stringify(cartItems)); // Actualiza el almacenamiento local
+    localStorage.setItem('cart', JSON.stringify(cartItems));
 }
 
-//añade los items al resumen de compra cuando detecta(por apretar ciertos botones por ejemplo)  que esya en el carrito
+
 function addItemToSummary(name, quantity, unitPrice) {
     var cartDetails = document.getElementById('cart-details');
     var cartItems = cartDetails.children;
@@ -222,7 +199,7 @@ function addItemToSummary(name, quantity, unitPrice) {
         if (cartItems[i].textContent.includes(name)) {
             var currentItem = cartItems[i];
             var currentQuantity = parseInt(currentItem.textContent.split('x')[1], 10);
-            currentQuantity += quantity; // Update the quantity of the existing item
+            currentQuantity += quantity; 
             currentItem.textContent = `x${quantity} ${name}`;
             found = true;
             break;
@@ -236,29 +213,23 @@ function addItemToSummary(name, quantity, unitPrice) {
     }
 }
 
-//actualiza el precio total que se ven en el resumen de compra
 function updateTotal() {
-    var totalItems = calculateTotalQuantity(); // Calcula la cantidad total
-    var totalPrice = calculateTotalPrice(); // Calcula el precio total
+    var totalItems = calculateTotalQuantity(); 
+    var totalPrice = calculateTotalPrice(); 
 
-    // Actualiza la cantidad total de productos
     document.getElementById('total-items').textContent = totalItems;
 
-    // Verifica si el contenido de totalPrice es NaN
     if (isNaN(totalPrice)) {
-        totalPrice = 0; // Establece el precio total en 0 si es NaN
+        totalPrice = 0; 
     }
 
-    // Actualiza el precio total
     document.getElementById('total-price').textContent = '$' + totalPrice.toFixed(0);
 }
 
-//2 funciones que hacen lo mismo? el mismo parametro? tengo que revisar esto.
 function updateTotalItems(quantity) {
     var totalItemsElement = document.getElementById('total-items');
     var currentQuantity = parseInt(totalItemsElement.textContent, 10);
 
-    // Verifica si el contenido de totalItemsElement es NaN
     if (isNaN(currentQuantity)) {
         currentQuantity = 0;
     }
@@ -267,13 +238,10 @@ function updateTotalItems(quantity) {
     totalItemsElement.textContent = currentQuantity;
 }
 
-//funciona que usa el almacenamiento local para guardar los datos
 function updateLocalStorage() {
-    // Obtén el carrito actual del almacenamiento local (si existe)
     var currentCart = JSON.parse(localStorage.getItem('cart')) || {};
 
-    // Ahora, actualiza el carrito con los cambios (en tu caso, cartItems)
-    currentCart = cartItems; // Esto reemplaza el carrito actual con el nuevo carrito
+    currentCart = cartItems;
 
     // Guarda el carrito actualizado en el almacenamiento local
     localStorage.setItem('cart', JSON.stringify(currentCart));
