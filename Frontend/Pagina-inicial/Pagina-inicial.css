@@ -210,6 +210,7 @@ body{
 }
   
 .item-container {
+    position: relative;
     flex: 0 0 auto;
     width: 235px; 
     margin-right: 17.5px;
@@ -258,6 +259,27 @@ body{
 .item-info p {
     font-size: 0.9rem;
     margin-bottom: 10px;
+}
+
+.like-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #838a96;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.3s;
+    shape-rendering: auto;
+}
+
+.like-icon.active {
+    color: #609D4A;
+}
+  
+.like-icon:hover {
+    color: #609D4A;
 }
 
 .section-title {

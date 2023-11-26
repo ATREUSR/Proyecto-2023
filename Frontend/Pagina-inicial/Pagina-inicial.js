@@ -5,6 +5,17 @@ let currentSlide = 0;
 
 let items = document.querySelectorAll(".item-container");
 var input = document.getElementById("search_id");
+let likeButtons = document.querySelectorAll(".like-icon");
+
+likeButtons.forEach((likeButton) => {
+  // Agregar un evento click a cada elemento
+  likeButton.addEventListener("click", (event) => {
+    // Evitar que el evento se propague al contenedor del item
+    event.stopPropagation();
+    // Alternar la clase active al botón de like
+    likeButton.classList.toggle("active");
+  });
+});
 
 function buscar() {
   // Obtener el valor del input
@@ -102,8 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .catch(error => console.error('Error:', error));    
 });
-
-
+/*
 var manualNav = function (manual) {
     slides.forEach((slide) => {
         slide.classList.remove('active');
@@ -150,11 +160,11 @@ var repeat = function (activeClass) {
             slides[i].classList.add('active');
             /*slides[1].addEventListener('click', ()=>{
                 const url = "http://localhost:3000/post/${post.id}";
-            });*/
+            });
             repeater();
         }, 5000);
     }
     repeater();
 }
 repeat();
-
+*/
