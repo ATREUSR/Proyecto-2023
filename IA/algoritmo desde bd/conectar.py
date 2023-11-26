@@ -72,26 +72,25 @@ import random
 
 app = FastAPI()
 
-# Load environment variables
 load_dotenv()
 db_host = os.getenv("DB_HOST")
 db_user = os.getenv("DB_USERNAME")
 db_passwd = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
 
-# Function to establish a database connection
 def get_db_connection():
-    return sql.connect(host=db_host, user=db_user, password=db_passwd, db=db_name)
+    return sql.connect(host=db_host,
+                       user=db_user,
+                       password=db_passwd,
+                       db=db_name)
 
-# Endpoint to get the initial data
+#recuento de likes x cada post_id
 @app.get("/get_initial_data")
 async def get_initial_data():
     try:
-        # Establish a connection to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Execute the SQL query to get initial data
         cursor.execute("SELECT count(user_id) as likes, post_id FROM Liked GROUP BY post_id ORDER BY likes DESC")
         version = cursor.fetchall()
 
@@ -100,24 +99,22 @@ async def get_initial_data():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Endpoint to generate and print random data
-def generate_random_data():
+#genero los numeros aleatorios
+def datos_random():
     for i in range(100):
         post_id = random.randint(500, 525)
         user_id = random.randint(10, 99)
         print(f"({user_id}, {post_id}),")
     return user_id, post_id
 
-# Endpoint to recommend posts for a given user_id
+#recomendar publis
 @app.get("/recommend_posts/{user_id}")
 async def recommend_posts(user_id: int):
     try:
-        # Establish a connection to the database
-        user_id, posts_id = generate_random_data()
+        user_id, posts_id = datos_random()
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Execute the SQL query to recommend posts
         cursor.execute("""
             SELECT count(user_id) as likes, post_id 
             FROM Liked 
