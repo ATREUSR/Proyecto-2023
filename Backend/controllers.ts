@@ -557,30 +557,29 @@ export async function postLike(req: Request, res: Response) {
   if (!userId && usarcookies != true)
     return res.status(400).json({ msg: "No estas logeado" });
 
-  try {
-    const existingLike = await prisma.liked.findFirst({
+  try {const existingLike = await prisma.liked.findFirst({
+    where: {
+      user_id: userId,
+      post_id: parseInt(id),
+    },
+  });
+  
+  if (existingLike) {
+    await prisma.liked.delete({
       where: {
+        id: existingLike.id,
+      },
+    });
+    return res.status(200).json({ msg: "Like removed" });
+  } else {
+    const like = await prisma.liked.create({
+      data: {
         user_id: userId,
         post_id: parseInt(id),
       },
     });
-
-    if (existingLike) {
-      await prisma.liked.delete({
-        where: {
-          id: existingLike.id,
-        },
-      });
-      return res.status(200).json({ msg: "Like removed" });
-    } else {
-      const like = await prisma.liked.create({
-        data: {
-          user_id: userId,
-          post_id: parseInt(id),
-        },
-      });
-      return res.status(201).json(like);
-    }
+    return res.status(201).json(like);
+  }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Error al likear el producto" });
