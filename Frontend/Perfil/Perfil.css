@@ -54,13 +54,11 @@ body{
     width: 100%;
     border: none;
     padding: 5px;
-    color: #fff;
 }
 
 .search-bar button {
     background: transparent;
     border: none;
-    color: #fff;
     cursor: pointer;
 }
 

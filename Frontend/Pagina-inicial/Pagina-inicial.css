@@ -79,8 +79,8 @@ body{
     position: absolute;
     top: 80px;
     width: 100%;
-    height: 500px;
-    margin-bottom: 500px;
+    height: 300px;
+    margin-bottom: 800px;
     background: #F9FFF9;
 }
 
@@ -94,7 +94,7 @@ body{
 .img-slider .slide img{
     z-index: 1;
     width: 100%;
-    height: 500px;
+    height: 350px;
     border-radius: 5px;
 }
 
@@ -439,12 +439,12 @@ body{
 }
 
 .footer {
-    background-color: green;
+    background-color: #B1F49D;
     color: #fff;
     padding: 20px;
     text-align: center;
     position: relative; 
-    top: 100px;
+    top: 150px;
     width: 100%;
 }
 

@@ -5,6 +5,25 @@ const confirmationBox = document.querySelector('.confirmation-box');
 const cancelBtn = document.querySelector('.cancel-button');
 const deleteBtnConfirmation = document.querySelector('.delete-button-confrimation');
 const mypost = document.querySelector('.my-post');
+var input = document.getElementById("search_id");
+
+
+function buscar() {
+  var query = document.getElementById("search_id").value;
+
+  if (query) {
+    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
+  }
+}
+
+// Agregar el evento keydown
+input.addEventListener("keydown", function(event) {
+  // Verificar que la tecla presionada sea enter (código 13)
+  if (event.key === 'Enter') {
+    // Ejecutar la función buscar()
+    buscar();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     const settingOptions = document.querySelectorAll(".setting-option");

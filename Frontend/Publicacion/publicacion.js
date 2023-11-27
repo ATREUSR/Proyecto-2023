@@ -1,5 +1,24 @@
 // Obtén el botón "Añadir al carrito" desde tu página de publicación
 const addToCartButton = document.querySelector('.add-to-cart-button');
+var input = document.getElementById("search_id");
+
+
+function buscar() {
+  var query = document.getElementById("search_id").value;
+
+  if (query) {
+    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
+  }
+}
+
+// Agregar el evento keydown
+input.addEventListener("keydown", function(event) {
+  // Verificar que la tecla presionada sea enter (código 13)
+  if (event.key === 'Enter') {
+    // Ejecutar la función buscar()
+    buscar();
+  }
+});
 
 let urlParams = new URLSearchParams(window.location.search);
 let item_id = urlParams.get("item_id");

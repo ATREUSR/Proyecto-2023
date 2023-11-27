@@ -84,5 +84,5 @@ function abrirPublicacion(event) {
     let item_id = item.dataset.item_id;
   
     // Abrir una nueva ventana con la URL de la página de publicación y el ID del item como parámetro
-    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Publicacion/Publicacion.html?item_id=" + item_id;
+    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
 }

@@ -1,5 +1,25 @@
 let liked_container = document.querySelector(".liked-items");
 
+var input = document.getElementById("search_id");
+
+
+function buscar() {
+  var query = document.getElementById("search_id").value;
+
+  if (query) {
+    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
+  }
+}
+
+// Agregar el evento keydown
+input.addEventListener("keydown", function(event) {
+  // Verificar que la tecla presionada sea enter (código 13)
+  if (event.key === 'Enter') {
+    // Ejecutar la función buscar()
+    buscar();
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   fetch('http://localhost:3000/liked', {
       method: 'GET',
