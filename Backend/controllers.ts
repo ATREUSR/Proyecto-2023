@@ -653,3 +653,14 @@ export async function getRandomPosts(req: Request, res: Response) {
   }
   return res.status(200).json(selectedPosts);
 }
+
+export async function likedPosts(req: Request, res: Response) {
+  const userId = 1;
+
+  const likedPosts = await prisma.liked.findMany({
+    where: { user_id: userId },
+    select: { post_id: true },
+  });
+
+  return res.status(200).json(likedPosts);
+}

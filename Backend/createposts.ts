@@ -4,11 +4,11 @@ const faker = require('faker');
 
 async function createRandomPosts() {
   const userId = 1;
-  const numberOfPosts = 10; // Change this to the number of posts you want to create
+  const numberOfPosts = 50; // Change this to the number of posts you want to create
 
   for (let i = 0; i < numberOfPosts; i++) {
-    const title = faker.lorem.sentence();
-    const content = faker.lorem.paragraph().slice(0, 100);
+    const title = faker.lorem.sentence().slice(0, 12);
+    const content = faker.lorem.paragraph().slice(0, 20);
     const defects = faker.datatype.boolean();
     const price = parseFloat(faker.commerce.price());
 

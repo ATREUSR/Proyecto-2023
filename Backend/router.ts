@@ -22,6 +22,7 @@ router.patch("/post/:id/updatePost", controllers.updatePost);
 router.delete("/post/:id/deletePost", controllers.deletePost);
 router.delete("/post/:id/deleteReview", controllers.deleteReview);
 
+router.get("/liked", controllers.likedPosts);
 router.get("/random/:cant", controllers.getRandomPosts);
 
 
