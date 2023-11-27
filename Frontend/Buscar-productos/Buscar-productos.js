@@ -6,7 +6,7 @@ function buscar() {
   // Verificar que el valor no esté vacío
   if (query) {
     // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
-    window.location.href = "http://localhost/frontend/Buscar-productos/Buscar-productos.html?=" + query;
+    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Buscar-productos/Buscar-productos.html?=" + query;
   }
 }
 

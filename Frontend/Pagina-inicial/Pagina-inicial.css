@@ -274,7 +274,7 @@ body{
     shape-rendering: auto;
 }
 
-.like-icon.active {
+.like-button.active .like-icon {
     color: #609D4A;
 }
   

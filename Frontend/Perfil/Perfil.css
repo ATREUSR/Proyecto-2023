@@ -266,7 +266,7 @@ body{
     justify-content: flex-end;
 }
   
-.save-changes-button button {
+.save-changes-button input {
     border: 2px solid #609D4A;
     background-color: #609D4A;
     color: #fff;
@@ -276,7 +276,7 @@ body{
     transition: .5s;
 }
 
-.save-changes-button button:hover {
+.save-changes-button input:hover {
     background-color: #fff;
     color: #609D4A;
 }

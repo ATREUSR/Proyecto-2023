@@ -22,7 +22,7 @@ header{
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px; 
+    padding: 10px 100px; 
     background: #B1F49D;
     display: flex;
     justify-content: space-between;
@@ -95,7 +95,7 @@ header{
     width: 400px;
     height: 420px;
     top: 45px;
-    background: rgba(228, 255, 219, 0.4);
+    background: #E4FFDB;
     border: 2px solid rgba(228, 255, 219, .5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -113,7 +113,9 @@ header{
 }
 
 .wrapper.active{
-    height: 520px;
+    height: 620px;
+    position: relative;
+    top: 70px;
 }
 
 .wrapper .form-box{

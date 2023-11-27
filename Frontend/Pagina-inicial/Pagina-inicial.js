@@ -5,17 +5,69 @@ let currentSlide = 0;
 
 let items = document.querySelectorAll(".item-container");
 var input = document.getElementById("search_id");
-let likeButtons = document.querySelectorAll(".like-icon");
+let like_buttons = document.querySelectorAll(".like-button");
 
-likeButtons.forEach((likeButton) => {
-  // Agregar un evento click a cada elemento
-  likeButton.addEventListener("click", (event) => {
-    // Evitar que el evento se propague al contenedor del item
+
+like_buttons.forEach(button => {
+  button.addEventListener("click", (event) => {
+
     event.stopPropagation();
-    // Alternar la clase active al botón de like
-    likeButton.classList.toggle("active");
+
+    button.classList.toggle("active");
+
+    let item_id = button.parentElement.dataset.item_id;
+
+    let liked_items = getCookie("liked_items") || "";
+
+    let liked_array = liked_items.split(",");
+
+    if (liked_array.includes(item_id)) {
+
+      liked_array = liked_array.filter(id => id != item_id);
+
+    } else {
+
+      liked_array.push(item_id);
+      
+    }
+
+    liked_items = liked_array.join(",");
+
+    setCookie("liked_items", liked_items, 30);
   });
 });
+
+
+function getCookie(name) {
+
+  let cookie_name = name + "=";
+
+  let cookies = document.cookie.split(";");
+  // Recorrer cada cookie
+  for(let i = 0; i < cookies.length; i++) {
+
+    let cookie = cookies[i].trim();
+
+    if (cookie.indexOf(cookie_name) == 0) {
+
+      return cookie.substring(cookie_name.length, cookie.length);
+    }
+  }
+
+  return null;
+}
+
+
+function setCookie(name, value, days) {
+
+  let date = new Date();
+
+  date.setTime(date.getTime() + (days*24*60*60*1000));
+
+  let expires = "expires=" + date.toUTCString();
+
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
 
 function buscar() {
   // Obtener el valor del input
@@ -23,7 +75,7 @@ function buscar() {
   // Verificar que el valor no esté vacío
   if (query) {
     // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
-    window.location.href = "http://localhost/frontend/Buscar-productos/Buscar-productos.html?=" + query;
+    window.location.href = "http://localhost/frontend/Buscar-productos/Buscar-productos.html=" + query;
   }
 }
 

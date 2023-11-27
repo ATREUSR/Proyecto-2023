@@ -91,7 +91,7 @@ body {
 }
 
 .liked-item {
-    width: calc(25% - 100px);
+    width: 200px;
     margin: 10px;
     border: 1px solid #ddd;
     border-radius: 15px;

@@ -1,19 +1,69 @@
-// Obtiene todos los elementos "like-button"
+let liked_items = getCookie("liked_items") || "";
+let liked_array = liked_items.split(",");
+let liked_container = document.querySelector(".liked-items");
+
+function getCookie(name) {
+
+  let cookie_name = name + "=";
+
+  let cookies = document.cookie.split(";");
+  // Recorrer cada cookie
+  for(let i = 0; i < cookies.length; i++) {
+
+    let cookie = cookies[i].trim();
+
+    if (cookie.indexOf(cookie_name) == 0) {
+
+      return cookie.substring(cookie_name.length, cookie.length);
+    }
+  }
+
+  return null;
+}
+
+liked_array.forEach(async id => {
+  let item = await getItemById(id);
+  let item_element = `
+    <div class="liked-item" data-id="${item.id}">
+      <img src="${item.Image}" alt="">
+      <div class="item-info">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <h3>$${item.price}</h3>
+      </div>
+      <div class="like-button">
+        <ion-icon name="heart"></ion-icon>
+      </div>
+    </div>
+  `;
+  liked_container.insertAdjacentHTML('beforeend', item_element);
+});
+
+
 const likeButtons = document.querySelectorAll('.like-button');
 
-// Agrega un oyente de eventos a cada botón
+
 likeButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Obtiene el elemento "liked-item" padre
+
         const likedItem = button.closest('.liked-item');
 
-        // Obtiene el data-id del elemento "liked-item"
-        const itemId = likedItem.getAttribute('data-id');
-
-        // Realiza una acción para eliminar el elemento de la lista (aquí solo lo oculto)
-        likedItem.style.display = 'none';
-
-        // Puedes enviar una solicitud al servidor para eliminar el artículo de la lista en tu base de datos
-        // o realizar cualquier otra acción que desees.
+        likedItem.remove();
     });
 })
+
+
+async function getItemById(id) {
+  return await fetch('http://localhost:3000/post/' + id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+      return data;
+    })
+    .catch(error => console.error('Error:', error));  
+}

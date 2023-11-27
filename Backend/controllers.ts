@@ -565,14 +565,14 @@ export async function postLike(req: Request, res: Response) {
     });
 
     if (existingLike) {
-      await prisma.Liked.delete({
+      await prisma.liked.delete({
         where: {
           id: existingLike.id,
         },
       });
       return res.status(200).json({ msg: "Like removed" });
     } else {
-      const like = await prisma.Liked.create({
+      const like = await prisma.liked.create({
         data: {
           user_id: userId,
           post_id: parseInt(id),
