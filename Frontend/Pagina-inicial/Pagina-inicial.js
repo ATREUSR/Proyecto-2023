@@ -102,7 +102,7 @@ function abrirPublicacion(event) {
 //Toda las pusblicaciones van a tener una variable id. Por aca voy a hacer un foreach que va a pasar por todas las variables y se les va a asignar un id de la base de datos}. Les tiene que poner un id random, y si detecta, con un if, que un id es igual a otro, vuelve a cambiarlo por uno random. Luego se va a poner en cada variable del nombre, precio y demas el valor que guarda el id.
 
 document.addEventListener('DOMContentLoaded', () => {
-            fetch('http://localhost:3000/random/2', {
+            fetch('http://localhost:3000/random/15', {
 
             //el numero al final, despue se la barra, e: "/2" indica la cantidad de post que devuelve el fetch, ponerle la misma cantidad de productos que hagan falta en la pagina de inicio
                 method: 'GET',

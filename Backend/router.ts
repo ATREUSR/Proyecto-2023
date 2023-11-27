@@ -23,6 +23,7 @@ router.delete("/post/:id/deletePost", controllers.deletePost);
 router.delete("/post/:id/deleteReview", controllers.deleteReview);
 
 router.get("/liked", controllers.likedPosts);
+router.delete("/dislike/:id", controllers.deleteLike);
 router.get("/random/:cant", controllers.getRandomPosts);
 
 

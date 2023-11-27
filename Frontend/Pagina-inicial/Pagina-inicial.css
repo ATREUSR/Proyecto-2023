@@ -87,14 +87,8 @@ body{
     z-index: 1;
     position: absolute;
     width: 100%;
-    clip-path: circle(0% at 0 50%);
 }
 
-.img-slider .slide.active{
-    clip-path: circle(150% at 0 50%);
-    transition: 2s;
-    transition-property: clip-path;
-}
 
 .img-slider .slide img{
     z-index: 1;
@@ -298,7 +292,7 @@ body{
 
 .categorias-populares{
     position: relative;
-    top: 200px;
+    top: 10px;
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -318,7 +312,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #545561;
+    background-color: #f1f1f1;
     border-radius: 15px;
     padding: 10px;
     color: #fff;
@@ -343,8 +337,8 @@ body{
 
 .apartado-empresas {
     position: relative;
-    top: 200px;
-    background-color: #162938; /* Cambiar el color de fondo */
+    top: 10px;
+    background-color: #f0f0f0; /* Cambiar el color de fondo */
     border-radius: 15px;
     width: 95%;
     display: flex;

@@ -657,10 +657,56 @@ export async function getRandomPosts(req: Request, res: Response) {
 export async function likedPosts(req: Request, res: Response) {
   const userId = 1;
 
-  const likedPosts = await prisma.liked.findMany({
+  const likes = await prisma.liked.findMany({
     where: { user_id: userId },
     select: { post_id: true },
   });
-
+  let likedPosts = [];
+  for (const like of likes) {
+    const post = await prisma.post.findUnique({
+      where: { id: like.post_id },
+      select: {
+        id: true,
+        title: true,
+        publish_date: true,
+        price: true,
+        description: true,
+        defects: true,
+        has_defects: true,
+        Image: {
+          select: {
+            url: true,
+          },
+        },
+      },
+    });
+    likedPosts.push(post);
+  }
   return res.status(200).json(likedPosts);
+}
+
+export async function deleteLike (req: Request, res: Response) {
+  const { id } = req.params;
+  const userId = 1;
+
+  // Check if the user and post exist
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const post = await prisma.post.findUnique({ where: { id: parseInt(id) } });
+  
+  if (!user) return res.status(400).json("User does not exist");
+  if (!post) return res.status(400).json("Post does not exist");
+
+  // Check if the user has already liked the post
+  const like = await prisma.liked.findUnique({
+    where: { user_id_post_id: { user_id: userId, post_id: parseInt(id) } },
+  });
+
+  if (!like) return res.status(400).json("User has not liked this post");
+
+  // Delete the like
+  await prisma.liked.delete({
+    where: { user_id_post_id: { user_id: userId, post_id: parseInt(id) } },
+  });
+
+  return res.status(200).json("Post unliked successfully");
 }
