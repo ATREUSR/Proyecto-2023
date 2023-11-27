@@ -1,25 +1,4 @@
-let liked_items = getCookie("liked_items") || "";
-let liked_array = liked_items.split(",");
 let liked_container = document.querySelector(".liked-items");
-
-function getCookie(name) {
-
-  let cookie_name = name + "=";
-
-  let cookies = document.cookie.split(";");
-  // Recorrer cada cookie
-  for(let i = 0; i < cookies.length; i++) {
-
-    let cookie = cookies[i].trim();
-
-    if (cookie.indexOf(cookie_name) == 0) {
-
-      return cookie.substring(cookie_name.length, cookie.length);
-    }
-  }
-
-  return null;
-}
 
 liked_array.forEach(async id => {
   let item = await getItemById(id);
@@ -39,6 +18,9 @@ liked_array.forEach(async id => {
   liked_container.insertAdjacentHTML('beforeend', item_element);
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  
+});
 
 const likeButtons = document.querySelectorAll('.like-button');
 
@@ -51,19 +33,3 @@ likeButtons.forEach(button => {
         likedItem.remove();
     });
 })
-
-
-async function getItemById(id) {
-  return await fetch('http://localhost:3000/post/' + id, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.message);
-      return data;
-    })
-    .catch(error => console.error('Error:', error));  
-}

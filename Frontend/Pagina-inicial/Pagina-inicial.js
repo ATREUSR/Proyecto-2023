@@ -17,57 +17,22 @@ like_buttons.forEach(button => {
 
     let item_id = button.parentElement.dataset.item_id;
 
-    let liked_items = getCookie("liked_items") || "";
+     fetch('http://localhost:3000/post/' + item_id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+      return data;
+    })
+    .catch(error => console.error('Error:', error));  
 
-    let liked_array = liked_items.split(",");
-
-    if (liked_array.includes(item_id)) {
-
-      liked_array = liked_array.filter(id => id != item_id);
-
-    } else {
-
-      liked_array.push(item_id);
-      
-    }
-
-    liked_items = liked_array.join(",");
-
-    setCookie("liked_items", liked_items, 30);
   });
 });
 
-
-function getCookie(name) {
-
-  let cookie_name = name + "=";
-
-  let cookies = document.cookie.split(";");
-  // Recorrer cada cookie
-  for(let i = 0; i < cookies.length; i++) {
-
-    let cookie = cookies[i].trim();
-
-    if (cookie.indexOf(cookie_name) == 0) {
-
-      return cookie.substring(cookie_name.length, cookie.length);
-    }
-  }
-
-  return null;
-}
-
-
-function setCookie(name, value, days) {
-
-  let date = new Date();
-
-  date.setTime(date.getTime() + (days*24*60*60*1000));
-
-  let expires = "expires=" + date.toUTCString();
-
-  document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
 
 function buscar() {
   // Obtener el valor del input
@@ -75,7 +40,7 @@ function buscar() {
   // Verificar que el valor no esté vacío
   if (query) {
     // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
-    window.location.href = "http://localhost/frontend/Buscar-productos/Buscar-productos.html=" + query;
+    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Pagina-inicial/Pagina-inicial.html=" + query;
   }
 }
 
