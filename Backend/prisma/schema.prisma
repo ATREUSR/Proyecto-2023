@@ -73,12 +73,14 @@ model Image {
 }
 
 model Liked {
-  user_id Int @id
+  id      Int @id @default(autoincrement())
+  user_id Int
   post_id Int
 
   user User @relation(fields: [user_id], references: [id])
   post Post @relation(fields: [post_id], references: [id])
 
+  @@unique([user_id, post_id], name: "user_id_post_id")
   @@index([user_id])
   @@index([post_id])
 }

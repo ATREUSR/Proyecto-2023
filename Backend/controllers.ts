@@ -2,7 +2,16 @@ import { Request, Response } from "express";
 
 import { v2 as cloudinary } from "cloudinary";
 
-import { PrismaClient, User, Review, Post, Prisma, Image, ImageType, Liked } from "@prisma/client";
+import {
+  PrismaClient,
+  User,
+  Review,
+  Post,
+  Prisma,
+  Image,
+  ImageType,
+  Liked,
+} from "@prisma/client";
 
 const bcrypt = require("bcrypt");
 
@@ -408,7 +417,7 @@ export async function deleteUser(req: Request, res: Response) {
   });
 
   const id = userr?.id;
-  const user = await prisma.user
+  await prisma.user
     .delete({
       where: { id },
     })
@@ -549,41 +558,31 @@ export async function getPost(req: Request, res: Response) {
 
   return res.status(200).json(post);
 }
-
 export async function postLike(req: Request, res: Response) {
   const { id } = req.params;
-  const userId = 9;
-  //el id del usuario se obtiene de las cookies
-  if (!userId && usarcookies != true)
-    return res.status(400).json({ msg: "No estas logeado" });
+  const userId = 1;
+  console.log(id);
 
-  try {const existingLike = await prisma.liked.findFirst({
-    where: {
-      user_id: userId,
-      post_id: parseInt(id),
-    },
-  });
+  // Check if the user and post exist
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const post = await prisma.post.findUnique({ where: { id: parseInt(id) } });
   
-  if (existingLike) {
-    await prisma.liked.delete({
-      where: {
-        id: existingLike.id,
-      },
-    });
-    return res.status(200).json({ msg: "Like removed" });
-  } else {
-    const like = await prisma.liked.create({
-      data: {
-        user_id: userId,
-        post_id: parseInt(id),
-      },
-    });
-    return res.status(201).json(like);
-  }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Error al likear el producto" });
-  }
+  if (!user) return res.status(400).json("User does not exist");
+  if (!post) return res.status(400).json("Post does not exist");
+
+  // Check if the user has already liked the post
+  const like = await prisma.liked.findUnique({
+    where: { user_id_post_id: { user_id: userId, post_id: parseInt(id) } },
+  });
+
+  if (like) return res.status(400).json("User has already liked this post");
+
+  // Create a new like
+  await prisma.liked.create({
+    data: { user_id: userId, post_id: parseInt(id) },
+  });
+
+  return res.status(200).json("Post liked successfully");
 }
 
 export async function updatePost(req: Request, res: Response) {
