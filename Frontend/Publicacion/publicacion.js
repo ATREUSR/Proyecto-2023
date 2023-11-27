@@ -1,12 +1,6 @@
 // Obtén el botón "Añadir al carrito" desde tu página de publicación
 const addToCartButton = document.querySelector('.add-to-cart-button');
 
-const home = document.getElementById("img-container_id");
-
-home.addEventListener('click', () => {
-    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Pagina-inicial/Pagina-inicial.html"
-});
-
 let urlParams = new URLSearchParams(window.location.search);
 let item_id = urlParams.get("item_id");
 
@@ -34,8 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error("Error:", error));
 });
 
-// Agrega un evento de clic al botón "Añadir al carrito"
-addToCartButton.addEventListener('click', addToCart);
+
+addToCartButton.addEventListener('click', () => {
+    alert("Añadido al carrito");
+});
 
 function changeImage(event) {
     if (event.target.tagName === 'IMG') {

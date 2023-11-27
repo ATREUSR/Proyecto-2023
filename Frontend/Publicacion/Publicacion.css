@@ -13,7 +13,7 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: green;
+    background: #B1F49D;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,15 +29,15 @@ body {
 }
 
 .img-container {
-    width: 200px;
-    height: 50px;
+    width: 150px;
+    height: 30px;
     cursor: pointer;
 }
 
 .logo-img {
     width: 100%;
     position: relative;
-    bottom: 30px;
+    bottom: 10px;
 }
 
 .search-bar {
@@ -74,26 +74,26 @@ body {
 }
 
 .user-icons :hover{
-    color: #199ebf;
+    color: #1B6406;
 }
 
 
 .post {
-    max-width: none; /* Elimina el ancho máximo */
-    width: 100%; /* Ocupa todo el ancho disponible */
-    min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+    max-width: none;
+    width: 100%; 
+    min-height: 100vh; 
     display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
-    background: #fff; /* Fondo blanco para el contenedor principal */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Agrega sombra al contenedor */
-    padding: 40px; /* Aumenta el espacio alrededor del contenido */
-    margin: 100px; /* Elimina el margen para ocupar toda la pantalla */
+    justify-content: center; 
+    align-items: center; 
+    background: #fff; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+    padding: 40px;
+    margin: 100px; 
 }
 
 .post * {
-    font-size: 18px; /* Aumenta el tamaño de la fuente para todos los elementos */
-    line-height: 1.6; /* Ajusta el espaciado entre líneas */
+    font-size: 18px; 
+    line-height: 1.6; 
 }
 
 
@@ -101,7 +101,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-right: 20px;
-    align-items: center; /* Alinea las miniaturas al centro */
+    align-items: center; 
 }
 
 .thumbnails img {
@@ -114,7 +114,7 @@ body {
 .product {
     display: flex;
     flex: 1;
-    align-items: center; /* Alinea la imagen y los detalles al centro verticalmente */
+    align-items: center; 
 }
 
 .image {
@@ -157,13 +157,13 @@ body {
 }
 
 .highlighted-text {
-    color: #199ebf; /* Color celeste */
+    color: #199ebf;
     font-size: 25px;
 }
 
 .highlighted-text:hover{
     cursor: pointer;
-    text-decoration: underline; /* Subrayado al pasar el mouse */
+    text-decoration: underline; 
 }
 
 .stock{

@@ -13,7 +13,7 @@ header {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: green;
+    background: #B1F49D;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,14 +27,15 @@ body {
 }
 
 .img-container {
-    width: 200px;
-    height: 50px;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
 }
 
 .logo-img {
     width: 100%;
     position: relative;
-    bottom: 30px;
+    bottom: 10px;
 }
 
 .search-bar {
@@ -71,7 +72,7 @@ body {
 }
 
 .user-icons :hover{
-    color: #199ebf;
+    color: #1B6406;
 }
 
 .liked-section {

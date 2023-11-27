@@ -35,12 +35,10 @@ like_buttons.forEach(button => {
 
 
 function buscar() {
-  // Obtener el valor del input
   var query = document.getElementById("search_id").value;
-  // Verificar que el valor no esté vacío
+
   if (query) {
-    // Redirigir a la página Buscar-productos.html pasando el valor como parámetro
-    window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Pagina-inicial/Pagina-inicial.html=" + query;
+    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
   }
 }
 
@@ -65,7 +63,7 @@ function abrirPublicacion(event) {
   let item_id = item.dataset.item_id;
 
   // Abrir una nueva ventana con la URL de la página de publicación y el ID del item como parámetro
-  window.location.href = "http://localhost/Proyecto2023/Proyecto-2023/Frontend/Publicacion/Publicacion.html?item_id=" + item_id;
+  window.location.href = "../Publicacion/Publicacion.html?item_id=" + item_id;
 }
 
 /*fetch('http://localhost:3000/user/${id}/home'),{
