@@ -73,8 +73,7 @@ model Image {
 }
 
 model Liked {
-  id      Int @id @unique @default(autoincrement())
-  user_id Int
+  user_id Int @id
   post_id Int
 
   user User @relation(fields: [user_id], references: [id])
