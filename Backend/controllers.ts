@@ -250,11 +250,12 @@ export async function createPost(req: Request, res: Response) {
     file
   } = req.body;
   let result;
+  
   //if (!req.cookies.userId && usarcookies == true)
     //return res.status(400).json({ msg: "No estas logeado" });
 
   const userExists = await prisma.user.findUnique({
-    where: { id: user_id },
+    where: { id: 1 },
   });
 
   if (!userExists) return res.status(400).json("El usuario no existe");
@@ -565,7 +566,7 @@ export async function getPost(req: Request, res: Response) {
 }
 
 export async function postLike(req: Request, res: Response) {
-  const id = parseInt(req.params.id);
+  const id: number = 1
   const userId: number = 1;
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
