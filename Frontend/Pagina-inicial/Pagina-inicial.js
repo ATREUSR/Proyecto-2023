@@ -17,7 +17,7 @@ like_buttons.forEach(button => {
 
     let item_id = button.parentElement.dataset.item_id;
 
-     fetch('http://localhost:3000/post/' + item_id, {
+    fetch('http://localhost:3000/post/' + item_id, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
