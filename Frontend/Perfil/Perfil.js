@@ -12,7 +12,7 @@ function buscar() {
   var query = document.getElementById("search_id").value;
 
   if (query) {
-    window.location.href = "../Buscar-productos/Buscar-productos.html=" + query;
+    window.location.href = "../Buscar-productos/Buscar-productos.html?=" + query;
   }
 }
 

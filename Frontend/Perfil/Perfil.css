@@ -83,7 +83,7 @@ body{
     background-color: #fff;
     border: 1px solid #ccc;
     width: 200px;
-    height: 330px;
+    height: 290px;
     position: fixed;
     top: 0;
     left: 0;
@@ -704,4 +704,9 @@ input[type="file"]::file-selector-button:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: .5s;
+}
+
+.payment{
+    position: relative;
+    top: 200px;
 }
