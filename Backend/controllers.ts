@@ -566,11 +566,9 @@ export async function getPost(req: Request, res: Response) {
 
 export async function postLike(req: Request, res: Response) {
   const id = parseInt(req.params.id);
-  const userId = 1;
+  const userId: number = 1;
 
-  // Check if the user and post exist
   const user = await prisma.user.findUnique({ where: { id: userId } });
-  console.log(id)
   const post = await prisma.post.findUnique({ where: { id } });
   
   if (!user) return res.status(400).json("User does not exist");
