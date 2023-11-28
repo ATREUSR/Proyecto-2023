@@ -44,9 +44,7 @@ function buscar() {
 
 // Agregar el evento keydown
 input.addEventListener("keydown", function(event) {
-  // Verificar que la tecla presionada sea enter (código 13)
   if (event.key === 'Enter') {
-    // Ejecutar la función buscar()
     buscar();
   }
 });
@@ -123,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   // Asignarles los valores correspondientes de cada objeto usando el dataset
                   name.textContent = data[i].title;
                   info.textContent = data[i].description;
-                  price.textContent = data[i].price;
+                  price.textContent = "$" + data[i].price;
                 }
               })
               .catch(error => console.error('Error:', error));    
