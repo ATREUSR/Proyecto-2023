@@ -250,12 +250,12 @@ export async function createPost(req: Request, res: Response) {
     file
   } = req.body;
   let result;
-  
+  const id: number = 1;
   //if (!req.cookies.userId && usarcookies == true)
     //return res.status(400).json({ msg: "No estas logeado" });
 
   const userExists = await prisma.user.findUnique({
-    where: { id: 1 },
+    where: { id },
   });
 
   if (!userExists) return res.status(400).json("El usuario no existe");
@@ -263,25 +263,21 @@ export async function createPost(req: Request, res: Response) {
   let url;
 
   if (file) {
-    try {
       console.log("inside")
       result = await cloudinary.uploader.upload(file.path);
       url = result.secure_url;
       console.log(file);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Error uploading image" });
     }
-  }
+
   const newPost = await prisma.post.create({
     data: {
-      title,
-      user_id,
+      title: "Tostadora de Alvaro",
+      user_id: Number(1),
       publish_date: new Date(),
-      price,
-      description,
-      defects,
-      has_defects,
+      price: Number(price),
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nunc eget aliquam ultricies, nunc nisl ultricies nunc, nec ultrici",
+      defects: "Alvaro",
+      has_defects: true,
     },
   });
   
@@ -290,7 +286,7 @@ export async function createPost(req: Request, res: Response) {
     data: {
       url: url || "",
       image_type,
-      user_id,
+      user_id: id,
       post_id: newPost.id, // Use the Post ID here
     },
   })
