@@ -1,5 +1,9 @@
 import { Router } from "express";
 
+import multer from 'multer';
+
+const upload = multer({ storage: multer.memoryStorage() });
+
 import * as controllers from "./controllers";
 
 const router = Router();
@@ -16,7 +20,7 @@ router.patch("/user/:id/updatePassword", controllers.updatePassword);
 router.get("/post/:id", controllers.getPost);
 router.post("/post/:id", controllers.postLike);
 router.get("/post/:id/reviews", controllers.getPostReviews);
-router.post("/post/createPost", controllers.createPost);
+router.post("/post/createPost", upload.single('i'), controllers.createPost);
 router.post("/post/:id/createReview", controllers.createReview);
 router.patch("/post/:id/updatePost", controllers.updatePost);
 router.delete("/post/:id/deletePost", controllers.deletePost);

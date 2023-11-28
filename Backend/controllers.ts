@@ -134,10 +134,10 @@ export async function getPostReviews(req: Request, res: Response) {
 }
 
 export async function getHome(req: Request, res: Response) {
-  if (!req.cookies.userId && usarcookies == true)
-    return res.status(400).json({ msg: "No estas logeado" });
+  //if (!req.cookies.userId && usarcookies == true)
+    //return res.status(400).json({ msg: "No estas logeado" });
 
-  const id = req.cookies.userId;
+  const id = parseInt(req.params.id);
   const user_exist = await prisma.user.findUnique({ where: { id } });
   if (!user_exist) {
     return res.status(404).json("El usuario no existe");
@@ -247,11 +247,11 @@ export async function createPost(req: Request, res: Response) {
     defects,
     has_defects,
     image_type,
-    file,
+    file
   } = req.body;
-
-  if (!req.cookies.userId && usarcookies == true)
-    return res.status(400).json({ msg: "No estas logeado" });
+  let result;
+  //if (!req.cookies.userId && usarcookies == true)
+    //return res.status(400).json({ msg: "No estas logeado" });
 
   const userExists = await prisma.user.findUnique({
     where: { id: user_id },
@@ -263,37 +263,42 @@ export async function createPost(req: Request, res: Response) {
 
   if (file) {
     try {
-      const result = await cloudinary.uploader.upload(file.path);
+      console.log("inside")
+      result = await cloudinary.uploader.upload(file.path);
       url = result.secure_url;
+      console.log(file);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error uploading image" });
     }
   }
-  const post = await prisma.post
-    .create({
-      data: {
-        title,
-        user_id: req.cookies.userId,
-        publish_date: new Date(),
-        price,
-        description,
-        defects,
-        has_defects,
-        Image: {
-          create: [
-            {
-              url: url || "",
-              image_type,
-            },
-          ],
-        },
-      },
-    })
+  const newPost = await prisma.post.create({
+    data: {
+      title,
+      user_id,
+      publish_date: new Date(),
+      price,
+      description,
+      defects,
+      has_defects,
+    },
+  });
+  
+  // Step 2: Create the Image with the Post ID
+  const newImage = await prisma.image.create({
+    data: {
+      url: url || "",
+      image_type,
+      user_id,
+      post_id: newPost.id, // Use the Post ID here
+    },
+  })
     .catch((err: Prisma.PrismaClientKnownRequestError) => {
       throw res.status(400).json(err.message);
     });
-  return res.status(201).json(post);
+    console.log(result);
+    console.log(url);
+  return res.status(201).json({msg: "Post creado correctamente"});
 }
 
 export async function createReview(req: Request, res: Response) {
@@ -558,37 +563,38 @@ export async function getPost(req: Request, res: Response) {
 
   return res.status(200).json(post);
 }
+
 export async function postLike(req: Request, res: Response) {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
   const userId = 1;
-  console.log(id);
 
   // Check if the user and post exist
   const user = await prisma.user.findUnique({ where: { id: userId } });
-  const post = await prisma.post.findUnique({ where: { id: parseInt(id) } });
+  console.log(id)
+  const post = await prisma.post.findUnique({ where: { id } });
   
   if (!user) return res.status(400).json("User does not exist");
   if (!post) return res.status(400).json("Post does not exist");
 
   // Check if the user has already liked the post
   const like = await prisma.liked.findUnique({
-    where: { user_id_post_id: { user_id: userId, post_id: parseInt(id) } },
+    where: { user_id_post_id: { user_id: userId, post_id: id } },
   });
 
   if (like) return res.status(400).json("User has already liked this post");
 
   // Create a new like
   await prisma.liked.create({
-    data: { user_id: userId, post_id: parseInt(id) },
+    data: { user_id: userId, post_id: id },
   });
 
   return res.status(200).json("Post liked successfully");
 }
 
 export async function updatePost(req: Request, res: Response) {
-  if (!req.cookies.userId && usarcookies == true)
-    return res.status(400).json({ msg: "No estas logeado" });
-  const userId = parseInt(req.cookies.userId);
+  //if (!req.cookies.userId && usarcookies == true)
+    //return res.status(400).json({ msg: "No estas logeado" });
+  const userId = 1;
 
   const post_id = parseInt(req.params.id);
 
